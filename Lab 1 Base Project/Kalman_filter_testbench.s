@@ -1,4 +1,4 @@
-	AREA testbench, CODE
+	AREA testbench, CODE, READONLY
 	EXPORT kalman_filter_testbench
 	IMPORT kalmanFilter_asm
 

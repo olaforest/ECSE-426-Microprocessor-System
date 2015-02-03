@@ -443,6 +443,11 @@
               <FileType>5</FileType>
               <FilePath>.\source\kalman_state.h</FilePath>
             </File>
+            <File>
+              <FileName>array.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\source\array.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

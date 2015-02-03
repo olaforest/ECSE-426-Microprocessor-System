@@ -505,7 +505,7 @@ ARM Macro Assembler    Page 8
   193 00000014 4806            LDR              R0, =__main
   194 00000016         ;BLX R0
   195 00000016         ;LDR R0, =kalman_filter_testbench
-  196 00000016 4700            BX               R0
+  196 00000016 4780            BLX              R0
   197 00000018                 ENDP
   198 00000018         
   199 00000018         ; Dummy Exception Handlers (infinite loops which can be 
@@ -877,14 +877,15 @@ ARM Macro Assembler    Page 14
               E000ED88 
               00000000 
 Command Line: --debug --xref --cpu=Cortex-M4.fp --apcs=interwork --depend=.\obj
-ect\startup_stm32f40_41xxx.d -o.\object\startup_stm32f40_41xxx.o -I"C:\Users\Ol
-i\Desktop\ECSE 426 - MicroP\Lab 1 Base Project\RTE" -I"C:\Users\Oli\Desktop\ECS
-E 426 - MicroP\Lab 1 Base Project\RTE\Device\STM32F407VG" -IC:\Keil_v5\ARM\PACK
-\ARM\CMSIS\4.1.1\CMSIS\Include -IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\D
-evice\Include --predefine="__EVAL SETA 1" --predefine="__MICROLIB SETA 1" --pre
-define="__UVISION_VERSION SETA 513" --predefine="_RTE_ SETA 1" --predefine="STM
-32F40_41xxx SETA 1" --list=.\listings\startup_stm32f40_41xxx.lst RTE\Device\STM
-32F407VG\startup_stm32f40_41xxx.s
+ect\startup_stm32f40_41xxx.d -o.\object\startup_stm32f40_41xxx.o -I"C:\Users\Ma
+xim\Documents\McGill\Winter 2015\ECSE 426\Labs\Lab 1\Lab 1 Base Project with CM
+SIS-DSP\Lab 1 Base Project\RTE" -I"C:\Users\Maxim\Documents\McGill\Winter 2015\
+ECSE 426\Labs\Lab 1\Lab 1 Base Project with CMSIS-DSP\Lab 1 Base Project\RTE\De
+vice\STM32F407VG" -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include -IC:\Keil
+_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include --predefine="__EVAL SETA 1
+" --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 513" --pr
+edefine="_RTE_ SETA 1" --predefine="STM32F40_41xxx SETA 1" --list=.\listings\st
+artup_stm32f40_41xxx.lst RTE\Device\STM32F407VG\startup_stm32f40_41xxx.s
 
 
 

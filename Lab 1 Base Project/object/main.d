@@ -9,6 +9,7 @@
 .\object\main.o: .\source\stm32f4xx_conf.h
 .\object\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\object\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\object\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\fenv.h
 .\object\main.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include\arm_math.h
 .\object\main.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include\core_cm4.h
 .\object\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

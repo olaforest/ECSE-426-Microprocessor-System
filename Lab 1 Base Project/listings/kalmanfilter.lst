@@ -42,22 +42,40 @@ ARM Macro Assembler    Page 1
                                                             ng of the loop 
    26 0000003E         
    27 0000003E         exit
-   28 0000003E         ; store the final Kalman state
-   29 0000003E EDC3 0A00       VSTR.F32         S1, [R3]    ; store q
-   30 00000042 ED83 1A01       VSTR.F32         S2, [R3, #4] ; store r
-   31 00000046 ED83 2A02       VSTR.F32         S4, [R3, #8] ; store x
-   32 0000004A ED83 2A03       VSTR.F32         S4, [R3, #12] ; store p
-   33 0000004E EDC1 2A04       VSTR.F32         S5, [R1, #16] ; store k
-   34 00000052 4770            BX               LR
-   35 00000054                 END
+   28 0000003E EEF1 1A10       VMRS             R1, FPSCR   ; copy FPSCR to APS
+                                                            R
+   29 00000042 F001 009F       AND              R0, R1, #159 ; apply mask to st
+                                                            atus register to ex
+                                                            tract the floating-
+                                                            point exceptions. R
+                                                            0 = 0 if no excepti
+                                                            on.
+   30 00000046         
+   31 00000046         ; store the final Kalman state
+   32 00000046 EDC3 0A00       VSTR.F32         S1, [R3]    ; store q
+   33 0000004A ED83 1A01       VSTR.F32         S2, [R3, #4] ; store r
+   34 0000004E EDC3 1A02       VSTR.F32         S3, [R3, #8] ; store x
+   35 00000052 ED83 2A03       VSTR.F32         S4, [R3, #12] ; store p
+   36 00000056 EDC3 2A04       VSTR.F32         S5, [R3, #16] ; store k
+   37 0000005A         
+   38 0000005A 4770            BX               LR
+   39 0000005C                 END
 Command Line: --debug --xref --cpu=Cortex-M4.fp --apcs=interwork --depend=.\obj
-ect\kalmanfilter.d -o.\object\kalmanfilter.o -I"C:\Users\Oli\Desktop\ECSE 426 -
- MicroP\Lab 1 Base Project\RTE" -I"C:\Users\Oli\Desktop\ECSE 426 - MicroP\Lab 1
- Base Project\RTE\Device\STM32F407VG" -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\4.1.1\CMS
-IS\Include -IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include --pred
-efine="__EVAL SETA 1" --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VE
-RSION SETA 513" --predefine="_RTE_ SETA 1" --predefine="STM32F40_41xxx SETA 1" 
---list=.\listings\kalmanfilter.lst KalmanFilter.s
+ect\kalmanfilter.d -o.\object\kalmanfilter.o -I"C:\Users\Maxim\Documents\McGill
+\Winter 2015\ECSE 426\Labs\Lab 1\Lab 1 Base Project with CMSIS-DSP\Lab 1 Base P
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+roject\RTE" -I"C:\Users\Maxim\Documents\McGill\Winter 2015\ECSE 426\Labs\Lab 1\
+Lab 1 Base Project with CMSIS-DSP\Lab 1 Base Project\RTE\Device\STM32F407VG" -I
+C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include -IC:\Keil_v5\ARM\PACK\Keil\ST
+M32F4xx_DFP\1.0.8\Device\Include --predefine="__EVAL SETA 1" --predefine="__MIC
+ROLIB SETA 1" --predefine="__UVISION_VERSION SETA 513" --predefine="_RTE_ SETA 
+1" --predefine="STM32F40_41xxx SETA 1" --list=.\listings\kalmanfilter.lst Kalma
+nFilter.s
 
 
 

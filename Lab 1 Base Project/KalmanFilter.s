@@ -25,11 +25,15 @@ update
     B 		 update     	; Go to the beginning of the loop 
 
 exit
+	VMRS	 R1, FPSCR		; copy FPSCR to APSR
+	AND 	 R0, R1, #159	; apply mask to status register to extract the floating-point exceptions. R0 = 0 if no exception.
+	
 	; store the final Kalman state
 	VSTR.F32 S1, [R3]		; store q
 	VSTR.F32 S2, [R3, #4]	; store r
-	VSTR.F32 S4, [R3, #8]	; store x
+	VSTR.F32 S3, [R3, #8]	; store x
 	VSTR.F32 S4, [R3, #12]	; store p
-	VSTR.F32 S5, [R1, #16]  ; store k
+	VSTR.F32 S5, [R3, #16]  ; store k
+	
 	BX 		 LR
 	END

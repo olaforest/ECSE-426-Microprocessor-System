@@ -193,7 +193,7 @@ Reset_Handler    PROC
                  LDR     R0, =__main
                  ;BLX R0
 				 ;LDR R0, =kalman_filter_testbench
-                 BX R0
+                 BLX R0
                  ENDP
 
 ; Dummy Exception Handlers (infinite loops which can be modified)
