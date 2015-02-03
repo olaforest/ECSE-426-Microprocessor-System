@@ -6,7 +6,7 @@
 
 extern int kalmanFilter_asm(float* inputArray, float* outputArray, int length, KalmanState* kstate);
 
-// Kalman filtering of the input found in the 'inputArray' containing 'length' measurments, with the initial
+// Kalman filtering of the input found in the 'inputArray' containing 'length' measurements, with the initial
 // Kalman state in 'kstate'. The output is written into 'outputArray'.
 int kalmanFilter_C(float* inputArray, float* outputArray, KalmanState* kstate, int length){
 	int i;
