@@ -61,21 +61,18 @@ ARM Macro Assembler    Page 1
    38 0000005A 4770            BX               LR
    39 0000005C                 END
 Command Line: --debug --xref --cpu=Cortex-M4.fp --apcs=interwork --depend=.\obj
-ect\kalmanfilter.d -o.\object\kalmanfilter.o -I"C:\Users\Maxim\Documents\McGill
-\Winter 2015\ECSE 426\Labs\Lab 1\Lab 1 Base Project with CMSIS-DSP\Lab 1 Base P
+ect\kalmanfilter.d -o.\object\kalmanfilter.o -I"\campus.mcgill.ca\EMF\ELE\olafo
+r\Desktop\ECSE 426 MP\Lab 1 Base Project\RTE" -I"\campus.mcgill.ca\EMF\ELE\olaf
 
 
 
 ARM Macro Assembler    Page 2 
 
 
-roject\RTE" -I"C:\Users\Maxim\Documents\McGill\Winter 2015\ECSE 426\Labs\Lab 1\
-Lab 1 Base Project with CMSIS-DSP\Lab 1 Base Project\RTE\Device\STM32F407VG" -I
-C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include -IC:\Keil_v5\ARM\PACK\Keil\ST
-M32F4xx_DFP\1.0.8\Device\Include --predefine="__EVAL SETA 1" --predefine="__MIC
-ROLIB SETA 1" --predefine="__UVISION_VERSION SETA 513" --predefine="_RTE_ SETA 
-1" --predefine="STM32F40_41xxx SETA 1" --list=.\listings\kalmanfilter.lst Kalma
-nFilter.s
+or\Desktop\ECSE 426 MP\Lab 1 Base Project\RTE\Device\STM32F407VG" -IC:\Keil_v5\
+ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include -IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP
+\1.0.8\Device\Include --predefine="__MICROLIB SETA 1" --list=.\listings\kalmanf
+ilter.lst KalmanFilter.s
 
 
 
@@ -115,4 +112,4 @@ Symbol: update
       At line 25 in file KalmanFilter.s
 Comment: update used once
 4 symbols
-340 symbols in table
+336 symbols in table

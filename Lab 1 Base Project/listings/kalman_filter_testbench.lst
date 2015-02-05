@@ -52,15 +52,12 @@ eb8, 0x4107fa1a, 0x40e00000
               00000000 
               00000000 
 Command Line: --debug --xref --cpu=Cortex-M4.fp --apcs=interwork --depend=.\obj
-ect\kalman_filter_testbench.d -o.\object\kalman_filter_testbench.o -I"C:\Users\
-Maxim\Documents\McGill\Winter 2015\ECSE 426\Labs\Lab 1\Lab 1 Base Project with 
-CMSIS-DSP\Lab 1 Base Project\RTE" -I"C:\Users\Maxim\Documents\McGill\Winter 201
-5\ECSE 426\Labs\Lab 1\Lab 1 Base Project with CMSIS-DSP\Lab 1 Base Project\RTE\
-Device\STM32F407VG" -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include -IC:\Ke
-il_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include --predefine="__EVAL SETA
- 1" --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 513" --
-predefine="_RTE_ SETA 1" --predefine="STM32F40_41xxx SETA 1" --list=.\listings\
-kalman_filter_testbench.lst Kalman_filter_testbench.s
+ect\kalman_filter_testbench.d -o.\object\kalman_filter_testbench.o -I"\campus.m
+cgill.ca\EMF\ELE\olafor\Desktop\ECSE 426 MP\Lab 1 Base Project\RTE" -I"\campus.
+mcgill.ca\EMF\ELE\olafor\Desktop\ECSE 426 MP\Lab 1 Base Project\RTE\Device\STM3
+2F407VG" -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include -IC:\Keil_v5\ARM\P
+ACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include --predefine="__MICROLIB SETA 1" --l
+ist=.\listings\kalman_filter_testbench.lst Kalman_filter_testbench.s
 
 
 
@@ -123,4 +120,4 @@ Symbol: kalmanFilter_asm
       At line 15 in file Kalman_filter_testbench.s
 Comment: kalmanFilter_asm used once
 1 symbol
-344 symbols in table
+340 symbols in table
