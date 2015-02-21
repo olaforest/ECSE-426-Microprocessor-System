@@ -6,8 +6,8 @@ Group #3
 Date:	February 5th, 2015
 */ 
 
-#ifndef KALMAN
-#define KALMAN
+#ifndef _KALMAN_
+#define _KALMAN_
 
 // Kalman state structure
 typedef struct {

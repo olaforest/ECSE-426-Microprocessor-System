@@ -1,7 +1,15 @@
+; ECSE 426 - Lab 1
+; Maxim Goukhshtein (ID: 260429739)
+; Olivier Laforest  (ID: 260469066)
+; Group #3
+; Date:	February 5th, 2015
+ 
 	AREA KalmanFilter, CODE, READONLY
 	EXPORT kalmanFilter_asm
 	
 kalmanFilter_asm
+	PUSH 	 {R1-R3}		; push arguments on stack
+	
 	; load the initial Kalman state
 	VLDR.F32 S1, [R3]		; q
 	VLDR.F32 S2, [R3, #4]	; r
@@ -35,5 +43,6 @@ exit
 	VSTR.F32 S4, [R3, #12]	; store p
 	VSTR.F32 S5, [R3, #16]  ; store k
 	
+	POP 	 {R1-R3}		; pop arguments from stack
 	BX 		 LR
 	END

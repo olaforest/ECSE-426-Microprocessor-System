@@ -1,90 +1,61 @@
-#include <stdio.h>
-#include "stm32f4xx.h"                  // Device header
-#include "stm32f4xx_conf.h"
+/*
+ECSE 426 - Lab 2
+Maxim Goukhshtein (ID: 260429739)
+Olivier Laforest  (ID: 260469066)
+Group #3
+Date:	February 20th, 2015
+*/ 
+
+#include "temperature_sensor.h"
+
+static volatile uint_fast16_t ticks;
+
+// interrupt handler for system tick
+void SysTick_Handler(){
+	ticks = 1;
+}
 
 int main(){
-		
-	// This will allow use of the GPIO pins in bank A (PA0, PA1, ....)
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
+	// declaration/initialization of various variables. 
+	KalmanState kstate;
+	uint16_t LED_pins[4] = { GPIO_Pin_12, GPIO_Pin_13, GPIO_Pin_14, GPIO_Pin_15 };
+	int duty_cycle = 0;
+	int increasing = 1;
+	int ticks_count = 0;
 	
-	GPIO_InitTypeDef gpio_init_s;
+	ticks = 0;
 	
-	//GPIO_StructInit(&gpio_init_s);
-	gpio_init_s.GPIO_Pin = GPIO_Pin_All; // Select pin 4
-	gpio_init_s.GPIO_Mode = GPIO_Mode_AN; // Set as output
-	gpio_init_s.GPIO_Speed = GPIO_Speed_100MHz; // Don't limit slew rate
-	gpio_init_s.GPIO_OType = GPIO_OType_PP; // Push-pull
-	gpio_init_s.GPIO_PuPd = GPIO_PuPd_NOPULL; // Not input, don't pull
-
-	// Actually configure that pin
-	GPIO_Init(GPIOA, &gpio_init_s);
+	// set the initial Kalman filter state.
+	kstate.p = 0.1;
+	kstate.k = 0.0;
+	kstate.r = 2.25;
+	kstate.q = 0.01;
+	kstate.x = 0.0;
 	
-	//GPIO_SetBits(GPIOA, GPIO_Pin_4);
-	//GPIO_ResetBits(GPIOA, GPIO_Pin_4);
-	//GPIO_WriteBit(GPIOA, GPIO_Pin_4, Bit_SET); //(or Bit_RESET)
-	//GPIO_Write(GPIOA, 0x16);
-	
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1, ENABLE); //Clock Gating
-	
-	ADC_CommonInitTypeDef adc_common_init_s;
-	
-	adc_common_init_s.ADC_Mode = ADC_Mode_Independent;
-	adc_common_init_s.ADC_Prescaler = ADC_Prescaler_Div2;
-	adc_common_init_s.ADC_DMAAccessMode = ADC_DMAAccessMode_Disabled;
-	adc_common_init_s.ADC_TwoSamplingDelay = ADC_TwoSamplingDelay_5Cycles;
-	
-	ADC_CommonInit(&adc_common_init_s); //Initialization
-	
-	ADC_InitTypeDef adc_init_s;
-	adc_init_s.ADC_Resolution = ADC_Resolution_12b;
-	adc_init_s.ADC_ScanConvMode = DISABLE;
-	adc_init_s.ADC_ContinuousConvMode = DISABLE;
-	adc_init_s.ADC_ExternalTrigConvEdge = ADC_ExternalTrigConvEdge_None;
-	adc_init_s.ADC_ExternalTrigConv = ADC_ExternalTrigConv_T1_CC1;
-	adc_init_s.ADC_DataAlign = ADC_DataAlign_Right;
-	adc_init_s.ADC_NbrOfConversion = 1;
-	
-	ADC_Init(ADC1, &adc_init_s);
-	
-	ADC_Cmd(ADC1, ENABLE);
-	ADC_TempSensorVrefintCmd(ENABLE);
-	
-	ADC_RegularChannelConfig(ADC1, ADC_Channel_TempSensor, 1, ADC_SampleTime_480Cycles);
-	
-	ADC_SoftwareStartConv(ADC1); //Starting Conversion, waiting for it to finish, clearing the flag, reading the result
-	while(ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC) == RESET); //Could be through interrupts (Later)
-	ADC_ClearFlag(ADC1, ADC_FLAG_EOC); //EOC means End Of Conversion
-	ADC_GetConversionValue(ADC1);
-	
-	//SysTick_Config test;
-	
-	//RCC->AHB1ENR |= (1<<19);
-	
-	//GPIOD->MODER |= (1<<24);
-	
-	//GPIOD->ODR |= (1<<8);
-	
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);
-	
-	GPIO_InitTypeDef gpio_init_s2;
-	
-	//GPIO_StructInit(&gpio_init_s);
-	gpio_init_s2.GPIO_Pin = GPIO_Pin_12; // Select pin 4
-	gpio_init_s2.GPIO_Mode = GPIO_Mode_OUT; // Set as output
-	gpio_init_s2.GPIO_Speed = GPIO_Speed_100MHz; // Don't limit slew rate
-	gpio_init_s2.GPIO_OType = GPIO_OType_PP; // Push-pull
-	gpio_init_s2.GPIO_PuPd = GPIO_PuPd_NOPULL; // Not input, don't pull
-	
-	GPIO_Init(GPIOA, &gpio_init_s2);
-	
-	GPIO_SetBits(GPIOD, GPIO_Pin_12);
-	
+	// initialize various components (ADC, GPIO and SysTick).
+	init();
+			
+	// main loop
 	while(1){
 		
-		for (int i = 0; i < 1000000; i++);
-		GPIO_SetBits(GPIOD, GPIO_Pin_12);
-		for (int i = 0; i < 1000000; i++);
-		GPIO_ResetBits(GPIOD, GPIO_Pin_12);
+		// wait until SysTick handler changes toggles tick value.
+		while(!ticks);
+		ticks = 0;
+		
+		// sample the current temperature of the processor.
+		float current_temperature = kalmanFilter(volt_to_celsius(getADCVoltage()), &kstate);
+		
+		printf("Temperature = %.2f °C", current_temperature);
+		
+		// make a decision of whether to run the normal or alarm routines, 
+		// based on the current temperature and chosen alarm thershold.
+		if (current_temperature < ALARM_THRESHOLD) {
+			printf(" (NORMAL)\n");
+			normal_operation((int) current_temperature, LED_pins);
+		} else {
+			printf(" (ALARM)\n");
+			alarm_operation(&ticks_count, &increasing, &duty_cycle);
+		}			
 	}
 	
 	return 0;

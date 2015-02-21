@@ -1,3 +1,9 @@
+; ECSE 426 - Lab 1
+; Maxim Goukhshtein (ID: 260429739)
+; Olivier Laforest  (ID: 260469066)
+; Group #3
+; Date:	February 5th, 2015
+
 	AREA testbench, CODE, READONLY
 	EXPORT kalman_filter_testbench
 	IMPORT kalmanFilter_asm
@@ -10,11 +16,10 @@ KalmanState DCFS 0x3dcccccd, 0x3dcccccd, 0x0, 0x3dcccccd, 0x0 ; q = 0.1, r = 0.1
 kalman_filter_testbench
 	LDR R0, =InputData
 	LDR R1, =FilteredData
-	MOV R2, #2
+	MOV R2, #5
 	LDR R3, =KalmanState
 	LDR R5, =kalmanFilter_asm
 	BLX R5
-	ADD R1, R1, R2
 	
 	END
 	
