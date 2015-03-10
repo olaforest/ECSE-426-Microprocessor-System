@@ -418,6 +418,26 @@
               <FileType>1</FileType>
               <FilePath>.\src\fput_debug.c</FilePath>
             </File>
+            <File>
+              <FileName>kalman_state.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\kalman_state.h</FilePath>
+            </File>
+            <File>
+              <FileName>mems.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\mems.h</FilePath>
+            </File>
+            <File>
+              <FileName>mems.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\mems.c</FilePath>
+            </File>
+            <File>
+              <FileName>keypad.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\keypad.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

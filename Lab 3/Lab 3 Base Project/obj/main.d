@@ -40,3 +40,4 @@
 .\obj\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 .\obj\main.o: .\Accelerometer_Drivers\inc\lis3dsh.h
 .\obj\main.o: src\kalman_state.h
+.\obj\main.o: src\keypad.h
