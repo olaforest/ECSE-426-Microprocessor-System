@@ -2,6 +2,7 @@
 #include "stm32f4xx.h"                  // Device header
 #include "stm32f4xx_conf.h"
 #include "mems.h"
+#include "segment_display.h"
 #include "keypad.h"
 
 static volatile uint_fast16_t data_ready, cycle_led;
@@ -27,7 +28,7 @@ int main(){
 	KalmanState kstate;
 	kstate.p = 0.0;
 	kstate.k = 0.0;
-	kstate.r = 25;
+	kstate.r = 50;
 	kstate.q = 1;
 	kstate.x = 0.0;
 	
@@ -50,6 +51,8 @@ int main(){
 //	printf("Found key: %d\n", get_key());
 	get_keys();*/
 	
+	int target_angle = 80;
+	
 	int count = 0;
 	
 	while(1){
@@ -62,16 +65,23 @@ int main(){
 			data_ready = 0;
 			pitch = kalmanFilter(get_pitch_angle(), &kstate);
 			//printf("Pitch angle: %.2f\n", pitch);
-			//printf("trunc: %d\n", (int)(pitch*100));
 		}
 		else if(cycle_led){
 			cycle_led = 0;
 			
-			display_current_pitch(pitch, count);
+			if(pitch > target_angle + 5){
+				display_anim_larger(count);
+			}
+			else if(pitch < target_angle - 5){
+				display_anim_smaller(count);
+			}
+			else {
+				display_current_pitch(pitch, count);
+			}
 			
 			count++;
 		}
 	}
-	
 	return 0;
 }
+

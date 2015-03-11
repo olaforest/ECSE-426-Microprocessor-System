@@ -3,6 +3,7 @@
 ".\obj\fput_debug.o"
 ".\obj\mems.o"
 ".\obj\keypad.o"
+".\obj\segment_display.o"
 ".\obj\lis3dsh.o"
 ".\obj\lis302dl.o"
 ".\obj\misc.o"
