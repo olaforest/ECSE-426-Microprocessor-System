@@ -51,5 +51,6 @@ void config_segment_display(void);
 void get_accelerations(float * norm_acc_X, float * norm_acc_Y, float * norm_acc_Z);
 float get_pitch_angle(void);
 float kalmanFilter(float input, KalmanState* kstate);
+void display_current_pitch(float pitch, int count);
 
 #endif
