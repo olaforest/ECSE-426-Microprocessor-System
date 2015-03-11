@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "mems.h"
 
 // configure the MEMS sensor
@@ -70,7 +71,7 @@ void config_tim3(void){
 	
 	TIM3_initStruct.TIM_Prescaler					= 0xFFFF;
 	TIM3_initStruct.TIM_CounterMode				= TIM_CounterMode_Up;
-	TIM3_initStruct.TIM_Period						= 0x0001;
+	TIM3_initStruct.TIM_Period						= 0x0008;
 	TIM3_initStruct.TIM_ClockDivision			= TIM_CKD_DIV1;
 	
 	TIM_TimeBaseInit( TIM3, &TIM3_initStruct);
@@ -141,7 +142,7 @@ float get_pitch_angle(void){
 	get_accelerations(&norm_acc_X, &norm_acc_Y, &norm_acc_Z);
 	
 	// caluculate and return the pitch angle.
-	return atan(norm_acc_X / sqrt(norm_acc_Y * norm_acc_Y + norm_acc_Z * norm_acc_Z)) * 180 / PI;	
+	return atan(norm_acc_X / sqrt(norm_acc_Y * norm_acc_Y + norm_acc_Z * norm_acc_Z)) * 180 / PI + 90;	
 }
 
 // Kalman filter to filter an input. Based on the Kalman filter that was used in Labs 1 and 2.
@@ -153,4 +154,54 @@ float kalmanFilter(float input, KalmanState* kstate){
 	kstate->p = (1 - kstate->k) * kstate->p;
 
 	return filtered;
+}
+
+void display_current_pitch(float pitch, int count){
+	
+	uint16_t digit_pins[10] = {DISPLAY_0, DISPLAY_1, DISPLAY_2, DISPLAY_3, DISPLAY_4, DISPLAY_5, DISPLAY_6, DISPLAY_7, DISPLAY_8, DISPLAY_9};
+	uint16_t digit_select[3] = {DIGIT1_ON, DIGIT2_ON, DIGIT3_ON};
+	
+	GPIO_ResetBits(GPIOD, GPIO_SEGMENT_PINS);
+		
+		int display_digit, decimal_point_location;
+		
+		if((int)(pitch)/100 != 0){
+			display_digit = (int) pitch;
+			decimal_point_location = 2;
+		}
+		else if((int)(pitch)/10 != 0){
+			display_digit = (int) (pitch * 10);
+			decimal_point_location = 1;
+		}
+		else{
+			display_digit = (int) (pitch * 100);
+			decimal_point_location = 0;
+		}
+		
+		switch(count % 3){
+			case 0:
+				display_digit = display_digit/100;
+			
+				if(decimal_point_location == 0)
+					GPIO_SetBits(GPIOD, SEGMENT_PIN_DP);
+				
+				printf("Pitch angle: %.2f\t", pitch);
+				printf("%d", display_digit);
+				break;
+			case 1:
+				display_digit = (display_digit % 100)/10;
+			
+				if(decimal_point_location == 1)
+					GPIO_SetBits(GPIOD, SEGMENT_PIN_DP);
+			
+				printf("%d", display_digit);
+				break;
+			case 2:
+				display_digit = (display_digit % 10)/1;
+				printf("%d\n", display_digit);
+				break;
+		}
+		
+		GPIO_SetBits(GPIOD, digit_select[count % 3]);
+		GPIO_SetBits(GPIOD, digit_pins[display_digit]);
 }

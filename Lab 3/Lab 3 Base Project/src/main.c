@@ -31,9 +31,6 @@ int main(){
 	kstate.q = 1;
 	kstate.x = 0.0;
 	
-	uint16_t digit_pins[10] = {DISPLAY_0, DISPLAY_1, DISPLAY_2, DISPLAY_3, DISPLAY_4, DISPLAY_5, DISPLAY_6, DISPLAY_7, DISPLAY_8, DISPLAY_9};
-	uint16_t digit_select[3] = {DIGIT1_ON, DIGIT2_ON, DIGIT3_ON};
-	
 	config_LIS3DSH();
 	config_ext_interupt();
 	config_tim3();
@@ -64,39 +61,14 @@ int main(){
 		if(data_ready){
 			data_ready = 0;
 			pitch = kalmanFilter(get_pitch_angle(), &kstate);
-			printf("Pitch angle: %.2f\n", pitch);
+			//printf("Pitch angle: %.2f\n", pitch);
 			//printf("trunc: %d\n", (int)(pitch*100));
-			
 		}
 		else if(cycle_led){
 			cycle_led = 0;
 			
-			int display_digit = (int)(pitch * 100);
+			display_current_pitch(pitch, count);
 			
-			int i = 1;
-			
-			while(display_digit/i != 0){i *= 10;}
-			
-			switch(count % 3){
-				case 0:
-					display_digit = (display_digit * 10)/i;
-					//printf("%d", display_digit);
-					break;
-				case 1:
-					display_digit = ((display_digit % (i/10)) * 100)/i;
-					//printf("%d", display_digit);
-					break;
-				case 2:
-					display_digit = ((display_digit % (i/100))* 1000)/i;
-					//printf("%d\n", display_digit);
-					break;
-			}
-			
-			GPIO_ResetBits(GPIOD, GPIO_SEGMENT_PINS);
-			GPIO_SetBits(GPIOD, digit_select[count % 3]);
-			GPIO_SetBits(GPIOD, digit_pins[display_digit]);
-			
-			//printf("Count: %d\n", count);
 			count++;
 		}
 	}
