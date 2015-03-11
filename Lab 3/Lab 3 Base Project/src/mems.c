@@ -6,11 +6,11 @@ void config_LIS3DSH(void){
 	LIS3DSH_InitTypeDef lis3dsh_initStruct;
 	
 	lis3dsh_initStruct.Power_Mode_Output_DataRate = LIS3DSH_DATARATE_100;
-	lis3dsh_initStruct.Axes_Enable				  = LIS3DSH_X_ENABLE | LIS3DSH_Y_ENABLE | LIS3DSH_Z_ENABLE;
-	lis3dsh_initStruct.Continous_Update			  = LIS3DSH_ContinousUpdate_Disabled;
-	lis3dsh_initStruct.AA_Filter_BW				  = LIS3DSH_AA_BW_800;
-	lis3dsh_initStruct.Full_Scale				  = LIS3DSH_FULLSCALE_2;
-	lis3dsh_initStruct.Self_Test			      = LIS3DSH_SELFTEST_NORMAL;
+	lis3dsh_initStruct.Axes_Enable				  			= LIS3DSH_X_ENABLE | LIS3DSH_Y_ENABLE | LIS3DSH_Z_ENABLE;
+	lis3dsh_initStruct.Continous_Update			  		= LIS3DSH_ContinousUpdate_Disabled;
+	lis3dsh_initStruct.AA_Filter_BW				  			= LIS3DSH_AA_BW_800;
+	lis3dsh_initStruct.Full_Scale				  				= LIS3DSH_FULLSCALE_2;
+	lis3dsh_initStruct.Self_Test			      			= LIS3DSH_SELFTEST_NORMAL;
 	
 	LIS3DSH_Init(&lis3dsh_initStruct);
 		
@@ -18,7 +18,7 @@ void config_LIS3DSH(void){
 	
 	lis3dsh_interruptConfigStruct.Dataready_Interrupt = LIS3DSH_DATA_READY_INTERRUPT_ENABLED;
 	lis3dsh_interruptConfigStruct.Interrupt_signal	  = LIS3DSH_ACTIVE_HIGH_INTERRUPT_SIGNAL;
-	lis3dsh_interruptConfigStruct.Interrupt_type	  = LIS3DSH_INTERRUPT_REQUEST_PULSED;
+	lis3dsh_interruptConfigStruct.Interrupt_type	  	= LIS3DSH_INTERRUPT_REQUEST_PULSED;
 	
 	LIS3DSH_DataReadyInterruptConfig(&lis3dsh_interruptConfigStruct);
 }
@@ -26,7 +26,7 @@ void config_LIS3DSH(void){
 // Configure the external interupt (EXTI and NVIC)
 void config_ext_interupt(void){
 	
-	GPIO_InitTypeDef GPIO_InitStructure;
+	//GPIO_InitTypeDef GPIO_InitStructure;
 	EXTI_InitTypeDef EXTI_initStruct;
 	NVIC_InitTypeDef NVIC_initStruct;
 
@@ -37,27 +37,70 @@ void config_ext_interupt(void){
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE);
 	
 	// Configure pin PE0
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
-	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
-	GPIO_InitStructure.GPIO_Pin  = LIS3DSH_SPI_INT1_PIN;		// Pin 0
-	GPIO_Init(GPIOE, &GPIO_InitStructure);
+	//GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
+	//GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	//GPIO_InitStructure.GPIO_Pin  = LIS3DSH_SPI_INT1_PIN;		// Pin 0
+	//GPIO_Init(GPIOE, &GPIO_InitStructure);
 	
 	// Connect EXTI Line0 to PE0 pin
 	SYSCFG_EXTILineConfig(LIS3DSH_SPI_INT1_EXTI_PORT_SOURCE, LIS3DSH_SPI_INT1_EXTI_PIN_SOURCE);
 	
 	// Configure EXTI Line0
-	EXTI_initStruct.EXTI_Line	 = EXTI_Line0;
-	EXTI_initStruct.EXTI_Mode	 = EXTI_Mode_Interrupt;
-	EXTI_initStruct.EXTI_Trigger = EXTI_Trigger_Rising;
-	EXTI_initStruct.EXTI_LineCmd = ENABLE;	
+	EXTI_initStruct.EXTI_Line	 		= EXTI_Line0;
+	EXTI_initStruct.EXTI_Mode	 		= EXTI_Mode_Interrupt;
+	EXTI_initStruct.EXTI_Trigger	= EXTI_Trigger_Rising;
+	EXTI_initStruct.EXTI_LineCmd	= ENABLE;	
 	EXTI_Init(&EXTI_initStruct);
 	
 	// Enable and set EXTI Line0 Interrupt to the lowest priority
-	NVIC_initStruct.NVIC_IRQChannel						= EXTI0_IRQn;
+	NVIC_initStruct.NVIC_IRQChannel										= EXTI0_IRQn;
 	NVIC_initStruct.NVIC_IRQChannelPreemptionPriority	= 0x00;
-	NVIC_initStruct.NVIC_IRQChannelSubPriority			= 0x00;
-	NVIC_initStruct.NVIC_IRQChannelCmd					= ENABLE;
+	NVIC_initStruct.NVIC_IRQChannelSubPriority				= 0x00;
+	NVIC_initStruct.NVIC_IRQChannelCmd								= ENABLE;
 	NVIC_Init(&NVIC_initStruct);
+}
+
+// Configuration of TIM3
+void config_tim3(void){
+	
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);
+	
+	TIM_TimeBaseInitTypeDef TIM3_initStruct;
+	NVIC_InitTypeDef NVIC_initStruct;
+	
+	TIM3_initStruct.TIM_Prescaler					= 0xFFFF;
+	TIM3_initStruct.TIM_CounterMode				= TIM_CounterMode_Up;
+	TIM3_initStruct.TIM_Period						= 0x0001;
+	TIM3_initStruct.TIM_ClockDivision			= TIM_CKD_DIV1;
+	
+	TIM_TimeBaseInit( TIM3, &TIM3_initStruct);
+	
+	// Enable and set TIM3 Interrupt to the lowest priority
+	NVIC_initStruct.NVIC_IRQChannel										= TIM3_IRQn;
+	NVIC_initStruct.NVIC_IRQChannelPreemptionPriority	= 0x00;
+	NVIC_initStruct.NVIC_IRQChannelSubPriority				= 0x00;
+	NVIC_initStruct.NVIC_IRQChannelCmd								= ENABLE;
+	NVIC_Init(&NVIC_initStruct);
+	
+	TIM_UpdateRequestConfig(TIM3, TIM_UpdateSource_Regular);
+	TIM_ITConfig(TIM3, TIM_IT_Update, ENABLE);
+	TIM_Cmd(TIM3, ENABLE);
+}
+
+void config_segment_display(void){
+	
+	// Enable GPIOD clock
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);
+	
+	GPIO_InitTypeDef GPIO_InitStructure;
+	
+	GPIO_InitStructure.GPIO_Pin		= GPIO_SEGMENT_PINS;
+	GPIO_InitStructure.GPIO_Mode	= GPIO_Mode_OUT;
+	GPIO_InitStructure.GPIO_Speed	= GPIO_Speed_50MHz;
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+	GPIO_InitStructure.GPIO_PuPd	= GPIO_PuPd_NOPULL;
+	GPIO_Init(GPIOD, &GPIO_InitStructure);
+	
 }
 
 void get_accelerations(float * norm_acc_X, float * norm_acc_Y, float * norm_acc_Z){
