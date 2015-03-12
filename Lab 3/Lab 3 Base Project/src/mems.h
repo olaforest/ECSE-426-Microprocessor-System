@@ -1,6 +1,7 @@
 #ifndef _MEMS_
 #define _MEMS_
 
+#include <stdio.h>
 #include "math.h"
 #include "lis3dsh.h"
 #include "kalman_state.h"

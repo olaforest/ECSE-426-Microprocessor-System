@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include "mems.h"
 
 // configure the MEMS sensor
@@ -29,12 +28,19 @@ void config_ext_interupt(void){
 	
 	EXTI_InitTypeDef EXTI_initStruct;
 	NVIC_InitTypeDef NVIC_initStruct;
+	GPIO_InitTypeDef GPIO_InitStructure;
 
     // Enable GPIOE clock
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOE, ENABLE);
-	
+		
 	// Enable SYSCFG clock
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE);
+	
+	// Configure pin PE0
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	GPIO_InitStructure.GPIO_Pin  = LIS3DSH_SPI_INT1_PIN;		// Pin 0
+	GPIO_Init(GPIOE, &GPIO_InitStructure);
 	
 	// Connect EXTI Line0 to PE0 pin
 	SYSCFG_EXTILineConfig(LIS3DSH_SPI_INT1_EXTI_PORT_SOURCE, LIS3DSH_SPI_INT1_EXTI_PIN_SOURCE);
@@ -93,7 +99,7 @@ float get_pitch_angle(void){
 	// get the (normalized) acceleration values
 	get_accelerations(&norm_acc_X, &norm_acc_Y, &norm_acc_Z);
 	
-	// caluculate and return the pitch angle.
+	// calculate and return the pitch angle.
 	return atan(norm_acc_X / sqrt(norm_acc_Y * norm_acc_Y + norm_acc_Z * norm_acc_Z)) * 180 / PI + 90;	
 }
 
@@ -107,5 +113,3 @@ float kalmanFilter(float input, KalmanState* kstate){
 
 	return filtered;
 }
-
-

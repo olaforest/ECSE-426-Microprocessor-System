@@ -7,7 +7,7 @@
 
 static volatile uint_fast16_t data_ready, cycle_led;
 
-// Handler routine for the EXTI0 interupts 
+// Handler routine for the EXTI0 interrupts 
 void EXTI0_IRQHandler(){
 	if(EXTI_GetITStatus(EXTI_Line0) == SET) {
 		data_ready = 1;
@@ -32,54 +32,36 @@ int main(){
 	kstate.q = 1;
 	kstate.x = 0.0;
 	
+	int count = 0;
+	
+	// initialization routines
 	config_LIS3DSH();
 	config_ext_interupt();
 	config_tim3();
 	config_segment_display();
+	keypad_init();
 	
-	/*keypad_init();
-	
-//	printf("%u\n", GPIO_ReadOutputDataBit(GPIOA, GPIO_Pin_0));
-//	printf("%u\n", GPIO_ReadOutputDataBit(GPIOA, GPIO_Pin_1));
-//	printf("%u\n", GPIO_ReadOutputDataBit(GPIOA, GPIO_Pin_2));
-//	printf("%u\n", GPIO_ReadOutputDataBit(GPIOA, GPIO_Pin_3));
-//	printf("%u\n", GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_4));
-//	printf("%u\n", GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_5));
-//	printf("%u\n", GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_6));
-//	printf("%u\n", GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_7));
-//	printf("%u\n", read_cols());
-//	printf("Found key: %d\n", get_key());
-	get_keys();*/
-	
-	int target_angle = 80;
-	
-	int count = 0;
-	
+	// get the target angle input from the keypad
+	int target_angle = get_target_angle(&cycle_led);
+	printf("You chose a target angle of %d°\n", target_angle);
+		
+	// main loop
 	while(1){
 		
 		while(!data_ready && !cycle_led);
 		
 		float pitch;
 		
+		// If data is ready, get the angle and filter it. If the display is ready to change, make approptiate adjustments.
 		if(data_ready){
 			data_ready = 0;
 			pitch = kalmanFilter(get_pitch_angle(), &kstate);
-			//printf("Pitch angle: %.2f\n", pitch);
-		}
-		else if(cycle_led){
+			printf("pitch: %.2f\n", pitch);
+		} else if(cycle_led) {
 			cycle_led = 0;
-			
-			if(pitch > target_angle + 5){
-				display_anim_larger(count);
-			}
-			else if(pitch < target_angle - 5){
-				display_anim_smaller(count);
-			}
-			else {
-				display_current_pitch(pitch, count);
-			}
-			
+			display_routine(pitch, target_angle, count);
 			count++;
+			//printf("Count: %d\n", count);
 		}
 	}
 	return 0;
