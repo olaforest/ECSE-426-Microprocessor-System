@@ -1,5 +1,4 @@
 #include "segment_display.h"
-#include "stm32f4xx_conf.h"
 
 // Configuration of TIM3
 void config_tim3(void){
@@ -9,18 +8,17 @@ void config_tim3(void){
 	TIM_TimeBaseInitTypeDef TIM3_initStruct;
 	NVIC_InitTypeDef NVIC_initStruct;
 	
-	TIM3_initStruct.TIM_Prescaler					= 0xFFFF;
+	TIM3_initStruct.TIM_Prescaler				= TIM3_PRESCALAR; 	//old: 0xFFFF;
 	TIM3_initStruct.TIM_CounterMode				= TIM_CounterMode_Up;
-	TIM3_initStruct.TIM_Period						= 0x0008;
-	TIM3_initStruct.TIM_ClockDivision			= TIM_CKD_DIV1;
+	TIM3_initStruct.TIM_Period					= TIM3_PERIOD; 		//old: 0x0008;
+	TIM3_initStruct.TIM_ClockDivision			= TIM_CKD_DIV1;	
+	TIM_TimeBaseInit(TIM3, &TIM3_initStruct);
 	
-	TIM_TimeBaseInit( TIM3, &TIM3_initStruct);
-	
-	// Enable and set TIM3 Interrupt to the lowest priority
-	NVIC_initStruct.NVIC_IRQChannel										= TIM3_IRQn;
+	// Enable and set TIM3 Interrupt to the highest priority
+	NVIC_initStruct.NVIC_IRQChannel						= TIM3_IRQn;
 	NVIC_initStruct.NVIC_IRQChannelPreemptionPriority	= 0x00;
-	NVIC_initStruct.NVIC_IRQChannelSubPriority				= 0x00;
-	NVIC_initStruct.NVIC_IRQChannelCmd								= ENABLE;
+	NVIC_initStruct.NVIC_IRQChannelSubPriority			= 0x00;
+	NVIC_initStruct.NVIC_IRQChannelCmd					= ENABLE;
 	NVIC_Init(&NVIC_initStruct);
 	
 	TIM_UpdateRequestConfig(TIM3, TIM_UpdateSource_Regular);
@@ -28,6 +26,7 @@ void config_tim3(void){
 	TIM_Cmd(TIM3, ENABLE);
 }
 
+// configure the 7-segment display
 void config_segment_display(void){
 	
 	// Enable GPIOD clock
@@ -38,12 +37,13 @@ void config_segment_display(void){
 	GPIO_InitStructure.GPIO_Pin		= GPIO_SEGMENT_PINS;
 	GPIO_InitStructure.GPIO_Mode	= GPIO_Mode_OUT;
 	GPIO_InitStructure.GPIO_Speed	= GPIO_Speed_50MHz;
-	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+	GPIO_InitStructure.GPIO_OType 	= GPIO_OType_PP;
 	GPIO_InitStructure.GPIO_PuPd	= GPIO_PuPd_NOPULL;
 	GPIO_Init(GPIOD, &GPIO_InitStructure);
 	
 }
 
+// display the current pitch angle (i.e. when the current pitch angle is within 5 degrees from the target angle).
 void display_current_pitch(float pitch, int count){
 	
 	uint16_t digit_pins[10] = {DISPLAY_0, DISPLAY_1, DISPLAY_2, DISPLAY_3, DISPLAY_4, DISPLAY_5, DISPLAY_6, DISPLAY_7, DISPLAY_8, DISPLAY_9};
@@ -90,6 +90,7 @@ void display_current_pitch(float pitch, int count){
 		GPIO_SetBits(GPIOD, digit_pins[display_digit] | SEGMENT_PIN_DEGREE_SIGN);
 }
 
+// animation to tell the user to go down (i.e. the current pitch angle is greater than the target angle).
 void display_anim_larger(int count){
 	
 	uint16_t digit_pins[2] = {DISPLAY_d, DISPLAY_n};
@@ -100,6 +101,7 @@ void display_anim_larger(int count){
 	GPIO_SetBits(GPIOD, digit_pins[count % 2]);
 }
 
+// animation to tell the user that to go up (i.e. the current pitch angle is smaller than the target angle).
 void display_anim_smaller(int count){
 	
 	uint16_t digit_pins[2] = {DISPLAY_U, DISPLAY_P};
@@ -108,4 +110,17 @@ void display_anim_smaller(int count){
 	GPIO_ResetBits(GPIOD, GPIO_SEGMENT_PINS);
 	GPIO_SetBits(GPIOD, digit_select[count % 2]);
 	GPIO_SetBits(GPIOD, digit_pins[count % 2]);
+}
+
+// routine to figure out and run the appropriate animation on the 7-segment display
+void display_routine(float pitch, int target_angle, int count){
+	if(pitch > target_angle + 5){
+		display_anim_larger(count);
+	}
+	else if(pitch < target_angle - 5){
+		display_anim_smaller(count);
+	}
+	else {
+		display_current_pitch(pitch, count);
+	}
 }
