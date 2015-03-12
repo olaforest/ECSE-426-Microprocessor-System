@@ -3,6 +3,13 @@
 
 #define GPIO_SEGMENT_PINS GPIO_Pin_0 | GPIO_Pin_1 | GPIO_Pin_2 | GPIO_Pin_3 | GPIO_Pin_4 | GPIO_Pin_6 | GPIO_Pin_7 | GPIO_Pin_8 | GPIO_Pin_9 | GPIO_Pin_10 | GPIO_Pin_11 | GPIO_Pin_12
 
+
+/* Exported constants --------------------------------------------------------*/
+
+/** @defgroup SEGMENT_Exported_Constants
+  * @{
+  */ 
+	
 /** @defgroup SEGMENT_PINS_define_
   * @{
   */ 
@@ -48,8 +55,13 @@
 #define DIGIT2_ON GPIO_Pin_10
 #define DIGIT3_ON GPIO_Pin_11
 
+/* Exported functions --------------------------------------------------------*/
+
+// Configuration of TIM3 timer and GPIOs used to operate the 7 segments display.
 void config_tim3(void);
 void config_segment_display(void);
+
+// Function which properly format display output for the three possible mode of operation.
 void display_current_pitch(float pitch, int count);
 void display_anim_larger(int count);
 void display_anim_smaller(int count);
