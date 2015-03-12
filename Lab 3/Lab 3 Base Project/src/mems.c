@@ -28,19 +28,19 @@ void config_ext_interupt(void){
 	
 	EXTI_InitTypeDef EXTI_initStruct;
 	NVIC_InitTypeDef NVIC_initStruct;
-	GPIO_InitTypeDef GPIO_InitStructure;
+	//GPIO_InitTypeDef GPIO_InitStructure;
 
-    // Enable GPIOE clock
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOE, ENABLE);
+  // Enable GPIOE clock
+	//RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOE, ENABLE);
 		
 	// Enable SYSCFG clock
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE);
 	
 	// Configure pin PE0
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
-	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
-	GPIO_InitStructure.GPIO_Pin  = LIS3DSH_SPI_INT1_PIN;		// Pin 0
-	GPIO_Init(GPIOE, &GPIO_InitStructure);
+	//GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
+	//GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	//GPIO_InitStructure.GPIO_Pin  = LIS3DSH_SPI_INT1_PIN;		// Pin 0
+	//GPIO_Init(GPIOE, &GPIO_InitStructure);
 	
 	// Connect EXTI Line0 to PE0 pin
 	SYSCFG_EXTILineConfig(LIS3DSH_SPI_INT1_EXTI_PORT_SOURCE, LIS3DSH_SPI_INT1_EXTI_PIN_SOURCE);
@@ -69,10 +69,10 @@ void get_accelerations(float * norm_acc_X, float * norm_acc_Y, float * norm_acc_
 	float factor = 10000.0;
 	
 	// this is a scaled calibration matrix (factor of 10000)
-	float cm[4][3] = {    0.5880,  -0.0094,   0.0274,
-						 -0.0145,   0.6154,   0.0335,
-						  0.0016,  -0.0028,   0.6008,
-					   -247.9509,  63.3592, 268.4256 };
+	float cm[4][3] = {	 0.5880,  -0.0094,   0.0274,
+											-0.0145,   0.6154,   0.0335,
+											 0.0016,  -0.0028,   0.6008,
+										-247.9509,  63.3592, 268.4256 };
 	
 	// reading the LSB/MSB of the x,y and z acceleration values.
 	LIS3DSH_Read(&buffer[0], LIS3DSH_OUT_X_L, 1);

@@ -52,7 +52,7 @@ int main(){
 		
 		float pitch;
 		
-		// If data is ready, get the angle and filter it. If the display is ready to change, make approptiate adjustments.
+		// If data is ready, get the angle and filter it. If the display is ready to change, make appropriate adjustments.
 		if(data_ready){
 			data_ready = 0;
 			pitch = kalmanFilter(get_pitch_angle(), &kstate);

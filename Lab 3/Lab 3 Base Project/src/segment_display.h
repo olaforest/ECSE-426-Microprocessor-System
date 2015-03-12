@@ -57,7 +57,7 @@
 #define DIGIT2_ON GPIO_Pin_10
 #define DIGIT3_ON GPIO_Pin_11
 
-// definition for rates (in Hz), prescalar and priod for the TIM3 clock.
+// Definition for rates (in Hz), prescalar and period for the TIM3 clock.
 #define TIM3_COUNTER_CLK 1282
 #define TIM3_PRESCALAR ((SystemCoreClock / 2) / TIM3_COUNTER_CLK) - 1
 #define TIM3_DESIRED_RATE 160
