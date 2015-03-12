@@ -57,18 +57,15 @@
 #define DIGIT2_ON GPIO_Pin_10
 #define DIGIT3_ON GPIO_Pin_11
 
-<<<<<<< HEAD
 // definition for rates (in Hz), prescalar and priod for the TIM3 clock.
 #define TIM3_COUNTER_CLK 1282
 #define TIM3_PRESCALAR ((SystemCoreClock / 2) / TIM3_COUNTER_CLK) - 1
 #define TIM3_DESIRED_RATE 160
 #define TIM3_PERIOD (TIM3_COUNTER_CLK / TIM3_DESIRED_RATE) - 1
 
-=======
 /* Exported functions --------------------------------------------------------*/
 
 // Configuration of TIM3 timer and GPIOs used to operate the 7 segments display.
->>>>>>> origin/master
 void config_tim3(void);
 void config_segment_display(void);
 

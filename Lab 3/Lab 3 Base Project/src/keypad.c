@@ -79,7 +79,6 @@ int get_target_angle(volatile uint_fast16_t * ready){
 		while (!(*ready));
 		*ready = 0;
 		
-		int f = KEY_SCAN_CLK_DIV;
 		// check if a it's time to scan for input. If yes, scan and see if the a key was pressed.
 		if (!(count++ % KEY_SCAN_CLK_DIV) && get_key(&key)){
 			if (isdigit(key)){
