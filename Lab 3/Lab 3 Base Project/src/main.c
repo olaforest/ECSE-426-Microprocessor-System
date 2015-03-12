@@ -56,12 +56,10 @@ int main(){
 		if(data_ready){
 			data_ready = 0;
 			pitch = kalmanFilter(get_pitch_angle(), &kstate);
-			//printf("pitch: %.2f\n", pitch);
 		} else if(cycle_led) {
 			cycle_led = 0;
 			display_routine(pitch, target_angle, count);
 			count++;
-			//printf("Count: %d\n", count);
 		}
 	}
 	return 0;

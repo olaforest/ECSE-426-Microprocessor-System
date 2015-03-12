@@ -1,8 +1,12 @@
 #ifndef _KEYPAD_
 #define _KEYPAD_
 
+#include "stm32f4xx.h"                  // Device header
+#include "stm32f4xx_conf.h"
 #include "math.h"
 #include "segment_display.h"
+#include <stdio.h>
+#include <ctype.h>
 
 #define KEYPAD_GPIO GPIOE
 #define ALL_ROW_PINS GPIO_Pin_7 | GPIO_Pin_8 | GPIO_Pin_9 | GPIO_Pin_10
@@ -19,7 +23,7 @@
 #define NUM_COLS 4
 #define ENTER '#'
 #define DUMMY_KEY 'x'
-#define KEY_SCAN_FREQ 9
+#define KEY_SCAN_FREQ 4
 #define KEY_SCAN_CLK_DIV (TIM3_DESIRED_RATE / KEY_SCAN_FREQ)
 
 void keypad_init(void);

@@ -1,15 +1,11 @@
-#include "stm32f4xx.h"                  // Device header
-#include "stm32f4xx_conf.h"
 #include "keypad.h"
-#include <stdio.h>
-#include <ctype.h>
 
 uint16_t row_pins[NUM_ROWS] = {ROW_1_PINS, ROW_2_PINS, ROW_3_PINS, ROW_4_PINS};
 uint8_t col_values[NUM_COLS] = {COL_1_VALUE, COL_2_VALUE, COL_3_VALUE, COL_4_VALUE};
 char keys[NUM_ROWS][NUM_COLS] = { '1', '2', '3', 'A',
-																	'4', '5', '6', 'B',
-																	'7', '8', '9', 'C',
-																	'*', '0', '#', 'D' };
+								  '4', '5', '6', 'B',
+								  '7', '8', '9', 'C',
+								  '*', '0', '#', 'D' };
 
 // initialize the keypad
 void keypad_init(void){
@@ -32,8 +28,6 @@ void keypad_init(void){
 	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_InitStruct.GPIO_Mode  = GPIO_Mode_IN;
 	GPIO_Init(KEYPAD_GPIO, &GPIO_InitStruct);
-	
-	//GPIO_SetBits(KEYPAD_GPIO, GPIO_Pin_1 | GPIO_Pin_2 | GPIO_Pin_3);
 }
 
 // read and appeand the bits corresponding to the column values.
@@ -68,6 +62,7 @@ int get_key(char * key){
 	return 0;
 }
 
+// returns the angle that the user inputs using the keypad
 int get_target_angle(volatile uint_fast16_t * ready){
 		
 	char key;

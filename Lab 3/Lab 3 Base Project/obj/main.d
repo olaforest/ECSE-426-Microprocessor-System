@@ -42,3 +42,4 @@
 .\obj\main.o: src\kalman_state.h
 .\obj\main.o: src\segment_display.h
 .\obj\main.o: src\keypad.h
+.\obj\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\ctype.h
