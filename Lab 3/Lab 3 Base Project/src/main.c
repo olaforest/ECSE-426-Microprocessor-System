@@ -44,7 +44,7 @@ int main(){
 	// get the target angle input from the keypad
 	int target_angle = get_target_angle(&cycle_led);
 	printf("You chose a target angle of %d°\n", target_angle);
-		
+			
 	// main loop
 	while(1){
 		
@@ -56,7 +56,7 @@ int main(){
 		if(data_ready){
 			data_ready = 0;
 			pitch = kalmanFilter(get_pitch_angle(), &kstate);
-			printf("pitch: %.2f\n", pitch);
+			//printf("pitch: %.2f\n", pitch);
 		} else if(cycle_led) {
 			cycle_led = 0;
 			display_routine(pitch, target_angle, count);
