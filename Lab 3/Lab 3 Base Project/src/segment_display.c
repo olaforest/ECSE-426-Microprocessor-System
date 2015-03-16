@@ -10,17 +10,17 @@ void config_tim3(void){
 	NVIC_InitTypeDef NVIC_initStruct;
 	
 	// Configure TIM3 timer
-	TIM3_initStruct.TIM_Prescaler				= TIM3_PRESCALAR; 	//old: 0xFFFF;
+	TIM3_initStruct.TIM_Prescaler			= TIM3_PRESCALAR; 	//old: 0xFFFF;
 	TIM3_initStruct.TIM_CounterMode			= TIM_CounterMode_Up;
-	TIM3_initStruct.TIM_Period					= TIM3_PERIOD; 		//old: 0x0008;
+	TIM3_initStruct.TIM_Period				= TIM3_PERIOD; 		//old: 0x0008;
 	TIM3_initStruct.TIM_ClockDivision		= TIM_CKD_DIV1;	
 	TIM_TimeBaseInit(TIM3, &TIM3_initStruct);
 	
 	// Enable and set TIM3 Interrupt to the highest priority
-	NVIC_initStruct.NVIC_IRQChannel											= TIM3_IRQn;
-	NVIC_initStruct.NVIC_IRQChannelPreemptionPriority		= 0x00;
-	NVIC_initStruct.NVIC_IRQChannelSubPriority					= 0x00;
-	NVIC_initStruct.NVIC_IRQChannelCmd									= ENABLE;
+	NVIC_initStruct.NVIC_IRQChannel						= TIM3_IRQn;
+	NVIC_initStruct.NVIC_IRQChannelPreemptionPriority	= 0x00;
+	NVIC_initStruct.NVIC_IRQChannelSubPriority			= 0x00;
+	NVIC_initStruct.NVIC_IRQChannelCmd					= ENABLE;
 	NVIC_Init(&NVIC_initStruct);
 	
 	TIM_UpdateRequestConfig(TIM3, TIM_UpdateSource_Regular);
@@ -37,11 +37,11 @@ void config_segment_display(void){
 	GPIO_InitTypeDef GPIO_InitStructure;
 	
 	// Configure GPIOD pins that operate the display.
-	GPIO_InitStructure.GPIO_Pin			= GPIO_SEGMENT_PINS;
-	GPIO_InitStructure.GPIO_Mode		= GPIO_Mode_OUT;
-	GPIO_InitStructure.GPIO_Speed		= GPIO_Speed_50MHz;
+	GPIO_InitStructure.GPIO_Pin		= GPIO_SEGMENT_PINS;
+	GPIO_InitStructure.GPIO_Mode	= GPIO_Mode_OUT;
+	GPIO_InitStructure.GPIO_Speed	= GPIO_Speed_50MHz;
 	GPIO_InitStructure.GPIO_OType 	= GPIO_OType_PP;
-	GPIO_InitStructure.GPIO_PuPd		= GPIO_PuPd_NOPULL;
+	GPIO_InitStructure.GPIO_PuPd	= GPIO_PuPd_NOPULL;
 	GPIO_Init(GPIOD, &GPIO_InitStructure);
 	
 }
