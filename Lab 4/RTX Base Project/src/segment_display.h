@@ -11,8 +11,8 @@ Date:	March 16, 2015
 
 #include "stm32f4xx_conf.h"
 
-#define GPIO_SEGMENT_PINS GPIO_Pin_0 | GPIO_Pin_1 | GPIO_Pin_2 | GPIO_Pin_3 | GPIO_Pin_4 | GPIO_Pin_6 | GPIO_Pin_7 | GPIO_Pin_8 | GPIO_Pin_9 | GPIO_Pin_10 | GPIO_Pin_11 | GPIO_Pin_12
-
+#define GPIO_SEGMENT_PINS GPIO_Pin_0 | GPIO_Pin_1 | GPIO_Pin_2 | GPIO_Pin_3 | GPIO_Pin_4 | GPIO_Pin_6 | GPIO_Pin_7 | GPIO_Pin_8// | GPIO_Pin_9 | GPIO_Pin_10 | GPIO_Pin_11 | GPIO_Pin_12
+#define GPIO_DIGIT_SELECT_PINS GPIO_Pin_4 | GPIO_Pin_5 | GPIO_Pin_7 | GPIO_Pin_8
 
 /* Exported constants --------------------------------------------------------*/
 
@@ -31,7 +31,7 @@ Date:	March 16, 2015
 #define SEGMENT_PIN_F GPIO_Pin_6
 #define SEGMENT_PIN_G GPIO_Pin_7
 #define SEGMENT_PIN_DP GPIO_Pin_8
-#define SEGMENT_PIN_DEGREE_SIGN GPIO_Pin_12
+//#define SEGMENT_PIN_DEGREE_SIGN GPIO_Pin_12
 
 
 /** @defgroup DISPLAY_NUMBER_PINS_define_
@@ -51,19 +51,24 @@ Date:	March 16, 2015
 
 /** @defgroup DISPLAY_LETTER_PINS_define_
   * @{
-  */ 
+  */
+#define DISPLAY_C SEGMENT_PIN_A | SEGMENT_PIN_D | SEGMENT_PIN_E | SEGMENT_PIN_F
 #define DISPLAY_U SEGMENT_PIN_B | SEGMENT_PIN_C | SEGMENT_PIN_D | SEGMENT_PIN_E | SEGMENT_PIN_F
 #define DISPLAY_P SEGMENT_PIN_A | SEGMENT_PIN_B | SEGMENT_PIN_E | SEGMENT_PIN_F | SEGMENT_PIN_G
 #define DISPLAY_d SEGMENT_PIN_B | SEGMENT_PIN_C | SEGMENT_PIN_D | SEGMENT_PIN_E | SEGMENT_PIN_G
 #define DISPLAY_n SEGMENT_PIN_C | SEGMENT_PIN_E | SEGMENT_PIN_G
 
+// Degree Sign pins
+#define DISPLAY_DEGREE_SIGN SEGMENT_PIN_A | SEGMENT_PIN_B | SEGMENT_PIN_F | SEGMENT_PIN_G
+
 
 /** @defgroup DIGIT_ON_define_
   * @{
   */ 
-#define DIGIT1_ON GPIO_Pin_9
-#define DIGIT2_ON GPIO_Pin_10
-#define DIGIT3_ON GPIO_Pin_11
+#define DIGIT1_ON GPIO_Pin_4
+#define DIGIT2_ON GPIO_Pin_5
+#define DIGIT3_ON GPIO_Pin_7
+#define DIGIT4_ON GPIO_Pin_8
 
 //// Definition for rates (in Hz), prescalar and period for the TIM3 clock.
 #define TIM3_COUNTER_CLK 1282
@@ -79,6 +84,7 @@ void config_segment_display(void);
 void display_init(void);
 
 // Function which properly format display output for the three possible mode of operation.
-void display_current_pitch(float pitch, int count);
+void display_value(int mode, float pitch, float temperature,int  count);
+void display_current_pitch(float pitch, int count, int mode);
 
 #endif

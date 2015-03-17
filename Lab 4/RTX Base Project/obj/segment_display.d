@@ -1,7 +1,7 @@
 .\obj\segment_display.o: src\segment_display.c
 .\obj\segment_display.o: src\segment_display.h
-.\obj\segment_display.o: C:\Users\Maxim\Documents\GitHub\ECSE-426-Microprocessor-System\Lab 4\RTX Base Project\RTE\Device\STM32F407VG\stm32f4xx_conf.h
-.\obj\segment_display.o: C:\Users\Maxim\Documents\GitHub\ECSE-426-Microprocessor-System\Lab 4\RTX Base Project\RTE\RTE_Components.h
+.\obj\segment_display.o: C:\Users\Oli\Desktop\ECSE 426 - MicroP\Lab 4\RTX Base Project\RTE\Device\STM32F407VG\stm32f4xx_conf.h
+.\obj\segment_display.o: C:\Users\Oli\Desktop\ECSE 426 - MicroP\Lab 4\RTX Base Project\RTE\RTE_Components.h
 .\obj\segment_display.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc\stm32f4xx_adc.h
 .\obj\segment_display.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include\stm32f4xx.h
 .\obj\segment_display.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include\core_cm4.h
@@ -10,7 +10,7 @@
 .\obj\segment_display.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include\core_cmFunc.h
 .\obj\segment_display.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include\core_cmSimd.h
 .\obj\segment_display.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include\system_stm32f4xx.h
-.\obj\segment_display.o: C:\Users\Maxim\Documents\GitHub\ECSE-426-Microprocessor-System\Lab 4\RTX Base Project\RTE\Device\STM32F407VG\stm32f4xx_conf.h
+.\obj\segment_display.o: C:\Users\Oli\Desktop\ECSE 426 - MicroP\Lab 4\RTX Base Project\RTE\Device\STM32F407VG\stm32f4xx_conf.h
 .\obj\segment_display.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc\stm32f4xx_crc.h
 .\obj\segment_display.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc\stm32f4xx_dbgmcu.h
 .\obj\segment_display.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc\stm32f4xx_dma.h
@@ -36,3 +36,6 @@
 .\obj\segment_display.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc\stm32f4xx_dac.h
 .\obj\segment_display.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc\stm32f4xx_dcmi.h
 .\obj\segment_display.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc\stm32f4xx_fsmc.h
+.\obj\segment_display.o: src\temperature_sensor.h
+.\obj\segment_display.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\obj\segment_display.o: src\kalman_filter.h

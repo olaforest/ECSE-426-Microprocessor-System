@@ -18,6 +18,7 @@
 #define DISPLAY_READY	  0x04
 #define KEYPAD_READY	  0x08
 
+int mode = 1;
 float pitch = 0.0;
 float current_temperature = 0.0;
 
@@ -60,7 +61,8 @@ void segment_display(void const * arg){
 	
 	while(1){
 		osSignalWait(DISPLAY_READY, osWaitForever);
-		display_current_pitch(125, count++);
+		display_value(mode, pitch, 51.5, count++);
+		//display_current_pitch(pitch, count++);
 	}
 }
 
@@ -81,6 +83,7 @@ void mems(void const * arg){
 }
 
 void temp_sensor(void const * arg){
+	
 	uint16_t LED_pins[4] = { GPIO_Pin_12, GPIO_Pin_13, GPIO_Pin_14, GPIO_Pin_15 };
 	int duty_cycle = 0;
 	int increasing = 1;
@@ -103,9 +106,9 @@ void temp_sensor(void const * arg){
 		// make a decision of whether to run the normal or alarm routines, 
 		// based on the current temperature and chosen alarm thershold.
 		if (current_temperature < ALARM_THRESHOLD) {
-			normal_operation((int) current_temperature, LED_pins);
+			//normal_operation((int) current_temperature, LED_pins);
 		} else {
-			alarm_operation(&ticks_count, &increasing, &duty_cycle);
+			//alarm_operation(&ticks_count, &increasing, &duty_cycle);
 		}	
 		
 	}
@@ -129,9 +132,9 @@ int main (void) {
 	keypad_init();
 	
 	mems_thread = osThreadCreate(osThread(mems), NULL);
-	temp_sensor_thread = osThreadCreate(osThread(temp_sensor), NULL);
+	//temp_sensor_thread = osThreadCreate(osThread(temp_sensor), NULL);
 	display_thread = osThreadCreate(osThread(segment_display), NULL);
-	keypad_thread = osThreadCreate(osThread(keypad), NULL);
+	//keypad_thread = osThreadCreate(osThread(keypad), NULL);
 		
 	// start thread execution 
 	osKernelStart();                         
