@@ -2,8 +2,8 @@
  * CMSIS-RTOS 'main' function template
  *---------------------------------------------------------------------------*/
 
-#define osObjectsPublic                     // define objects in main module
-#include "osObjects.h"                      // RTOS object definitions
+#define osObjectsPublic                 // define objects in main module
+#include "osObjects.h"                  // RTOS object definitions
 #include "stm32f4xx.h"                  // Device header
 #include "stm32f4xx_conf.h"
 #include <stdio.h>
@@ -13,13 +13,12 @@ void Blinky_GPIO_Init(void){
 	
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);
 
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_12 | GPIO_Pin_13| GPIO_Pin_14| GPIO_Pin_15;
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
-  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
-  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
-  GPIO_Init(GPIOD, &GPIO_InitStructure);
-	
+	GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_12 | GPIO_Pin_13| GPIO_Pin_14| GPIO_Pin_15;
+	GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_OUT;
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
+	GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_NOPULL;
+	GPIO_Init(GPIOD, &GPIO_InitStructure);	
 }
 
 void Blinky(void const *argument){
@@ -36,19 +35,21 @@ osThreadDef(Blinky, osPriorityNormal, 1, 0);
  * main: initialize and start the system
  */
 int main (void) {
-  osKernelInitialize ();                    // initialize CMSIS-RTOS
+	// initialize CMSIS-RTOS
+	osKernelInitialize();                    
 	
 	// ID for thread
-	osThreadId	Blinky_thread;
+	osThreadId Blinky_thread;
 	
-  // initialize peripherals here
+	// initialize peripherals here
 	Blinky_GPIO_Init();
 	
-  // create 'thread' functions that start executing,
-  // example: tid_name = osThreadCreate (osThread(name), NULL);
+	// create 'thread' functions that start executing,
+	// example: tid_name = osThreadCreate (osThread(name), NULL);
 	Blinky_thread = osThreadCreate(osThread(Blinky), NULL);
 	
-	osKernelStart ();                         // start thread execution 
+	// start thread execution 
+	osKernelStart();                         
 }
 
 
