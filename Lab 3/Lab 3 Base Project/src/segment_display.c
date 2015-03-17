@@ -18,7 +18,7 @@ void config_tim3(void){
 	
 	// Enable and set TIM3 Interrupt to the highest priority
 	NVIC_initStruct.NVIC_IRQChannel						= TIM3_IRQn;
-	NVIC_initStruct.NVIC_IRQChannelPreemptionPriority	= 0x00;
+	NVIC_initStruct.NVIC_IRQChannelPreemptionPriority	= 0x01;
 	NVIC_initStruct.NVIC_IRQChannelSubPriority			= 0x00;
 	NVIC_initStruct.NVIC_IRQChannelCmd					= ENABLE;
 	NVIC_Init(&NVIC_initStruct);

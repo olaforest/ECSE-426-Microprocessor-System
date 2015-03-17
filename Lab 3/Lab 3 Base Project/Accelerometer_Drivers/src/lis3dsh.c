@@ -83,7 +83,7 @@ static void LIS3DSH_LowLevel_Init(void);
 
 /**
   * @brief  Set LIS3DSH Initialization.
-  * @param  LIS3DSH_Config_Struct: pointer to a LIS3DSH_Config_TypeDef structure 
+  * @param  LIS3DSH_Config_Struct: pointer to a LIS3DSH_Config_TypeDef structure
   *         that contains the configuration setting for the LIS3DSH.
   * @retval None
   */
