@@ -18,15 +18,15 @@ void config_tim3(void){
 	NVIC_InitTypeDef NVIC_initStruct;
 	
 	// Configure TIM3 timer
-	TIM3_initStruct.TIM_Prescaler			= TIM3_PRESCALAR; 	//old: 0xFFFF;
+	TIM3_initStruct.TIM_Prescaler			= TIM3_PRESCALAR; 
 	TIM3_initStruct.TIM_CounterMode			= TIM_CounterMode_Up;
-	TIM3_initStruct.TIM_Period				= TIM3_PERIOD; 		//old: 0x0008;
+	TIM3_initStruct.TIM_Period				= TIM3_PERIOD; 		
 	TIM3_initStruct.TIM_ClockDivision		= TIM_CKD_DIV1;	
 	TIM_TimeBaseInit(TIM3, &TIM3_initStruct);
 	
 	// Enable and set TIM3 Interrupt to the highest priority
 	NVIC_initStruct.NVIC_IRQChannel						= TIM3_IRQn;
-	NVIC_initStruct.NVIC_IRQChannelPreemptionPriority	= 0x01;
+	NVIC_initStruct.NVIC_IRQChannelPreemptionPriority	= 0x02;
 	NVIC_initStruct.NVIC_IRQChannelSubPriority			= 0x00;
 	NVIC_initStruct.NVIC_IRQChannelCmd					= ENABLE;
 	NVIC_Init(&NVIC_initStruct);
@@ -52,6 +52,11 @@ void config_segment_display(void){
 	GPIO_InitStructure.GPIO_PuPd	= GPIO_PuPd_NOPULL;
 	GPIO_Init(GPIOD, &GPIO_InitStructure);
 	
+}
+
+void display_init(void){
+	config_tim3();
+	config_segment_display();
 }
 
 // Display the current pitch angle (i.e. when the current pitch angle is within 5 degrees from the target angle).
@@ -107,40 +112,4 @@ void display_current_pitch(float pitch, int count){
 		
 		GPIO_SetBits(GPIOD, digit_select[count % 3]);
 		GPIO_SetBits(GPIOD, digit_pins[display_digit] | SEGMENT_PIN_DEGREE_SIGN);
-}
-
-// Animation to tell the user to go down (i.e. the current pitch angle is greater than the target angle).
-void display_anim_larger(int count){
-	
-	uint16_t digit_pins[2] = {DISPLAY_d, DISPLAY_n};
-	uint16_t digit_select[2] = {DIGIT1_ON, DIGIT2_ON};
-	
-	GPIO_ResetBits(GPIOD, GPIO_SEGMENT_PINS);
-	GPIO_SetBits(GPIOD, digit_select[count % 2]);
-	GPIO_SetBits(GPIOD, digit_pins[count % 2]);
-}
-
-// Animation to tell the user that to go up (i.e. the current pitch angle is smaller than the target angle).
-void display_anim_smaller(int count){
-	
-	uint16_t digit_pins[2] = {DISPLAY_U, DISPLAY_P};
-	uint16_t digit_select[2] = {DIGIT1_ON, DIGIT2_ON};
-	
-	GPIO_ResetBits(GPIOD, GPIO_SEGMENT_PINS);
-	GPIO_SetBits(GPIOD, digit_select[count % 2]);
-	GPIO_SetBits(GPIOD, digit_pins[count % 2]);
-}
-
-// Selects and runs the appropriate animation on the 7-segment display based on the difference
-// of the current pitch angle and the desired target angle.
-void display_routine(float pitch, int target_angle, int count){
-	if(pitch > target_angle + 5){
-		display_anim_larger(count);
-	}
-	else if(pitch < target_angle - 5){
-		display_anim_smaller(count);
-	}
-	else {
-		display_current_pitch(pitch, count);
-	}
 }

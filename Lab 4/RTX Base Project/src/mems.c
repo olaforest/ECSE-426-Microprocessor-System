@@ -31,8 +31,8 @@ void config_LIS3DSH(void){
 	LIS3DSH_DataReadyInterruptConfig(&lis3dsh_interruptConfigStruct);
 }
 
-// Configure the external interupt (EXTI and NVIC)
-void config_ext_interupt(void){
+// Configure the external interrupt (EXTI and NVIC)
+void config_ext_interrupt(void){
 	
 	EXTI_InitTypeDef EXTI_initStruct;
 	NVIC_InitTypeDef NVIC_initStruct;
@@ -52,12 +52,11 @@ void config_ext_interupt(void){
 	
 	// Enable and set EXTI Line0 Interrupt to the highest priority
 	NVIC_initStruct.NVIC_IRQChannel						= EXTI0_IRQn;
-	NVIC_initStruct.NVIC_IRQChannelPreemptionPriority	= 0x00;
+	NVIC_initStruct.NVIC_IRQChannelPreemptionPriority	= 0x01;
 	NVIC_initStruct.NVIC_IRQChannelSubPriority			= 0x00;
 	NVIC_initStruct.NVIC_IRQChannelCmd					= ENABLE;
 	NVIC_Init(&NVIC_initStruct);
 }
-
 
 // read and normalize the accelerations using the offline calibration matrix.
 void get_accelerations(float * norm_acc_X, float * norm_acc_Y, float * norm_acc_Z){
@@ -101,13 +100,7 @@ float get_pitch_angle(void){
 	return atan(norm_acc_X / sqrt(norm_acc_Y * norm_acc_Y + norm_acc_Z * norm_acc_Z)) * 180 / PI + 90;	
 }
 
-// Kalman filter to filter an input. Based on the Kalman filter that was used in Labs 1 and 2.
-float kalmanFilter(float input, KalmanState* kstate){
-	float filtered;
-	kstate->p = kstate->p + kstate->q;
-	kstate->k = kstate->p / (kstate->p + kstate->r);
-	filtered = kstate->x = kstate->x + kstate->k * (input - kstate->x);
-	kstate->p = (1 - kstate->k) * kstate->p;
-
-	return filtered;
+void mems_init(void){
+	config_LIS3DSH();
+	config_ext_interrupt();
 }

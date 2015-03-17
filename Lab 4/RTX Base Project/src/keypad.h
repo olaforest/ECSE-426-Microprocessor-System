@@ -37,6 +37,6 @@ Date:	March 16, 2015
 void keypad_init(void);
 uint8_t read_cols(void);
 int get_key(char * key);
-int get_target_angle(volatile uint_fast16_t * ready);
+int get_target_angle();
 
 #endif

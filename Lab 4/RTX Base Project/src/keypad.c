@@ -71,15 +71,13 @@ int get_key(char * key){
 }
 
 // returns the angle that the user inputs using the keypad
-int get_target_angle(volatile uint_fast16_t * ready){
+int get_target_angle(){
 		
 	char key;
 	int target_angle = 0;
 	int keys_pressed = 0;		// counter of the number of keys that were pressed (only for digits)
 	int count = 0;
 	while (keys_pressed < 3 && key != ENTER){
-		while (!(*ready));
-		*ready = 0;
 		
 		// check if a it's time to scan for input. If yes, scan and see if the a key was pressed.
 		if (!(count++ % KEY_SCAN_CLK_DIV) && get_key(&key)){

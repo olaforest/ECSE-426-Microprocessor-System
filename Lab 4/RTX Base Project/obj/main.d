@@ -39,3 +39,11 @@
 .\obj\main.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc\stm32f4xx_dcmi.h
 .\obj\main.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc\stm32f4xx_fsmc.h
 .\obj\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\obj\main.o: src\mems.h
+.\obj\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\obj\main.o: .\Accelerometer_Drivers\inc\lis3dsh.h
+.\obj\main.o: src\kalman_filter.h
+.\obj\main.o: src\temperature_sensor.h
+.\obj\main.o: src\segment_display.h
+.\obj\main.o: src\keypad.h
+.\obj\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\ctype.h

@@ -18,4 +18,6 @@ typedef struct {
 	float k;
 } KalmanState;
 
+float kalmanFilter(float input, KalmanState* kstate);
+
 #endif
