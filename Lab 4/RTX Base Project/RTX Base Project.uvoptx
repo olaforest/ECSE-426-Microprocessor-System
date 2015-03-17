@@ -197,12 +197,17 @@
         <Ww>
           <count>0</count>
           <WinNumber>1</WinNumber>
-          <ItemText>pitch</ItemText>
+          <ItemText>x</ItemText>
         </Ww>
         <Ww>
           <count>1</count>
           <WinNumber>1</WinNumber>
-          <ItemText>current_temperature</ItemText>
+          <ItemText>t</ItemText>
+        </Ww>
+        <Ww>
+          <count>2</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>k</ItemText>
         </Ww>
       </WatchWindow1>
       <WatchWindow2>
@@ -214,10 +219,20 @@
         <Ww>
           <count>1</count>
           <WinNumber>2</WinNumber>
-          <ItemText>pitch</ItemText>
+          <ItemText>current_temperature</ItemText>
         </Ww>
         <Ww>
           <count>2</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>pitch</ItemText>
+        </Ww>
+        <Ww>
+          <count>3</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>pitch</ItemText>
+        </Ww>
+        <Ww>
+          <count>4</count>
           <WinNumber>2</WinNumber>
           <ItemText>pitch</ItemText>
         </Ww>
