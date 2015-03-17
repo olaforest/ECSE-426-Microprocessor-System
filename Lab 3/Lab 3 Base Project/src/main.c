@@ -1,3 +1,11 @@
+/*
+ECSE 426 - Lab 3
+Maxim Goukhshtein (ID: 260429739)
+Olivier Laforest  (ID: 260469066)
+Group #3
+Date:	March 16, 2015
+*/ 
+
 #include <stdio.h>
 #include "stm32f4xx.h"                  // Device header
 #include "stm32f4xx_conf.h"
@@ -29,7 +37,7 @@ int main(){
 	kstate.p = 0.0;
 	kstate.k = 0.0;
 	kstate.r = 50;
-	kstate.q = 1;
+	kstate.q = 0.5;
 	kstate.x = 0.0;
 	
 	int count = 0;
