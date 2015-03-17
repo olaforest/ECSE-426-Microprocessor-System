@@ -29,7 +29,8 @@ Date:	March 16, 2015
 #define COL_4_VALUE 0x7
 #define NUM_ROWS 4
 #define NUM_COLS 4
-#define ENTER '#'
+#define TEMP_MODE 'A'
+#define MEMS_MODE 'B'
 #define DUMMY_KEY 'x'
 #define KEY_SCAN_FREQ 4
 #define KEY_SCAN_CLK_DIV (TIM3_DESIRED_RATE / KEY_SCAN_FREQ)
@@ -37,6 +38,6 @@ Date:	March 16, 2015
 void keypad_init(void);
 uint8_t read_cols(void);
 int get_key(char * key);
-int get_target_angle();
+char get_input(void);
 
 #endif

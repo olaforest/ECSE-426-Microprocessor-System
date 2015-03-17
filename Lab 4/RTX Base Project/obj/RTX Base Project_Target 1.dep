@@ -1,5 +1,5 @@
 Dependencies for Project 'RTX Base Project', Target 'Target 1': (DO NOT MODIFY !)
-F (.\src\main.c)(0x5508829C)(-c --cpu Cortex-M4.fp -D__RTX -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I.\inc -I.\Accelerometer_Drivers\inc --c99-I "C:\Users\Maxim\Documents\GitHub\ECSE-426-Microprocessor-System\Lab 4\RTX Base Project\RTE"-I "C:\Users\Maxim\Documents\GitHub\ECSE-426-Microprocessor-System\Lab 4\RTX Base Project\RTE\Device\STM32F407VG"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS_RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc-D__UVISION_VERSION="513" -D_RTE_ -DSTM32F40_41xxx -DHSE_VALUE="8000000" -DUSE_STDPERIPH_DRIVER-o .\obj\main.o --omf_browse .\obj\main.crf --depend .\obj\main.d)
+F (.\src\main.c)(0x5508A28C)(-c --cpu Cortex-M4.fp -D__RTX -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I.\inc -I.\Accelerometer_Drivers\inc --c99-I "C:\Users\Maxim\Documents\GitHub\ECSE-426-Microprocessor-System\Lab 4\RTX Base Project\RTE"-I "C:\Users\Maxim\Documents\GitHub\ECSE-426-Microprocessor-System\Lab 4\RTX Base Project\RTE\Device\STM32F407VG"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS_RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc-D__UVISION_VERSION="513" -D_RTE_ -DSTM32F40_41xxx -DHSE_VALUE="8000000" -DUSE_STDPERIPH_DRIVER-o .\obj\main.o --omf_browse .\obj\main.crf --depend .\obj\main.d)
 I (src\osObjects.h)(0x55084404)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS_RTX\INC\cmsis_os.h)(0x54205206)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5476B7E0)
@@ -45,7 +45,7 @@ I (.\Accelerometer_Drivers\inc\lis3dsh.h)(0x55084403)
 I (src\kalman_filter.h)(0x550867BB)
 I (src\temperature_sensor.h)(0x55087668)
 I (src\segment_display.h)(0x55087EDA)
-I (src\keypad.h)(0x55088127)
+I (src\keypad.h)(0x5508914C)
 I (C:\Keil_v5\ARM\ARMCC\include\ctype.h)(0x5476B7E0)
 F (.\src\fputc_debug.c)(0x55084404)(-c --cpu Cortex-M4.fp -D__RTX -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I.\inc -I.\Accelerometer_Drivers\inc --c99-I "C:\Users\Maxim\Documents\GitHub\ECSE-426-Microprocessor-System\Lab 4\RTX Base Project\RTE"-I "C:\Users\Maxim\Documents\GitHub\ECSE-426-Microprocessor-System\Lab 4\RTX Base Project\RTE\Device\STM32F407VG"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS_RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc-D__UVISION_VERSION="513" -D_RTE_ -DSTM32F40_41xxx -DHSE_VALUE="8000000" -DUSE_STDPERIPH_DRIVER-o .\obj\fputc_debug.o --omf_browse .\obj\fputc_debug.crf --depend .\obj\fputc_debug.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5476B7E0)
@@ -211,8 +211,8 @@ I (C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc\stm3
 I (C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc\stm32f4xx_dcmi.h)(0x52B471C6)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc\stm32f4xx_fsmc.h)(0x52B471C6)
 F (.\src\segment_display.h)(0x55087EDA)()
-F (.\src\keypad.c)(0x55088100)(-c --cpu Cortex-M4.fp -D__RTX -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I.\inc -I.\Accelerometer_Drivers\inc --c99-I "C:\Users\Maxim\Documents\GitHub\ECSE-426-Microprocessor-System\Lab 4\RTX Base Project\RTE"-I "C:\Users\Maxim\Documents\GitHub\ECSE-426-Microprocessor-System\Lab 4\RTX Base Project\RTE\Device\STM32F407VG"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS_RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc-D__UVISION_VERSION="513" -D_RTE_ -DSTM32F40_41xxx -DHSE_VALUE="8000000" -DUSE_STDPERIPH_DRIVER-o .\obj\keypad.o --omf_browse .\obj\keypad.crf --depend .\obj\keypad.d)
-I (src\keypad.h)(0x55088127)
+F (.\src\keypad.c)(0x55089173)(-c --cpu Cortex-M4.fp -D__RTX -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I.\inc -I.\Accelerometer_Drivers\inc --c99-I "C:\Users\Maxim\Documents\GitHub\ECSE-426-Microprocessor-System\Lab 4\RTX Base Project\RTE"-I "C:\Users\Maxim\Documents\GitHub\ECSE-426-Microprocessor-System\Lab 4\RTX Base Project\RTE\Device\STM32F407VG"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS_RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc-D__UVISION_VERSION="513" -D_RTE_ -DSTM32F40_41xxx -DHSE_VALUE="8000000" -DUSE_STDPERIPH_DRIVER-o .\obj\keypad.o --omf_browse .\obj\keypad.crf --depend .\obj\keypad.d)
+I (src\keypad.h)(0x5508914C)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include\stm32f4xx.h)(0x529F8002)
 I (C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include\core_cm4.h)(0x53FCE8AA)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5476B7E0)
@@ -252,7 +252,7 @@ I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x5476B7DE)
 I (src\segment_display.h)(0x55087EDA)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5476B7E0)
 I (C:\Keil_v5\ARM\ARMCC\include\ctype.h)(0x5476B7E0)
-F (.\src\keypad.h)(0x55088127)()
+F (.\src\keypad.h)(0x5508914C)()
 F (.\Accelerometer_Drivers\src\lis3dsh.c)(0x55084404)(-c --cpu Cortex-M4.fp -D__RTX -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\src -I.\inc -I.\Accelerometer_Drivers\inc --c99-I "C:\Users\Maxim\Documents\GitHub\ECSE-426-Microprocessor-System\Lab 4\RTX Base Project\RTE"-I "C:\Users\Maxim\Documents\GitHub\ECSE-426-Microprocessor-System\Lab 4\RTX Base Project\RTE\Device\STM32F407VG"-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include-I C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS_RTX\INC-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include-I C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc-D__UVISION_VERSION="513" -D_RTE_ -DSTM32F40_41xxx -DHSE_VALUE="8000000" -DUSE_STDPERIPH_DRIVER-o .\obj\lis3dsh.o --omf_browse .\obj\lis3dsh.crf --depend .\obj\lis3dsh.d)
 I (.\Accelerometer_Drivers\inc\lis3dsh.h)(0x55084403)
 I (C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include\stm32f4xx.h)(0x529F8002)

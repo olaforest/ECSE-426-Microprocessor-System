@@ -70,35 +70,13 @@ int get_key(char * key){
 	return 0;
 }
 
-// returns the angle that the user inputs using the keypad
-int get_target_angle(){
-		
+char get_input(void){
 	char key;
-	int target_angle = 0;
-	int keys_pressed = 0;		// counter of the number of keys that were pressed (only for digits)
-	int count = 0;
-	while (keys_pressed < 3 && key != ENTER){
-		
-		// check if a it's time to scan for input. If yes, scan and see if the a key was pressed.
-		if (!(count++ % KEY_SCAN_CLK_DIV) && get_key(&key)){
-			if (isdigit(key)){
-				printf("Pressed key: %c\n", key);
-				keys_pressed++;
-				// convert key to int and "append" to target angle;
-				target_angle = 10 * target_angle + (key - '0');  
-			} else if (key != ENTER){
-				printf("Please enter a digit (or press %c to confirm choice)\n", ENTER);
-			}
-		}
-		
-		// make sure that the user entered a valid target angle, otherwise prompt to re-enter the target angle.
-		if (target_angle > 180 || (key == ENTER && keys_pressed == 0)){
-			printf("You didn't choose a valid target angle (0 to 180°) before pressing enter. Please try again.\n");
-			keys_pressed = 0;
-			target_angle = 0;
-			key = DUMMY_KEY;
+	if (get_key(&key)){
+		if (key == '1' || key == '2' || key == '3' || key == '4' || key == TEMP_MODE || key == MEMS_MODE){
+			return key;
 		}
 	}
 	
-	return target_angle;
+	return DUMMY_KEY;
 }
