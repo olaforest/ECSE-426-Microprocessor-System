@@ -1,3 +1,11 @@
+/*
+ECSE 426 - Lab 3
+Maxim Goukhshtein (ID: 260429739)
+Olivier Laforest  (ID: 260469066)
+Group #3
+Date:	March 16, 2015
+*/ 
+
 #include "keypad.h"
 
 uint16_t row_pins[NUM_ROWS] = {ROW_1_PINS, ROW_2_PINS, ROW_3_PINS, ROW_4_PINS};
