@@ -15,7 +15,7 @@ Date:	March 16, 2015
 #define MEMS_MODE 1
 
 #define GPIO_SEGMENT_PINS GPIO_Pin_0 | GPIO_Pin_1 | GPIO_Pin_2 | GPIO_Pin_3 | GPIO_Pin_4 | GPIO_Pin_6 | GPIO_Pin_7 | GPIO_Pin_8// | GPIO_Pin_9 | GPIO_Pin_10 | GPIO_Pin_11 | GPIO_Pin_12
-#define GPIO_DIGIT_SELECT_PINS GPIO_Pin_4 | GPIO_Pin_5 | GPIO_Pin_7 | GPIO_Pin_8
+#define GPIO_DIGIT_SELECT_PINS GPIO_Pin_3 | GPIO_Pin_4 | GPIO_Pin_5 | GPIO_Pin_6
 
 /* Exported constants --------------------------------------------------------*/
 
@@ -68,10 +68,10 @@ Date:	March 16, 2015
 /** @defgroup DIGIT_ON_define_
   * @{
   */ 
-#define DIGIT1_ON GPIO_Pin_4
-#define DIGIT2_ON GPIO_Pin_5
-#define DIGIT3_ON GPIO_Pin_7
-#define DIGIT4_ON GPIO_Pin_8
+#define DIGIT1_ON GPIO_Pin_3
+#define DIGIT2_ON GPIO_Pin_4
+#define DIGIT3_ON GPIO_Pin_5
+#define DIGIT4_ON GPIO_Pin_6
 
 //// Definition for rates (in Hz), prescalar and period for the TIM3 clock.
 #define TIM3_COUNTER_CLK 72000 //1282

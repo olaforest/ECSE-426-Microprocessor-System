@@ -41,7 +41,7 @@ void config_tim3(void){
 void config_segment_display(void){
 	
 	// Enable GPIOD clock
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOE, ENABLE);
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);
 	
 	GPIO_InitTypeDef GPIO_InitStructure;
@@ -56,7 +56,7 @@ void config_segment_display(void){
 	
 	// Configure GPIOE pins that selects the digit of the display.
 	GPIO_InitStructure.GPIO_Pin		= GPIO_DIGIT_SELECT_PINS;
-	GPIO_Init(GPIOB, &GPIO_InitStructure);
+	GPIO_Init(GPIOE, &GPIO_InitStructure);
 }
 
 void display_init(void){
@@ -113,7 +113,7 @@ void display_value(float value, int count, int mode){
 			break;
 		}
 	
-	GPIO_SetBits(GPIOB, digit_select[count % 4]);
+	GPIO_SetBits(GPIOE, digit_select[count % 4]);
 	
 	if (count % 4 == 3) {
 		

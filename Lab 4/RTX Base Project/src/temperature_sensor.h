@@ -29,7 +29,7 @@ void normal_operation(int temperature, uint16_t LED_pins[]);
 #define AVG_SLOPE 			0.0025
 #define V_MAX     			3
 #define PULSE_WIDTH_PERIOD 	180
-#define ALARM_THRESHOLD		30
+#define ALARM_THRESHOLD		45
 #define ALL_LED_PINS		GPIO_Pin_12 | GPIO_Pin_13 | GPIO_Pin_14 | GPIO_Pin_15
 
 // Definition for rates (in Hz), prescalar and period for the TIM2 clock.

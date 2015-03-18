@@ -19,8 +19,8 @@
 #define KEYPAD_READY	  0x08
 
 float temperature = 50.0;
-float t;
-float t2;
+//float t;
+//float t2;
 
 osThreadId mems_thread, temp_sensor_thread, display_thread, keypad_thread;
 
@@ -85,8 +85,9 @@ void segment_display(void const * arg){
 	int count = 0;
 	char key = DUMMY_KEY, led = '1';
 	int mode = TEMP_MODE;
-	//float temperature = 50.0;
+//	float temperature = 50.0;
 	float pitch = 0.0;
+	int toggle = 0;
 		
 	while(1){
 		osSignalWait(DISPLAY_READY, osWaitForever);
@@ -111,23 +112,32 @@ void segment_display(void const * arg){
 			osPoolFree(mem_pool, msg); // free memory allocated for message
 		}
 		
-//		osEvent temp_evt = osMessageGet(temp_queue, 0); // wait for message
-//		if (temp_evt.status == osEventMessage) {
-//			Message* msg = ((Message *)temp_evt.value.p);
-//			temperature = msg->data;			
-//			osPoolFree(mem_pool, msg); // free memory allocated for message
-//		}
+		osEvent temp_evt = osMessageGet(temp_queue, 0); // wait for message
+		if (temp_evt.status == osEventMessage) {
+			Message* msg = ((Message *)temp_evt.value.p);
+			temperature = msg->data;			
+			osPoolFree(mem_pool, msg); // free memory allocated for message
+		}
 		
 		GPIO_ResetBits(GPIOD, GPIO_SEGMENT_PINS);
-		GPIO_ResetBits(GPIOB, GPIO_DIGIT_SELECT_PINS);
+		GPIO_ResetBits(GPIOE, GPIO_DIGIT_SELECT_PINS);
 		
-		if (temperature < ALARM_THRESHOLD || (count % (2 * TIM3_DESIRED_RATE)) < TIM3_DESIRED_RATE) {
+//		int x = (count % (2 * TIM3_DESIRED_RATE)) < TIM3_DESIRED_RATE;
+		
+		if ((count % (2 * TIM3_DESIRED_RATE)) == TIM3_DESIRED_RATE)
+			toggle = 1;
+		
+		if (temperature < ALARM_THRESHOLD || toggle){// || (count % (2 * TIM3_DESIRED_RATE)) < TIM3_DESIRED_RATE) {
+			
 			if (mode == TEMP_MODE){
 				display_value(temperature, count, TEMP_MODE); 
 			} else {
 				display_value(pitch, count, MEMS_MODE); 
 				//display_LED(pitch, count, LED_pins[(led - '1')]);
 			}
+			
+			if ((count % (2 * TIM3_DESIRED_RATE)) == 0)
+				toggle = 0;
 		}
 		
 		if (mode == MEMS_MODE){
@@ -174,17 +184,17 @@ void temp_sensor(void const * arg){
 	while(1){
 		osSignalWait(TEMP_SENSOR_READY, osWaitForever);
 		
-		t2 = volt_to_celsius(getADCVoltage());
-		t =  kalmanFilter(t2, &kstate);
+//		t2 = volt_to_celsius(getADCVoltage());
+//		t =  kalmanFilter(t2, &kstate);
 		
 		// sample the current temperature of the processor.
 		current_temperature = kalmanFilter(volt_to_celsius(getADCVoltage()), &kstate);
-		temperature = kalmanFilter(volt_to_celsius(getADCVoltage()), &kstate);		
+//		temperature = kalmanFilter(volt_to_celsius(getADCVoltage()), &kstate);		
 		
-//		Message* msg = osPoolAlloc(mem_pool);
-//		//msg->data = current_temperature;
-//		msg->data = t;
-//		osMessagePut(temp_queue, (uint32_t)msg, 0);		
+		Message* msg = osPoolAlloc(mem_pool);
+		//msg->data = current_temperature;
+		msg->data = current_temperature;
+		osMessagePut(temp_queue, (uint32_t)msg, 0);		
 	}
 }
 
