@@ -73,7 +73,7 @@ int get_key(char * key){
 char get_input(void){
 	char key;
 	if (get_key(&key)){
-		if (key == '1' || key == '2' || key == '3' || key == '4' || key == TEMP_MODE || key == MEMS_MODE){
+		if (key == '1' || key == '2' || key == '3' || key == '4' || key == TEMP_MODE_KEY || key == MEMS_MODE_KEY){
 			return key;
 		}
 	}

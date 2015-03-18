@@ -164,7 +164,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>ARMRTXEVENTFLAGS</Key>
-          <Name>-L70 -Z25 -C0 -M0 -T0</Name>
+          <Name>-L70 -Z15 -C0 -M0 -T0</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -197,7 +197,7 @@
         <Ww>
           <count>0</count>
           <WinNumber>1</WinNumber>
-          <ItemText>x</ItemText>
+          <ItemText>temperature</ItemText>
         </Ww>
         <Ww>
           <count>1</count>
@@ -207,24 +207,24 @@
         <Ww>
           <count>2</count>
           <WinNumber>1</WinNumber>
-          <ItemText>k</ItemText>
+          <ItemText>t2</ItemText>
         </Ww>
       </WatchWindow1>
       <WatchWindow2>
         <Ww>
           <count>0</count>
           <WinNumber>2</WinNumber>
-          <ItemText>pitch</ItemText>
+          <ItemText>x</ItemText>
         </Ww>
         <Ww>
           <count>1</count>
           <WinNumber>2</WinNumber>
-          <ItemText>current_temperature</ItemText>
+          <ItemText>t</ItemText>
         </Ww>
         <Ww>
           <count>2</count>
           <WinNumber>2</WinNumber>
-          <ItemText>pitch</ItemText>
+          <ItemText>k</ItemText>
         </Ww>
         <Ww>
           <count>3</count>
@@ -233,6 +233,21 @@
         </Ww>
         <Ww>
           <count>4</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>current_temperature</ItemText>
+        </Ww>
+        <Ww>
+          <count>5</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>pitch</ItemText>
+        </Ww>
+        <Ww>
+          <count>6</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>pitch</ItemText>
+        </Ww>
+        <Ww>
+          <count>7</count>
           <WinNumber>2</WinNumber>
           <ItemText>pitch</ItemText>
         </Ww>
@@ -243,7 +258,7 @@
       <DebugFlag>
         <trace>0</trace>
         <periodic>1</periodic>
-        <aLwin>0</aLwin>
+        <aLwin>1</aLwin>
         <aCover>0</aCover>
         <aSer1>0</aSer1>
         <aSer2>0</aSer2>
@@ -260,7 +275,7 @@
         <aLa>0</aLa>
         <aPa1>0</aPa1>
         <AscS4>0</AscS4>
-        <aSer4>0</aSer4>
+        <aSer4>1</aSer4>
         <StkLoc>0</StkLoc>
         <TrcWin>0</TrcWin>
         <newCpu>0</newCpu>
@@ -272,6 +287,10 @@
         <Entry>
           <Name>OS Support\Event Viewer</Name>
           <WinId>35905</WinId>
+        </Entry>
+        <Entry>
+          <Name>OS Support\System and Thread Viewer</Name>
+          <WinId>35904</WinId>
         </Entry>
       </SystemViewers>
     </TargetOption>

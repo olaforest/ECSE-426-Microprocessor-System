@@ -29,8 +29,8 @@ Date:	March 16, 2015
 #define COL_4_VALUE 0x7
 #define NUM_ROWS 4
 #define NUM_COLS 4
-#define TEMP_MODE 'A'
-#define MEMS_MODE 'B'
+#define TEMP_MODE_KEY 'A'
+#define MEMS_MODE_KEY 'B'
 #define DUMMY_KEY 'x'
 #define KEY_SCAN_FREQ 4
 #define KEY_SCAN_CLK_DIV (TIM3_DESIRED_RATE / KEY_SCAN_FREQ)

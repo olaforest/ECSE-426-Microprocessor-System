@@ -18,9 +18,9 @@
 #define DISPLAY_READY	  0x04
 #define KEYPAD_READY	  0x08
 
-
-float x, t;
-char k;
+float temperature = 50.0;
+float t;
+float t2;
 
 osThreadId mems_thread, temp_sensor_thread, display_thread, keypad_thread;
 
@@ -65,14 +65,13 @@ void TIM3_IRQHandler(){
 void keypad(void const * arg){
 	int count = 0;
 	char key;
+	int mode = TEMP_MODE;
 	
 	while(1){
 		osSignalWait(KEYPAD_READY, osWaitForever);
 		if ((count++ % KEY_SCAN_CLK_DIV) == 0){
 			key = get_input();
-			if (key != DUMMY_KEY){
-				printf("Key: %c\n", get_input());	
-			
+			if (key != DUMMY_KEY){			
 				Message* msg = osPoolAlloc(mem_pool);
 				msg->data = (float)(key - '0');
 				osMessagePut(keypad_queue, (uint32_t)msg, osWaitForever);
@@ -82,32 +81,60 @@ void keypad(void const * arg){
 }
 
 void segment_display(void const * arg){
+	uint16_t LED_pins[4] = { GPIO_Pin_12, GPIO_Pin_13, GPIO_Pin_14, GPIO_Pin_15 };
 	int count = 0;
-	
+	char key = DUMMY_KEY, led = '1';
+	int mode = TEMP_MODE;
+	//float temperature = 50.0;
+	float pitch = 0.0;
+		
 	while(1){
 		osSignalWait(DISPLAY_READY, osWaitForever);
-		display_current_pitch(125, count++);
-		
+					
 		osEvent keypad_evt = osMessageGet(keypad_queue, 0); // wait for message
 		if (keypad_evt.status == osEventMessage) {
 			Message* msg = ((Message *)keypad_evt.value.p);
-			k = (char)(((int)msg->data) + '0');			
+			key = (char)(((int)msg->data) + '0');			
 			osPoolFree(mem_pool, msg); // free memory allocated for message
-		}	
+			
+			if (key == TEMP_MODE_KEY || key == MEMS_MODE_KEY){
+				mode = key == TEMP_MODE_KEY ? TEMP_MODE : MEMS_MODE;
+			} else {
+				led = key;
+			}
+		}			
 		
 		osEvent pitch_evt = osMessageGet(pitch_queue, 0); // wait for message
 		if (pitch_evt.status == osEventMessage) {
 			Message* msg = ((Message *)pitch_evt.value.p);
-			x = msg->data;			
+			pitch = msg->data;			
 			osPoolFree(mem_pool, msg); // free memory allocated for message
 		}
 		
-		osEvent temp_evt = osMessageGet(temp_queue, 0); // wait for message
-		if (temp_evt.status == osEventMessage) {
-			Message* msg = ((Message *)temp_evt.value.p);
-			t = msg->data;			
-			osPoolFree(mem_pool, msg); // free memory allocated for message
+//		osEvent temp_evt = osMessageGet(temp_queue, 0); // wait for message
+//		if (temp_evt.status == osEventMessage) {
+//			Message* msg = ((Message *)temp_evt.value.p);
+//			temperature = msg->data;			
+//			osPoolFree(mem_pool, msg); // free memory allocated for message
+//		}
+		
+		GPIO_ResetBits(GPIOD, GPIO_SEGMENT_PINS);
+		GPIO_ResetBits(GPIOB, GPIO_DIGIT_SELECT_PINS);
+		
+		if (temperature < ALARM_THRESHOLD || (count % (2 * TIM3_DESIRED_RATE)) < TIM3_DESIRED_RATE) {
+			if (mode == TEMP_MODE){
+				display_value(temperature, count, TEMP_MODE); 
+			} else {
+				display_value(pitch, count, MEMS_MODE); 
+				//display_LED(pitch, count, LED_pins[(led - '1')]);
+			}
 		}
+		
+		if (mode == MEMS_MODE){
+			//display_value(pitch, count, MEMS_MODE); 
+			display_LED(pitch, count, LED_pins[(led - '1')]);
+		}
+		count++;
 	}
 }
 
@@ -133,11 +160,7 @@ void mems(void const * arg){
 }
 
 void temp_sensor(void const * arg){
-	uint16_t LED_pins[4] = { GPIO_Pin_12, GPIO_Pin_13, GPIO_Pin_14, GPIO_Pin_15 };
-	int duty_cycle = 0;
-	int increasing = 1;
-	int ticks_count = 0;
-	
+
 	// set the initial Kalman filter state.
 	KalmanState kstate;
 	kstate.p = 0.1;
@@ -151,20 +174,17 @@ void temp_sensor(void const * arg){
 	while(1){
 		osSignalWait(TEMP_SENSOR_READY, osWaitForever);
 		
+		t2 = volt_to_celsius(getADCVoltage());
+		t =  kalmanFilter(t2, &kstate);
+		
 		// sample the current temperature of the processor.
-		current_temperature = kalmanFilter(volt_to_celsius(getADCVoltage()), &kstate);		
+		current_temperature = kalmanFilter(volt_to_celsius(getADCVoltage()), &kstate);
+		temperature = kalmanFilter(volt_to_celsius(getADCVoltage()), &kstate);		
 		
-		Message* msg = osPoolAlloc(mem_pool);
-		msg->data = current_temperature;
-		osMessagePut(temp_queue, (uint32_t)msg, osWaitForever);
-		
-//		// make a decision of whether to run the normal or alarm routines, 
-//		// based on the current temperature and chosen alarm thershold.
-//		if (current_temperature < ALARM_THRESHOLD) {
-//			normal_operation((int) current_temperature, LED_pins);
-//		} else {
-//			alarm_operation(&ticks_count, &increasing, &duty_cycle);
-//		}			
+//		Message* msg = osPoolAlloc(mem_pool);
+//		//msg->data = current_temperature;
+//		msg->data = t;
+//		osMessagePut(temp_queue, (uint32_t)msg, 0);		
 	}
 }
 
@@ -198,5 +218,3 @@ int main (void) {
 	// start thread execution 
 	osKernelStart();                         
 }
-
-

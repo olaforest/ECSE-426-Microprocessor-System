@@ -11,6 +11,9 @@ Date:	March 16, 2015
 
 #include "stm32f4xx_conf.h"
 
+#define TEMP_MODE 0
+#define MEMS_MODE 1
+
 #define GPIO_SEGMENT_PINS GPIO_Pin_0 | GPIO_Pin_1 | GPIO_Pin_2 | GPIO_Pin_3 | GPIO_Pin_4 | GPIO_Pin_6 | GPIO_Pin_7 | GPIO_Pin_8// | GPIO_Pin_9 | GPIO_Pin_10 | GPIO_Pin_11 | GPIO_Pin_12
 #define GPIO_DIGIT_SELECT_PINS GPIO_Pin_4 | GPIO_Pin_5 | GPIO_Pin_7 | GPIO_Pin_8
 
@@ -71,9 +74,9 @@ Date:	March 16, 2015
 #define DIGIT4_ON GPIO_Pin_8
 
 //// Definition for rates (in Hz), prescalar and period for the TIM3 clock.
-#define TIM3_COUNTER_CLK 1282
+#define TIM3_COUNTER_CLK 72000 //1282
 #define TIM3_PRESCALAR ((SystemCoreClock / 2) / TIM3_COUNTER_CLK) - 1
-#define TIM3_DESIRED_RATE 160
+#define TIM3_DESIRED_RATE 7200
 #define TIM3_PERIOD (TIM3_COUNTER_CLK / TIM3_DESIRED_RATE) - 1
 
 /* Exported functions --------------------------------------------------------*/
@@ -83,8 +86,8 @@ void config_tim3(void);
 void config_segment_display(void);
 void display_init(void);
 
-// Function which properly format display output for the three possible mode of operation.
-void display_value(int mode, float pitch, float temperature,int  count);
-void display_current_pitch(float pitch, int count, int mode);
+// Function which properly format display output for the three possible modes of operation.
+void display_value(float value, int count, int mode);
+void display_LED(float pitch, int count, uint32_t LED_Pin);
 
 #endif

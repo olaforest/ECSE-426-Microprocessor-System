@@ -65,7 +65,7 @@ void display_init(void){
 }
 
 // Display the current pitch angle (i.e. when the current pitch angle is within 5 degrees from the target angle).
-void display_current_pitch(float value, int count, int mode){
+void display_value(float value, int count, int mode){
 	
 	// Look up table which maps the appropriate GPIO pins to the desired number to be displayed.
 	uint16_t digit_pins[10] = {DISPLAY_0, DISPLAY_1, DISPLAY_2, DISPLAY_3, DISPLAY_4, DISPLAY_5, DISPLAY_6, DISPLAY_7, DISPLAY_8, DISPLAY_9};
@@ -73,9 +73,7 @@ void display_current_pitch(float value, int count, int mode){
 	// Look up table which maps the appropriate GPIO pins to the 
 	// desired digit on the segment display to be lit.
 	uint16_t digit_select[4] = {DIGIT1_ON, DIGIT2_ON, DIGIT3_ON, DIGIT4_ON};
-	
-	
-		
+			
 	int display_digit, decimal_point_location;
 	
 	// Correctly formats the value angle in order to retrieve the the first 3 digits for display
@@ -129,23 +127,13 @@ void display_current_pitch(float value, int count, int mode){
 	}
 }
 
-void display_value(int mode, float pitch, float temperature, int  count){
+void display_LED(float pitch, int count, uint32_t LED_Pin){			
+	int duty_cycle = (int)((pitch / 180) * PULSE_WIDTH_PERIOD);
 	
-	GPIO_ResetBits(GPIOD, GPIO_SEGMENT_PINS);
-	GPIO_ResetBits(GPIOB, GPIO_DIGIT_SELECT_PINS);
-	
-	float displayed_value = 0;
-	
-	if (mode == 0) {
-		displayed_value = temperature;
-	}
-	else {
-		displayed_value = pitch;
-	}
-	
-	if (temperature < ALARM_THRESHOLD || (count % 320) < 160) {
-		display_current_pitch(displayed_value, count, mode);
-	}
+	// check if we're currently in the duty cycle (or remaning) time and turn LEDs on (off).
+	if ((count % PULSE_WIDTH_PERIOD) < duty_cycle)
+		GPIO_SetBits(GPIOD, LED_Pin);
+	else 
+		GPIO_ResetBits(GPIOD, ALL_LED_PINS);
 }
-
 
