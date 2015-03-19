@@ -21,8 +21,6 @@ void ADC_init(void);
 void temp_sensor_init(void);
 int getADCVoltage(void);
 float volt_to_celsius(uint_fast16_t voltage);
-void alarm_operation(int * ticks_count, int * increasing, int * duty_cycle);
-void normal_operation(int temperature, uint16_t LED_pins[]);
 
 // various constant and parameters
 #define V_25	  			0.76

@@ -70,6 +70,7 @@ int get_key(char * key){
 	return 0;
 }
 
+// Gets an input from the keypad. Returns the pressed key, or a dummy charachter if no (valid) key was pressed.
 char get_input(void){
 	char key;
 	if (get_key(&key)){

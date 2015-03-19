@@ -7,6 +7,8 @@
 ".\obj\kalman_filter.o"
 ".\obj\segment_display.o"
 ".\obj\keypad.o"
+".\obj\interrupt_service_routines.o"
+".\obj\threads.o"
 ".\obj\lis3dsh.o"
 ".\obj\lis302dl.o"
 "C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Lib\ARM\arm_cortexM4lf_math.lib"

@@ -74,7 +74,7 @@ Date:	March 16, 2015
 #define DIGIT4_ON GPIO_Pin_6
 
 //// Definition for rates (in Hz), prescalar and period for the TIM3 clock.
-#define TIM3_COUNTER_CLK 72000 //1282
+#define TIM3_COUNTER_CLK 72000
 #define TIM3_PRESCALAR ((SystemCoreClock / 2) / TIM3_COUNTER_CLK) - 1
 #define TIM3_DESIRED_RATE 7200
 #define TIM3_PERIOD (TIM3_COUNTER_CLK / TIM3_DESIRED_RATE) - 1

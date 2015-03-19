@@ -100,43 +100,6 @@ float volt_to_celsius(uint_fast16_t voltage){
 	return (((( (float)voltage / 4095) * V_MAX) - V_25) / AVG_SLOPE) + 25;
 }
 
-// routine that runs when the alarm is on, during which all 4 LEDs intensities are varied used a PWM scheme. 
-//void alarm_operation(int * ticks_count, int * increasing, int * duty_cycle){
-//	
-//	// check if the duty cycle is currently increasing 
-//	if (*increasing && *duty_cycle == PULSE_WIDTH_PERIOD)
-//		*increasing = 0;
-//	else if (!*increasing && !(*duty_cycle))
-//		*increasing = 1;
-//			
-//	// check if we're currently in the duty cycle (or remaning) time and turn LEDs on (off).
-//	if ((*ticks_count % PULSE_WIDTH_PERIOD) < *duty_cycle)
-//		GPIO_SetBits(GPIOD, ALL_LED_PINS);
-//	else 
-//		GPIO_ResetBits(GPIOD, ALL_LED_PINS);
-//	
-//	// increment the ticks count until it reaches 3 PWM periods, after which the duty cycle is changes (increased or decreased)
-//	*ticks_count = (*ticks_count + 1) % (3 * PULSE_WIDTH_PERIOD);
-//	if (!(*ticks_count)){
-//		if (*increasing)
-//			(*duty_cycle)++;
-//		else
-//			(*duty_cycle)--;
-//	}
-//}
-
-//void normal_operation(int temperature, uint16_t LED_pins[]){
-//	
-//	// an offset needed to ensure the calculated LED index is always mapped to a valid array index (i.e. 0 - 3).
-//	int offset = 4 * (1 + abs(temperature / 8));	
-//	
-//	// find LED index based on the temperature and calculated offset.
-//	int LED_idx = ((temperature / 2) + offset) % 4;	
-//			
-//	GPIO_ResetBits(GPIOD, ALL_LED_PINS);
-//	GPIO_SetBits(GPIOD, LED_pins[LED_idx]);
-//}
-
 // various initializations.
 void temp_sensor_init(){	
 	config_TIM2();

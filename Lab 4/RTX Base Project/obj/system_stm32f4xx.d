@@ -6,8 +6,8 @@
 .\obj\system_stm32f4xx.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include\core_cmFunc.h
 .\obj\system_stm32f4xx.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include\core_cmSimd.h
 .\obj\system_stm32f4xx.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include\system_stm32f4xx.h
-.\obj\system_stm32f4xx.o: C:\Users\Oli\Desktop\ECSE 426 - MP\Lab 4\RTX Base Project\RTE\Device\STM32F407VG\stm32f4xx_conf.h
-.\obj\system_stm32f4xx.o: C:\Users\Oli\Desktop\ECSE 426 - MP\Lab 4\RTX Base Project\RTE\RTE_Components.h
+.\obj\system_stm32f4xx.o: C:\Users\Maxim\Documents\GitHub\ECSE-426-Microprocessor-System\Lab 4\RTX Base Project\RTE\Device\STM32F407VG\stm32f4xx_conf.h
+.\obj\system_stm32f4xx.o: C:\Users\Maxim\Documents\GitHub\ECSE-426-Microprocessor-System\Lab 4\RTX Base Project\RTE\RTE_Components.h
 .\obj\system_stm32f4xx.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc\stm32f4xx_adc.h
 .\obj\system_stm32f4xx.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include\stm32f4xx.h
 .\obj\system_stm32f4xx.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc\stm32f4xx_crc.h

@@ -424,11 +424,6 @@
               <FilePath>.\src\osObjects.h</FilePath>
             </File>
             <File>
-              <FileName>old_main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\old_main.c</FilePath>
-            </File>
-            <File>
               <FileName>temperature_sensor.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\temperature_sensor.c</FilePath>
@@ -477,6 +472,26 @@
               <FileName>keypad.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\keypad.h</FilePath>
+            </File>
+            <File>
+              <FileName>interrupt_service_routines.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\interrupt_service_routines.h</FilePath>
+            </File>
+            <File>
+              <FileName>interrupt_service_routines.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\interrupt_service_routines.c</FilePath>
+            </File>
+            <File>
+              <FileName>threads.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\threads.h</FilePath>
+            </File>
+            <File>
+              <FileName>threads.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\threads.c</FilePath>
             </File>
           </Files>
         </Group>

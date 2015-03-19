@@ -127,7 +127,8 @@ void display_value(float value, int count, int mode){
 	}
 }
 
-void display_LED(float pitch, int count, uint32_t LED_Pin){			
+// Varies the brightness of a selected LED based on the detected pitch angle (0 - off, 180 - brightest)
+void display_LED(float pitch, int count, uint32_t LED_Pin){	
 	int duty_cycle = (int)((pitch / 180) * PULSE_WIDTH_PERIOD);
 	
 	// check if we're currently in the duty cycle (or remaning) time and turn LEDs on (off).
