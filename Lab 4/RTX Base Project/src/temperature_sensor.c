@@ -1,10 +1,10 @@
 /*
-ECSE 426 - Lab 2
+ECSE 426 - Lab 4
 Maxim Goukhshtein (ID: 260429739)
 Olivier Laforest  (ID: 260469066)
 Group #3
-Date: February 20th, 2015
-*/
+Date:	March 23, 2015
+*/ 
 
 #include <math.h>
 #include <stdlib.h>

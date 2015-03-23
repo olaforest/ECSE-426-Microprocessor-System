@@ -1,3 +1,11 @@
+/*
+ECSE 426 - Lab 4
+Maxim Goukhshtein (ID: 260429739)
+Olivier Laforest  (ID: 260469066)
+Group #3
+Date:	March 23, 2015
+*/ 
+
 #include "threads.h"
 
 // display thread handler
