@@ -1,9 +1,9 @@
 /*
-ECSE 426 - Lab 2
+ECSE 426 - Lab 4
 Maxim Goukhshtein (ID: 260429739)
 Olivier Laforest  (ID: 260469066)
 Group #3
-Date:	February 20th, 2015
+Date:	March 23, 2015
 */ 
 
 #ifndef _TEMP_SENSOR_
@@ -31,7 +31,7 @@ float volt_to_celsius(uint_fast16_t voltage);
 #define ALL_LED_PINS		GPIO_Pin_12 | GPIO_Pin_13 | GPIO_Pin_14 | GPIO_Pin_15
 
 // Definition for rates (in Hz), prescalar and period for the TIM2 clock.
-#define TIM2_COUNTER_CLK 1282
+#define TIM2_COUNTER_CLK 1500
 #define TIM2_PRESCALAR ((SystemCoreClock / 2) / TIM2_COUNTER_CLK) - 1
 #define TIM2_DESIRED_RATE 50
 #define TIM2_PERIOD (TIM2_COUNTER_CLK / TIM2_DESIRED_RATE) - 1

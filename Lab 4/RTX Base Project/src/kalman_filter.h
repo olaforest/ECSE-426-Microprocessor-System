@@ -1,9 +1,9 @@
 /*
-ECSE 426 - Lab 1
+ECSE 426 - Lab 4
 Maxim Goukhshtein (ID: 260429739)
 Olivier Laforest  (ID: 260469066)
 Group #3
-Date:	February 5th, 2015
+Date:	March 23, 2015
 */ 
 
 #ifndef _KALMAN_
