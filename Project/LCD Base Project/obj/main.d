@@ -9,8 +9,8 @@
 .\obj\main.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include\core_cmFunc.h
 .\obj\main.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include\core_cm4_simd.h
 .\obj\main.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include\system_stm32f4xx.h
-.\obj\main.o: H:\ECSE 426\Final project\Project - LCD Base Project\LCD Base Project\RTE\Device\STM32F429ZI\stm32f4xx_conf.h
-.\obj\main.o: H:\ECSE 426\Final project\Project - LCD Base Project\LCD Base Project\RTE\RTE_Components.h
+.\obj\main.o: H:\ECSE426-uP\Project\LCD Base Project\RTE\Device\STM32F429ZI\stm32f4xx_conf.h
+.\obj\main.o: H:\ECSE426-uP\Project\LCD Base Project\RTE\RTE_Components.h
 .\obj\main.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc\stm32f4xx_adc.h
 .\obj\main.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include\stm32f4xx.h
 .\obj\main.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc\stm32f4xx_crc.h
@@ -47,5 +47,7 @@
 .\obj\main.o: .\inc\fonts.h
 .\obj\main.o: .\inc\stm32f429i_discovery_l3gd20.h
 .\obj\main.o: .\inc\background16bpp.h
+.\obj\main.o: src\wireless_tx.h
+.\obj\main.o: src\cc2500.h
 .\obj\main.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdio.h
 .\obj\main.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\string.h
