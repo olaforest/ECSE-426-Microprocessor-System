@@ -364,7 +364,7 @@
               <MiscControls>--c99</MiscControls>
               <Define>HSE_VALUE=8000000 USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>.\inc;.\src;.\Gyroscope_Drivers\inc;.\Gyroscope_Drivers\src</IncludePath>
+              <IncludePath>.\inc;.\src</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -441,6 +441,13 @@
         </Group>
         <Group>
           <GroupName>Gyroscope_Drivers</GroupName>
+          <Files>
+            <File>
+              <FileName>stm32f429i_discovery_l3gd20.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\stm32f429i_discovery_l3gd20.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>::CMSIS</GroupName>
