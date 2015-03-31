@@ -224,8 +224,9 @@ int main (void) {
 	//example_1c_thread = osThreadCreate(osThread(example_1c), NULL);
 	
 	wireless_init();
-	transmit();
-	receive();
+	read_beacons();
+//	transmit();
+//	receive();
 	
 	//osKernelStart ();                         // start thread execution 
 }

@@ -13,9 +13,7 @@ static void CC2500_LowLevel_Init(void);
 static uint8_t CC2500_SendByte(uint8_t byte);
 uint8_t CC2500_CS(void);
 
-void CC2500_Init(){
-	CC2500_LowLevel_Init();
-	
+void CC2500_init(){
 	// set the configuration registers
 	uint8_t configuration[NUM_CONF_REG];
 	configuration[CC2500_REG_IOCFG2]   = CC2500_VAL_IOCFG2		
@@ -66,8 +64,12 @@ void CC2500_Init(){
 	configuration[CC2500_REG_TEST1]    = CC2500_VAL_TEST1		
 	configuration[CC2500_REG_TEST0]    = CC2500_VAL_TEST0		
 	
+	CC2500_LowLevel_Init();
+	
+	chip_reset();
+	
 	// write the set values into the registers
-	CC2500_write(configuration, CC2500_REG_IOCFG2, NUM_CONF_REG);	
+	CC2500_write(configuration, CC2500_REG_IOCFG2, NUM_CONF_REG);		
 }
 
 /**
@@ -109,22 +111,19 @@ void CC2500_write(uint8_t* pBuffer, uint8_t WriteAddr, uint16_t NumByteToWrite){
 
 /**
   * @brief  Reads a block of data from the CC2500.
-  * @param  pBuffer : pointer to the buffer that receives the data read from the LIS3DSH.
+  * @param  pBuffer : pointer to the buffer that receives the data read from the CC2500.
   * @param  ReadAddr : CC2500's internal address to read from.
-  * @param  NumByteToRead : number of bytes to read from the LIS3DSH.
+  * @param  NumByteToRead : number of bytes to read from the CC2500.
   * @retval None
   */
 void CC2500_read(uint8_t* pBuffer, uint8_t ReadAddr, uint16_t NumByteToRead)
 {  
 	ReadAddr &= CC2500_ADDR_MASK;
 	
-  if(NumByteToRead > 0x01)
-  {
+  if(NumByteToRead > 0x01) {
     ReadAddr |= (uint8_t)(READWRITE_CMD | MULTIPLEBYTE_CMD);
-  }
-  else
-  {
-    ReadAddr |= (uint8_t)READWRITE_CMD;
+  } else {
+    ReadAddr |= (uint8_t) READWRITE_CMD;
   }
   
 	/* Set chip select Low at the start of the transmission */
@@ -189,14 +188,62 @@ uint8_t CC2500_CS(){
 	return 0;
 }
 
-//uint8_t get_buffer_size(uint8_t rw){
-//	return CC2500_write(&rw, CC2500_REG_SNOP, 1);
-//}
+uint8_t send_strobe(uint8_t addr){
+	/* Set chip select Low at the start of the transmission */
+  if (CC2500_CS() == CC2500_TIMED_OUT) return CC2500_TIMED_OUT;
+ 
+	uint8_t status_byte = CC2500_SendByte(addr);
+	
+	CC2500_CS_HIGH();
+	
+  /* Send the Address of the indexed register */
+  return status_byte;
+}
 
-//uint8_t get_rx_buffer_size(uint8_t rw){
-//	return get_buffer_size(
-//}
 
+uint8_t get_rx_buffer_size(){
+	return send_strobe(CC2500_REG_SNOP | READWRITE_CMD) & 0x0F;
+}
+
+uint8_t get_tx_buffer_size(){
+	return send_strobe(CC2500_REG_SNOP) & 0x0F;
+}
+
+void chip_reset(){
+	send_strobe(CC2500_REG_SRES);
+	
+	uint32_t CC2500Timeout = CC2500_FLAG_TIMEOUT;
+  
+	while (GPIO_ReadInputDataBit(CC2500_SPI_MISO_GPIO_PORT,CC2500_SPI_MISO_PIN) != RESET){
+		if((CC2500Timeout--) == 0){
+			CC2500_CS_HIGH();			
+		}
+  }
+}
+
+void calibrate_frequency_synthesizer(){
+	send_strobe(CC2500_REG_SCAL);
+}
+
+void rx_enable(){
+	send_strobe(CC2500_REG_SRX);
+}
+
+void tx_enable(){
+	send_strobe(CC2500_REG_STX);
+}
+
+void set_idle(){
+	send_strobe(CC2500_REG_SIDLE);
+}
+
+void read_rx_fifo(uint8_t* pBuffer, uint16_t NumByteToRead){
+	CC2500_read(pBuffer, CC2500_REG_FIFO, NumByteToRead);
+}
+
+void write_tx_fifo(uint8_t* pBuffer, uint16_t NumByteToRead){
+	CC2500_write(pBuffer, CC2500_REG_FIFO, NumByteToRead);
+}
 
 /**
   * @brief  Initializes the low level interface used to drive the CC2500
