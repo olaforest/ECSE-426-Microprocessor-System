@@ -12,6 +12,8 @@
 #include "stm32f429i_discovery_l3gd20.h"
 #include "background16bpp.h"
 
+#include "wireless_tx.h"
+
 #include <stdio.h>
 #include <string.h>
 
@@ -190,21 +192,21 @@ osThreadId example_1c_thread;
  * main: initialize and start the system
  */
 int main (void) {
-  osKernelInitialize ();                    // initialize CMSIS-RTOS
-	
-  // initialize peripherals here
-	/* LCD initiatization */
-  LCD_Init();
-  
-  /* LCD Layer initiatization */
-  LCD_LayerInit();
-    
-  /* Enable the LTDC controler */
-  LTDC_Cmd(ENABLE);
-  
-  /* Set LCD foreground layer as the current layer */
-  LCD_SetLayer(LCD_FOREGROUND_LAYER);
-	
+//  osKernelInitialize ();                    // initialize CMSIS-RTOS
+//	
+//  // initialize peripherals here
+//	/* LCD initiatization */
+//  LCD_Init();
+//  
+//  /* LCD Layer initiatization */
+//  LCD_LayerInit();
+//    
+//  /* Enable the LTDC controler */
+//  LTDC_Cmd(ENABLE);
+//  
+//  /* Set LCD foreground layer as the current layer */
+//  LCD_SetLayer(LCD_FOREGROUND_LAYER);
+//	
 	
 	
   // create 'thread' functions that start executing,
@@ -218,10 +220,14 @@ int main (void) {
 	********************************************************/
 	
 	//example_1a_thread = osThreadCreate(osThread(example_1a), NULL);
-	example_1b_thread = osThreadCreate(osThread(example_1b), NULL);
+	//example_1b_thread = osThreadCreate(osThread(example_1b), NULL);
 	//example_1c_thread = osThreadCreate(osThread(example_1c), NULL);
 	
-	osKernelStart ();                         // start thread execution 
+	wireless_init();
+	transmit();
+	receive();
+	
+	//osKernelStart ();                         // start thread execution 
 }
 
 

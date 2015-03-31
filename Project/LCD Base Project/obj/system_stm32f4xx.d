@@ -6,8 +6,8 @@
 .\obj\system_stm32f4xx.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include\core_cmFunc.h
 .\obj\system_stm32f4xx.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include\core_cm4_simd.h
 .\obj\system_stm32f4xx.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include\system_stm32f4xx.h
-.\obj\system_stm32f4xx.o: H:\ECSE 426\Final project\Project - LCD Base Project\LCD Base Project\RTE\Device\STM32F429ZI\stm32f4xx_conf.h
-.\obj\system_stm32f4xx.o: H:\ECSE 426\Final project\Project - LCD Base Project\LCD Base Project\RTE\RTE_Components.h
+.\obj\system_stm32f4xx.o: H:\ECSE426-uP\Project\LCD Base Project\RTE\Device\STM32F429ZI\stm32f4xx_conf.h
+.\obj\system_stm32f4xx.o: H:\ECSE426-uP\Project\LCD Base Project\RTE\RTE_Components.h
 .\obj\system_stm32f4xx.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc\stm32f4xx_adc.h
 .\obj\system_stm32f4xx.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include\stm32f4xx.h
 .\obj\system_stm32f4xx.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc\stm32f4xx_crc.h
