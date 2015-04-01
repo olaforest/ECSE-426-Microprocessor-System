@@ -1,5 +1,6 @@
 .\obj\wireless_tx.o: src\wireless_tx.c
 .\obj\wireless_tx.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdio.h
+.\obj\wireless_tx.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\string.h
 .\obj\wireless_tx.o: src\wireless_tx.h
 .\obj\wireless_tx.o: src\cc2500.h
 .\obj\wireless_tx.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc\stm32f4xx_spi.h

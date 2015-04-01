@@ -6,5 +6,6 @@
 void wireless_init(void);
 void transmit(void);
 void receive(void);
+void read_beacons(void);
 
 #endif
