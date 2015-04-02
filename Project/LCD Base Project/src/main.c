@@ -7,10 +7,10 @@
 #include "stm32f4xx.h"                  // Device header
 
 #include "stm32f4xx_conf.h"
-#include "stm32f429i_discovery.h"
+//#include "stm32f429i_discovery.h"
 //#include "stm32f429i_discovery_lcd.h"
 //#include "stm32f429i_discovery_l3gd20.h"
-#include "background16bpp.h"
+//#include "background16bpp.h"
 
 #include "wireless_tx.h"
 
@@ -27,14 +27,14 @@ static void delay(__IO uint32_t nCount)
 }
 
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/**
-  * @brief    Illustartes a simple shape draw and fill, and string dsiplay
-  * @function This function draws concentrated colour-filled circles. It also draw a square and a triangle. Some text at two
-              different font sizes is displayed.
-  * @param    None
-  * @retval   None
-  */
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///**
+//  * @brief    Illustartes a simple shape draw and fill, and string dsiplay
+//  * @function This function draws concentrated colour-filled circles. It also draw a square and a triangle. Some text at two
+//              different font sizes is displayed.
+//  * @param    None
+//  * @retval   None
+//  */
 
 //void example_1a(void const *argument){
 //	while(1){
@@ -183,7 +183,7 @@ static void delay(__IO uint32_t nCount)
 //osThreadDef(example_1b, osPriorityNormal, 1, 0);
 //osThreadDef(example_1c, osPriorityNormal, 1, 0);
 
-//// ID for theads
+// ID for theads
 //osThreadId example_1a_thread;
 //osThreadId example_1b_thread;
 //osThreadId example_1c_thread;
@@ -224,9 +224,9 @@ int main (void) {
 	//example_1c_thread = osThreadCreate(osThread(example_1c), NULL);
 	
 	wireless_init();
-	read_beacons();
+//	read_beacons();
 //	transmit();
-//	receive();
+	receive();
 	
 	//osKernelStart ();                         // start thread execution 
 }

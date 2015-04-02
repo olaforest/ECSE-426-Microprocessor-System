@@ -3,11 +3,11 @@
 <title>Static Call Graph - [.\obj\LCD Base Project.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\obj\LCD Base Project.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5040049: Last Updated: Mon Mar 30 23:04:18 2015
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5040049: Last Updated: Wed Apr 01 17:58:39 2015
 <BR><P>
-<H3>Maximum Stack Usage =        320 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =        288 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
-main &rArr; read_beacons &rArr; write_tx_fifo &rArr; CC2500_write &rArr; CC2500_SendByte
+example_1a &rArr; LCD_FillTriangle &rArr; LCD_DrawUniLine &rArr; PutPixel &rArr; LCD_DrawLine &rArr; DMA2D_Init
 <P>
 <H3>
 Mutually Recursive functions
@@ -258,10 +258,10 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> main.o(.constdata)
 </UL>
 <P><STRONG><a name="[78]"></a>main</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, main.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 320<LI>Call Chain = main &rArr; read_beacons &rArr; write_tx_fifo &rArr; CC2500_write &rArr; CC2500_SendByte
+<BR><BR>[Stack]<UL><LI>Max Depth = 124<LI>Call Chain = main &rArr; wireless_init &rArr; CC2500_init &rArr; CC2500_LowLevel_Init &rArr; GPIO_PinAFConfig
 </UL>
 <BR>[Calls]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wireless_init
-<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_beacons
+<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;receive
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> rtx_conf_cm.o(.data)
 </UL>
@@ -686,24 +686,19 @@ Global Symbols
 <LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CC2500_SendByte
 <LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;receive
-<LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_rx_fifo
+<BR>[Called By]<UL><LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_rx_fifo
+<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;receive
 </UL>
 
-<P><STRONG><a name="[ea]"></a>get_rx_buffer_size</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, cc2500.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = get_rx_buffer_size &rArr; send_strobe &rArr; CC2500_SendByte
+<P><STRONG><a name="[ea]"></a>get_rx_buffer_size</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, cc2500.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_strobe
+<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CC2500_SendByte
 </UL>
-<BR>[Calls]<UL><LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_strobe
-</UL>
-<BR>[Called By]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_beacons
+<BR>[Called By]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_beacons
 </UL>
 
-<P><STRONG><a name="[eb]"></a>get_tx_buffer_size</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, cc2500.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = get_tx_buffer_size &rArr; send_strobe &rArr; CC2500_SendByte
-</UL>
-<BR>[Calls]<UL><LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_strobe
-</UL>
-<BR>[Called By]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_beacons
+<P><STRONG><a name="[eb]"></a>get_tx_buffer_size</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, cc2500.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_strobe
 </UL>
 
 <P><STRONG><a name="[ec]"></a>calibrate_frequency_synthesizer</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, cc2500.o(.text), UNUSED)
@@ -713,33 +708,25 @@ Global Symbols
 <P><STRONG><a name="[ed]"></a>rx_enable</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, cc2500.o(.text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_strobe
 </UL>
+<BR>[Called By]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_beacons
+</UL>
 
-<P><STRONG><a name="[ee]"></a>tx_enable</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, cc2500.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = tx_enable &rArr; send_strobe &rArr; CC2500_SendByte
-</UL>
-<BR>[Calls]<UL><LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_strobe
-</UL>
-<BR>[Called By]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_beacons
+<P><STRONG><a name="[ee]"></a>tx_enable</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, cc2500.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_strobe
 </UL>
 
 <P><STRONG><a name="[ef]"></a>set_idle</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, cc2500.o(.text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_strobe
 </UL>
 
-<P><STRONG><a name="[f0]"></a>read_rx_fifo</STRONG> (Thumb, 32 bytes, Stack size 16 bytes, cc2500.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = read_rx_fifo &rArr; CC2500_read &rArr; CC2500_SendByte
+<P><STRONG><a name="[f0]"></a>read_rx_fifo</STRONG> (Thumb, 30 bytes, Stack size 16 bytes, cc2500.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CC2500_read
 </UL>
-<BR>[Calls]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CC2500_read
-</UL>
-<BR>[Called By]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_beacons
+<BR>[Called By]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_beacons
 </UL>
 
-<P><STRONG><a name="[f1]"></a>write_tx_fifo</STRONG> (Thumb, 18 bytes, Stack size 16 bytes, cc2500.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = write_tx_fifo &rArr; CC2500_write &rArr; CC2500_SendByte
-</UL>
-<BR>[Calls]<UL><LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CC2500_write
-</UL>
-<BR>[Called By]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_beacons
+<P><STRONG><a name="[f1]"></a>write_tx_fifo</STRONG> (Thumb, 18 bytes, Stack size 16 bytes, cc2500.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CC2500_write
 </UL>
 
 <P><STRONG><a name="[93]"></a>wireless_init</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, wireless_tx.o(.text))
@@ -755,23 +742,21 @@ Global Symbols
 <LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 
-<P><STRONG><a name="[f3]"></a>receive</STRONG> (Thumb, 40 bytes, Stack size 16 bytes, wireless_tx.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CC2500_read
-<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<P><STRONG><a name="[94]"></a>receive</STRONG> (Thumb, 40 bytes, Stack size 16 bytes, wireless_tx.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = receive &rArr; CC2500_read &rArr; CC2500_SendByte
 </UL>
-
-<P><STRONG><a name="[94]"></a>read_beacons</STRONG> (Thumb, 130 bytes, Stack size 264 bytes, wireless_tx.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 312<LI>Call Chain = read_beacons &rArr; write_tx_fifo &rArr; CC2500_write &rArr; CC2500_SendByte
-</UL>
-<BR>[Calls]<UL><LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;write_tx_fifo
-<LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_rx_fifo
-<LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tx_enable
-<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_tx_buffer_size
-<LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_rx_buffer_size
-<LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<BR>[Calls]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CC2500_read
 <LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
+<P><STRONG><a name="[f3]"></a>read_beacons</STRONG> (Thumb, 60 bytes, Stack size 256 bytes, wireless_tx.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_rx_fifo
+<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rx_enable
+<LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_rx_buffer_size
+<LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 
 <P><STRONG><a name="[10]"></a>EXTI0_IRQHandler</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, wireless_tx.o(.text))
@@ -1650,8 +1635,8 @@ Global Symbols
 <BR><BR>[Calls]<UL><LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memset
 </UL>
 
-<P><STRONG><a name="[f4]"></a>__aeabi_memclr4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_beacons
+<P><STRONG><a name="[f4]"></a>__aeabi_memclr4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_beacons
 </UL>
 
 <P><STRONG><a name="[1d3]"></a>__aeabi_memclr8</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text), UNUSED)
@@ -1696,9 +1681,9 @@ Global Symbols
 <P><STRONG><a name="[8f]"></a>__2printf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf5.o(i.__0printf$5))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = __2printf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;receive
+<BR>[Called By]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_beacons
 <LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;transmit
-<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read_beacons
+<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;receive
 <LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;example_1b
 </UL>
 
@@ -2291,7 +2276,8 @@ Local Symbols
 <LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_I2S_SendData
 <LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_I2S_GetFlagStatus
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CC2500_read
+<BR>[Called By]<UL><LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_rx_buffer_size
+<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CC2500_read
 <LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_strobe
 <LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CC2500_write
 </UL>
