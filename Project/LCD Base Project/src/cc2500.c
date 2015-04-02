@@ -16,53 +16,53 @@ uint8_t CC2500_CS(void);
 void CC2500_init(){
 	// set the configuration registers
 	uint8_t configuration[NUM_CONF_REG];
-	configuration[CC2500_REG_IOCFG2]   = CC2500_VAL_IOCFG2		
-	configuration[CC2500_REG_IOCFG1]   = CC2500_VAL_IOCFG1		
-	configuration[CC2500_REG_IOCFG0]   = CC2500_VAL_IOCFG0   
-	configuration[CC2500_REG_FIFOTHR]  = CC2500_VAL_FIFOTHR 	
-	configuration[CC2500_REG_SYNC1]    = CC2500_VAL_SYNC1    
-	configuration[CC2500_REG_SYNC0]    = CC2500_VAL_SYNC0		
-	configuration[CC2500_REG_PKTLEN]   = CC2500_VAL_PKTLEN		
-	configuration[CC2500_REG_PKTCTRL1] = CC2500_VAL_PKTCTRL1	
-	configuration[CC2500_REG_PKTCTRL0] = CC2500_VAL_PKTCTRL0	
-	configuration[CC2500_REG_ADDR]     = CC2500_VAL_ADDR			
-	configuration[CC2500_REG_CHANNR]   = CC2500_VAL_CHANNR		
-	configuration[CC2500_REG_FSCTRL1]  = CC2500_VAL_FSCTRL1	
-	configuration[CC2500_REG_FSCTRL0]  = CC2500_VAL_FSCTRL0  
-	configuration[CC2500_REG_FREQ2]    = CC2500_VAL_FREQ2 		
-	configuration[CC2500_REG_FREQ1]    = CC2500_VAL_FREQ1		
-	configuration[CC2500_REG_FREQ0]    = CC2500_VAL_FREQ0		
-	configuration[CC2500_REG_MDMCFG4]  = CC2500_VAL_MDMCFG4	
-	configuration[CC2500_REG_MDMCFG3]  = CC2500_VAL_MDMCFG3  
-	configuration[CC2500_REG_MDMCFG2]  = CC2500_VAL_MDMCFG2  
-	configuration[CC2500_REG_MDMCFG1]  = CC2500_VAL_MDMCFG1  
-	configuration[CC2500_REG_MDMCFG0]  = CC2500_VAL_MDMCFG0  
-	configuration[CC2500_REG_DEVIATN]  = CC2500_VAL_DEVIATN  
-	configuration[CC2500_REG_MCSM2]    = CC2500_VAL_MCSM2    
-	configuration[CC2500_REG_MCSM1]    = CC2500_VAL_MCSM1    
-	configuration[CC2500_REG_MCSM0]    = CC2500_VAL_MCSM0    
-	configuration[CC2500_REG_FOCCFG]   = CC2500_VAL_FOCCFG   
-	configuration[CC2500_REG_BSCFG]    = CC2500_VAL_BSCFG 		
-	configuration[CC2500_REG_AGCTRL2]  = CC2500_VAL_AGCCTRL2 
-	configuration[CC2500_REG_AGCTRL1]  = CC2500_VAL_AGCCTRL1 
-	configuration[CC2500_REG_AGCTRL0]  = CC2500_VAL_AGCCTRL0 
-	configuration[CC2500_REG_WOREVT1]  = CC2500_VAL_WOREVT1  
-	configuration[CC2500_REG_WOREVT0]  = CC2500_VAL_WOREVT0  
-	configuration[CC2500_REG_WORCTRL]  = CC2500_VAL_WORCTRL  
-	configuration[CC2500_REG_FREND1]   = CC2500_VAL_FREND1   
-	configuration[CC2500_REG_FREND0]   = CC2500_VAL_FREND0   
-	configuration[CC2500_REG_FSCAL3]   = CC2500_VAL_FSCAL3   
-	configuration[CC2500_REG_FSCAL2]   = CC2500_VAL_FSCAL2   
-	configuration[CC2500_REG_FSCAL1]   = CC2500_VAL_FSCAL1   
-	configuration[CC2500_REG_FSCAL0]   = CC2500_VAL_FSCAL0   
-	configuration[CC2500_REG_RCCTRL1]  = CC2500_VAL_RCCTRL1  
-	configuration[CC2500_REG_RCCTRL0]  = CC2500_VAL_RCCTRL0  
-	configuration[CC2500_REG_FSTEST]   = CC2500_VAL_FSTEST 	
-	configuration[CC2500_REG_PTEST]    = CC2500_VAL_PTEST		
-	configuration[CC2500_REG_AGCTEST]  = CC2500_VAL_AGCTEST 	
-	configuration[CC2500_REG_TEST2]    = CC2500_VAL_TEST2		
-	configuration[CC2500_REG_TEST1]    = CC2500_VAL_TEST1		
-	configuration[CC2500_REG_TEST0]    = CC2500_VAL_TEST0		
+	configuration[CC2500_REG_IOCFG2]   = CC2500_VAL_IOCFG2;		
+	configuration[CC2500_REG_IOCFG1]   = CC2500_VAL_IOCFG1;	
+	configuration[CC2500_REG_IOCFG0]   = CC2500_VAL_IOCFG0;   
+	configuration[CC2500_REG_FIFOTHR]  = CC2500_VAL_FIFOTHR; 	
+	configuration[CC2500_REG_SYNC1]    = CC2500_VAL_SYNC1;    
+	configuration[CC2500_REG_SYNC0]    = CC2500_VAL_SYNC0;		
+	configuration[CC2500_REG_PKTLEN]   = CC2500_VAL_PKTLEN;		
+	configuration[CC2500_REG_PKTCTRL1] = CC2500_VAL_PKTCTRL1;	
+	configuration[CC2500_REG_PKTCTRL0] = CC2500_VAL_PKTCTRL0;	
+	configuration[CC2500_REG_ADDR]     = CC2500_VAL_ADDR;			
+	configuration[CC2500_REG_CHANNR]   = CC2500_VAL_CHANNR;		
+	configuration[CC2500_REG_FSCTRL1]  = CC2500_VAL_FSCTRL1;	
+	configuration[CC2500_REG_FSCTRL0]  = CC2500_VAL_FSCTRL0;  
+	configuration[CC2500_REG_FREQ2]    = CC2500_VAL_FREQ2; 		
+	configuration[CC2500_REG_FREQ1]    = CC2500_VAL_FREQ1;		
+	configuration[CC2500_REG_FREQ0]    = CC2500_VAL_FREQ0;		
+	configuration[CC2500_REG_MDMCFG4]  = CC2500_VAL_MDMCFG4;	
+	configuration[CC2500_REG_MDMCFG3]  = CC2500_VAL_MDMCFG3;  
+	configuration[CC2500_REG_MDMCFG2]  = CC2500_VAL_MDMCFG2;  
+	configuration[CC2500_REG_MDMCFG1]  = CC2500_VAL_MDMCFG1;  
+	configuration[CC2500_REG_MDMCFG0]  = CC2500_VAL_MDMCFG0;  
+	configuration[CC2500_REG_DEVIATN]  = CC2500_VAL_DEVIATN;  
+	configuration[CC2500_REG_MCSM2]    = CC2500_VAL_MCSM2;    
+	configuration[CC2500_REG_MCSM1]    = CC2500_VAL_MCSM1;    
+	configuration[CC2500_REG_MCSM0]    = CC2500_VAL_MCSM0;    
+	configuration[CC2500_REG_FOCCFG]   = CC2500_VAL_FOCCFG;   
+	configuration[CC2500_REG_BSCFG]    = CC2500_VAL_BSCFG;		
+	configuration[CC2500_REG_AGCTRL2]  = CC2500_VAL_AGCCTRL2; 
+	configuration[CC2500_REG_AGCTRL1]  = CC2500_VAL_AGCCTRL1; 
+	configuration[CC2500_REG_AGCTRL0]  = CC2500_VAL_AGCCTRL0; 
+	configuration[CC2500_REG_WOREVT1]  = CC2500_VAL_WOREVT1; 
+	configuration[CC2500_REG_WOREVT0]  = CC2500_VAL_WOREVT0;  
+	configuration[CC2500_REG_WORCTRL]  = CC2500_VAL_WORCTRL;  
+	configuration[CC2500_REG_FREND1]   = CC2500_VAL_FREND1;   
+	configuration[CC2500_REG_FREND0]   = CC2500_VAL_FREND0;   
+	configuration[CC2500_REG_FSCAL3]   = CC2500_VAL_FSCAL3;   
+	configuration[CC2500_REG_FSCAL2]   = CC2500_VAL_FSCAL2;   
+	configuration[CC2500_REG_FSCAL1]   = CC2500_VAL_FSCAL1;   
+	configuration[CC2500_REG_FSCAL0]   = CC2500_VAL_FSCAL0;   
+	configuration[CC2500_REG_RCCTRL1]  = CC2500_VAL_RCCTRL1;  
+	configuration[CC2500_REG_RCCTRL0]  = CC2500_VAL_RCCTRL0;  
+	configuration[CC2500_REG_FSTEST]   = CC2500_VAL_FSTEST; 	
+	configuration[CC2500_REG_PTEST]    = CC2500_VAL_PTEST;		
+	configuration[CC2500_REG_AGCTEST]  = CC2500_VAL_AGCTEST; 	
+	configuration[CC2500_REG_TEST2]    = CC2500_VAL_TEST2;		
+	configuration[CC2500_REG_TEST1]    = CC2500_VAL_TEST1;		
+	configuration[CC2500_REG_TEST0]    = CC2500_VAL_TEST0;		
 	
 	CC2500_LowLevel_Init();
 	
@@ -202,7 +202,9 @@ uint8_t send_strobe(uint8_t addr){
 
 
 uint8_t get_rx_buffer_size(){
-	return send_strobe(CC2500_REG_SNOP | READWRITE_CMD) & 0x0F;
+	send_strobe(CC2500_REG_SNOP | READWRITE_CMD);
+	return CC2500_SendByte(DUMMY_BYTE) & 0x0F;
+	//return send_strobe(CC2500_REG_SNOP | READWRITE_CMD) & 0x0F;
 }
 
 uint8_t get_tx_buffer_size(){

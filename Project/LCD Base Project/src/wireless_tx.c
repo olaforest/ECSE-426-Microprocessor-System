@@ -26,15 +26,13 @@ void receive(){
 	for (int i = 0; i < NUM_CONF_REG; i++){
 		CC2500_read(&byte, (uint8_t)i, 1);
 		printf("Read by at address %X: %X\n", i, byte);
-	}
-	
-	
+	}	
 }
 
 void read_beacons(){
 	ready = 0;
-//	rx_enable();
-	tx_enable();
+	rx_enable();
+//	tx_enable();
 	
 	while (1){
 		//while(!ready);
@@ -44,21 +42,22 @@ void read_beacons(){
 		memset(buffer, 0, 255);
 		uint8_t buff_size = get_rx_buffer_size();
 		
-		for (int i = 0; i < 5; i++){		
-			uint8_t crap = ((uint8_t)0x00);
-			printf("TX FIFO FREE: %u\n", get_tx_buffer_size());
-			write_tx_fifo(&crap, 1);
-		}	
-		
-		
-		if (buff_size >= 1){
+//		for (int i = 0; i < 5; i++){		
+//			uint8_t crap = ((uint8_t)0x00);
+//			printf("TX FIFO FREE: %u\n", get_tx_buffer_size());
+//			write_tx_fifo(&crap, 1);
+//		}	
+				
+		if (buff_size >= 0){
 			read_rx_fifo(buffer, buff_size);
 			
-			for (int i = 0; i < buff_size; i++){				
-				printf("Count: %c\n", (buffer[i] - '0'));
-				printf("TX FIFO FREE: %u\n", get_tx_buffer_size());
-				write_tx_fifo(&buffer[i], 1);
-			}			
+			printf("Count: %c\n", (buffer[0] - '0'));
+			
+//			for (int i = 0; i < buff_size; i++){				
+//				printf("Count: %c\n", (buffer[i] - '0'));
+//				printf("TX FIFO FREE: %u\n", get_tx_buffer_size());
+//				write_tx_fifo(&buffer[i], 1);
+//			}			
 		}
 	}
 }

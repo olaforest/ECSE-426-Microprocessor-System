@@ -16,38 +16,73 @@
 
 
 // CC2500 SPI Interface pins
-#define CC2500_SPI                       SPI4
-#define CC2500_SPI_CLK                   RCC_APB2Periph_SPI4
+//#define CC2500_SPI                       SPI4
+//#define CC2500_SPI_CLK                   RCC_APB2Periph_SPI4
 
-#define CC2500_SPI_SCK_PIN               GPIO_Pin_2                  /* PE.02 */
-#define CC2500_SPI_SCK_GPIO_PORT         GPIOE                       /* GPIOE */
-#define CC2500_SPI_SCK_GPIO_CLK          RCC_AHB1Periph_GPIOE
-#define CC2500_SPI_SCK_SOURCE            GPIO_PinSource2
-#define CC2500_SPI_SCK_AF                GPIO_AF_SPI4
+//#define CC2500_SPI_SCK_PIN               GPIO_Pin_2                  /* PE.02 */
+//#define CC2500_SPI_SCK_GPIO_PORT         GPIOE                       /* GPIOE */
+//#define CC2500_SPI_SCK_GPIO_CLK          RCC_AHB1Periph_GPIOE
+//#define CC2500_SPI_SCK_SOURCE            GPIO_PinSource2
+//#define CC2500_SPI_SCK_AF                GPIO_AF_SPI4
 
-#define CC2500_SPI_MISO_PIN              GPIO_Pin_5                  /* PE.05 */
-#define CC2500_SPI_MISO_GPIO_PORT        GPIOE                       /* GPIOE */
-#define CC2500_SPI_MISO_GPIO_CLK         RCC_AHB1Periph_GPIOE
-#define CC2500_SPI_MISO_SOURCE           GPIO_PinSource5
-#define CC2500_SPI_MISO_AF               GPIO_AF_SPI4
+//#define CC2500_SPI_MISO_PIN              GPIO_Pin_5                  /* PE.05 */
+//#define CC2500_SPI_MISO_GPIO_PORT        GPIOE                       /* GPIOE */
+//#define CC2500_SPI_MISO_GPIO_CLK         RCC_AHB1Periph_GPIOE
+//#define CC2500_SPI_MISO_SOURCE           GPIO_PinSource5
+//#define CC2500_SPI_MISO_AF               GPIO_AF_SPI4
 
-#define CC2500_SPI_MOSI_PIN              GPIO_Pin_6                  /* PE.06 */
-#define CC2500_SPI_MOSI_GPIO_PORT        GPIOE                       /* GPIOE */
-#define CC2500_SPI_MOSI_GPIO_CLK         RCC_AHB1Periph_GPIOE
-#define CC2500_SPI_MOSI_SOURCE           GPIO_PinSource6
-#define CC2500_SPI_MOSI_AF               GPIO_AF_SPI4
+//#define CC2500_SPI_MOSI_PIN              GPIO_Pin_6                  /* PE.06 */
+//#define CC2500_SPI_MOSI_GPIO_PORT        GPIOE                       /* GPIOE */
+//#define CC2500_SPI_MOSI_GPIO_CLK         RCC_AHB1Periph_GPIOE
+//#define CC2500_SPI_MOSI_SOURCE           GPIO_PinSource6
+//#define CC2500_SPI_MOSI_AF               GPIO_AF_SPI4
 
-#define CC2500_SPI_CS_PIN                GPIO_Pin_5                  /* PF.05 */
-#define CC2500_SPI_CS_GPIO_PORT          GPIOF                       /* GPIOF */
-#define CC2500_SPI_CS_GPIO_CLK           RCC_AHB1Periph_GPIOF
+//#define CC2500_SPI_CS_PIN                GPIO_Pin_5                  /* PF.05 */
+//#define CC2500_SPI_CS_GPIO_PORT          GPIOF                       /* GPIOF */
+//#define CC2500_SPI_CS_GPIO_CLK           RCC_AHB1Periph_GPIOF
 
-#define CC2500_SPI_INT1_PIN              GPIO_Pin_4                  /* PF.04 */
-#define CC2500_SPI_INT1_GPIO_PORT        GPIOF                       /* GPIOF */
+//#define CC2500_SPI_INT1_PIN              GPIO_Pin_4                  /* PF.04 */
+//#define CC2500_SPI_INT1_GPIO_PORT        GPIOF                       /* GPIOF */
+//#define CC2500_SPI_INT1_GPIO_CLK         RCC_AHB1Periph_GPIOF
+//#define CC2500_SPI_INT1_EXTI_LINE        EXTI_Line0
+//#define CC2500_SPI_INT1_EXTI_PORT_SOURCE EXTI_PortSourceGPIOF
+//#define CC2500_SPI_INT1_EXTI_PIN_SOURCE  EXTI_PinSource0
+//#define CC2500_SPI_INT1_EXTI_IRQn        EXTI0_IRQn 
+
+#define CC2500_SPI                       SPI1
+#define CC2500_SPI_CLK                   RCC_APB2Periph_SPI1
+
+#define CC2500_SPI_SCK_PIN               GPIO_Pin_5                  /* PA.05 */
+#define CC2500_SPI_SCK_GPIO_PORT         GPIOA                       /* GPIOA */
+#define CC2500_SPI_SCK_GPIO_CLK          RCC_AHB1Periph_GPIOA
+#define CC2500_SPI_SCK_SOURCE            GPIO_PinSource5
+#define CC2500_SPI_SCK_AF                GPIO_AF_SPI1
+
+#define CC2500_SPI_MISO_PIN              GPIO_Pin_6                  /* PA.06 */
+#define CC2500_SPI_MISO_GPIO_PORT        GPIOA                       /* GPIOA */
+#define CC2500_SPI_MISO_GPIO_CLK         RCC_AHB1Periph_GPIOA
+#define CC2500_SPI_MISO_SOURCE           GPIO_PinSource6
+#define CC2500_SPI_MISO_AF               GPIO_AF_SPI1
+
+#define CC2500_SPI_MOSI_PIN              GPIO_Pin_7                  /* PE.07 */
+#define CC2500_SPI_MOSI_GPIO_PORT        GPIOA                       /* GPIOA */
+#define CC2500_SPI_MOSI_GPIO_CLK         RCC_AHB1Periph_GPIOA
+#define CC2500_SPI_MOSI_SOURCE           GPIO_PinSource7
+#define CC2500_SPI_MOSI_AF               GPIO_AF_SPI1
+
+#define CC2500_SPI_CS_PIN                GPIO_Pin_4                  /* PC.04 */
+#define CC2500_SPI_CS_GPIO_PORT          GPIOC                       /* GPIOC */
+#define CC2500_SPI_CS_GPIO_CLK           RCC_AHB1Periph_GPIOC
+
+#define CC2500_SPI_INT1_PIN              GPIO_Pin_5                  /* PC.05 */
+#define CC2500_SPI_INT1_GPIO_PORT        GPIOC                       /* GPIOC */
 #define CC2500_SPI_INT1_GPIO_CLK         RCC_AHB1Periph_GPIOF
 #define CC2500_SPI_INT1_EXTI_LINE        EXTI_Line0
 #define CC2500_SPI_INT1_EXTI_PORT_SOURCE EXTI_PortSourceGPIOF
 #define CC2500_SPI_INT1_EXTI_PIN_SOURCE  EXTI_PinSource0
 #define CC2500_SPI_INT1_EXTI_IRQn        EXTI0_IRQn 
+
+
 
 // macros to set the chip select low/high 
 #define CC2500_CS_LOW()       GPIO_ResetBits(CC2500_SPI_CS_GPIO_PORT, CC2500_SPI_CS_PIN)
@@ -116,53 +151,91 @@
 #define CC2500_REG_FIFO			 ((uint8_t)0x3F)
 
 // CC2500 configuration registers values (auto-generated by SmartRF)
-#define	CC2500_VAL_IOCFG2		 ((uint8_t)0x07);       
-#define	CC2500_VAL_IOCFG1		 ((uint8_t)0x2E);       
-#define	CC2500_VAL_IOCFG0    ((uint8_t)0x06);       
-#define	CC2500_VAL_FIFOTHR 	 ((uint8_t)0x07);      
-#define	CC2500_VAL_SYNC1     ((uint8_t)0xD3);        
-#define	CC2500_VAL_SYNC0		 ((uint8_t)0x91);        
-#define	CC2500_VAL_PKTLEN		 ((uint8_t)0xFF);     //  
-#define	CC2500_VAL_PKTCTRL1	 ((uint8_t)0x04);     
-#define	CC2500_VAL_PKTCTRL0	 ((uint8_t)0x0E);     // 
-#define	CC2500_VAL_ADDR			 ((uint8_t)0x00);         
-#define	CC2500_VAL_CHANNR		 ((uint8_t)0x00);       
-#define	CC2500_VAL_FSCTRL1	 ((uint8_t)0x0A);     // 
-#define	CC2500_VAL_FSCTRL0   ((uint8_t)0x00);      
-#define	CC2500_VAL_FREQ2 		 ((uint8_t)0x5D);        
-#define	CC2500_VAL_FREQ1		 ((uint8_t)0x93);     //   
-#define	CC2500_VAL_FREQ0		 ((uint8_t)0xB1);     //  
-#define	CC2500_VAL_MDMCFG4	 ((uint8_t)0x2D);     // 
-#define	CC2500_VAL_MDMCFG3   ((uint8_t)0x3B);      
-#define	CC2500_VAL_MDMCFG2   ((uint8_t)0x73);     // 
-#define	CC2500_VAL_MDMCFG1   ((uint8_t)0x22);     // 
-#define	CC2500_VAL_MDMCFG0   ((uint8_t)0xF8);      
-#define	CC2500_VAL_DEVIATN   ((uint8_t)0x00);     //
-#define	CC2500_VAL_MCSM2     ((uint8_t)0x07);        
-#define	CC2500_VAL_MCSM1     ((uint8_t)0x3E);       
-#define	CC2500_VAL_MCSM0     ((uint8_t)0x18);        
-#define	CC2500_VAL_FOCCFG    ((uint8_t)0x1D);     // 
-#define	CC2500_VAL_BSCFG 		 ((uint8_t)0x1C);        
-#define	CC2500_VAL_AGCCTRL2  ((uint8_t)0xC7);     
-#define	CC2500_VAL_AGCCTRL1  ((uint8_t)0x00);     //
-#define	CC2500_VAL_AGCCTRL0  ((uint8_t)0xB0);     
-#define	CC2500_VAL_WOREVT1   ((uint8_t)0x87);      
-#define	CC2500_VAL_WOREVT0   ((uint8_t)0x6B);      
-#define	CC2500_VAL_WORCTRL   ((uint8_t)0xF8);      
-#define	CC2500_VAL_FREND1    ((uint8_t)0xB6);       
-#define	CC2500_VAL_FREND0    ((uint8_t)0x10);       
-#define	CC2500_VAL_FSCAL3    ((uint8_t)0xEA);       
-#define	CC2500_VAL_FSCAL2    ((uint8_t)0x0A);       
-#define	CC2500_VAL_FSCAL1    ((uint8_t)0x00);       
-#define	CC2500_VAL_FSCAL0    ((uint8_t)0x11);    	//   
-#define	CC2500_VAL_RCCTRL1   ((uint8_t)0x41);      
-#define	CC2500_VAL_RCCTRL0   ((uint8_t)0x00);    	//  
-#define	CC2500_VAL_FSTEST 	 ((uint8_t)0x59);       
-#define	CC2500_VAL_PTEST		 ((uint8_t)0x7F);        
-#define	CC2500_VAL_AGCTEST 	 ((uint8_t)0x3F);      
-#define	CC2500_VAL_TEST2		 ((uint8_t)0x88);        
-#define	CC2500_VAL_TEST1		 ((uint8_t)0x31);        
-#define	CC2500_VAL_TEST0		 ((uint8_t)0x0B);            
+//#define	CC2500_VAL_IOCFG2		 ((uint8_t)0x07);       
+#define	CC2500_VAL_IOCFG1		 ((uint8_t)0x2E)       
+//#define	CC2500_VAL_IOCFG0    ((uint8_t)0x06);       
+//#define	CC2500_VAL_FIFOTHR 	 ((uint8_t)0x07);      
+#define	CC2500_VAL_SYNC1     ((uint8_t)0xD3)        
+#define	CC2500_VAL_SYNC0		 ((uint8_t)0x91)        
+//#define	CC2500_VAL_PKTLEN		 ((uint8_t)0xFF);     //  
+//#define	CC2500_VAL_PKTCTRL1	 ((uint8_t)0x04);     
+//#define	CC2500_VAL_PKTCTRL0	 ((uint8_t)0x0E);     // 
+//#define	CC2500_VAL_ADDR			 ((uint8_t)0x00);         
+//#define	CC2500_VAL_CHANNR		 ((uint8_t)0x00);       
+//#define	CC2500_VAL_FSCTRL1	 ((uint8_t)0x0A);     // 
+//#define	CC2500_VAL_FSCTRL0   ((uint8_t)0x00);      
+//#define	CC2500_VAL_FREQ2 		 ((uint8_t)0x5D);        
+//#define	CC2500_VAL_FREQ1		 ((uint8_t)0x93);     //   
+//#define	CC2500_VAL_FREQ0		 ((uint8_t)0xB1);     //  
+//#define	CC2500_VAL_MDMCFG4	 ((uint8_t)0x2D);     // 
+//#define	CC2500_VAL_MDMCFG3   ((uint8_t)0x3B);      
+//#define	CC2500_VAL_MDMCFG2   ((uint8_t)0x73);     // 
+//#define	CC2500_VAL_MDMCFG1   ((uint8_t)0x22);     // 
+//#define	CC2500_VAL_MDMCFG0   ((uint8_t)0xF8);      
+//#define	CC2500_VAL_DEVIATN   ((uint8_t)0x00);     //
+#define	CC2500_VAL_MCSM2     ((uint8_t)0x07)        
+//#define	CC2500_VAL_MCSM1     ((uint8_t)0x3E);       
+//#define	CC2500_VAL_MCSM0     ((uint8_t)0x18);        
+//#define	CC2500_VAL_FOCCFG    ((uint8_t)0x1D);     // 
+//#define	CC2500_VAL_BSCFG 		 ((uint8_t)0x1C);        
+#define	CC2500_VAL_AGCCTRL2  ((uint8_t)0xC7)     
+#define	CC2500_VAL_AGCCTRL1  ((uint8_t)0x00)     //
+#define	CC2500_VAL_AGCCTRL0  ((uint8_t)0xB0)     
+#define	CC2500_VAL_WOREVT1   ((uint8_t)0x87)      
+#define	CC2500_VAL_WOREVT0   ((uint8_t)0x6B)      
+#define	CC2500_VAL_WORCTRL   ((uint8_t)0xF8)      
+//#define	CC2500_VAL_FREND1    ((uint8_t)0xB6);       
+//#define	CC2500_VAL_FREND0    ((uint8_t)0x10);       
+//#define	CC2500_VAL_FSCAL3    ((uint8_t)0xEA);       
+//#define	CC2500_VAL_FSCAL2    ((uint8_t)0x0A);       
+//#define	CC2500_VAL_FSCAL1    ((uint8_t)0x00);       
+//#define	CC2500_VAL_FSCAL0    ((uint8_t)0x11);    	//   
+#define	CC2500_VAL_RCCTRL1   ((uint8_t)0x41)      
+#define	CC2500_VAL_RCCTRL0   ((uint8_t)0x00)   	//  
+//#define	CC2500_VAL_FSTEST 	 ((uint8_t)0x59);       
+#define	CC2500_VAL_PTEST		 ((uint8_t)0x7F)        
+#define	CC2500_VAL_AGCTEST 	 ((uint8_t)0x3F)      
+//#define	CC2500_VAL_TEST2		 ((uint8_t)0x88);        
+//#define	CC2500_VAL_TEST1		 ((uint8_t)0x31);        
+//#define	CC2500_VAL_TEST0		 ((uint8_t)0x0B);            
+
+#define CC2500_VAL_IOCFG2 	0x29 		
+#define CC2500_VAL_IOCFG0 	0x06	
+#define CC2500_VAL_FIFOTHR 	0x07
+#define CC2500_VAL_PKTLEN 	0x01
+#define CC2500_VAL_PKTCTRL1 0x08	
+#define CC2500_VAL_PKTCTRL0 0x04	
+#define CC2500_VAL_ADDR 		0x00	
+#define CC2500_VAL_CHANNR 	0x00
+#define CC2500_VAL_FSCTRL1 	0x0C	
+#define CC2500_VAL_FSCTRL0 	0x00	
+#define CC2500_VAL_FREQ2 		0x5D	 // freq set to 2.433 GHz, note f_xosc = 26MHz
+#define CC2500_VAL_FREQ1 		0x94	
+#define CC2500_VAL_FREQ0 		0x02	
+#define CC2500_VAL_MDMCFG4 	0x0E
+#define CC2500_VAL_MDMCFG3 	0x3B
+#define CC2500_VAL_MDMCFG2 	0x73	
+#define CC2500_VAL_MDMCFG1 	0x42	
+#define CC2500_VAL_MDMCFG0 	0xF8	
+#define CC2500_VAL_DEVIATN 	0x00	
+#define CC2500_VAL_MCSM1 		0x02	
+#define CC2500_VAL_MCSM0 		0x18	
+#define CC2500_VAL_FOCCFG 	0x1D	
+#define CC2500_VAL_BSCFG 		0x1C	
+#define CC2500_VAL_AGCTRL2 	0xC7	 
+#define CC2500_VAL_AGCTRL1 	0x40	
+#define CC2500_VAL_AGCTRL0 	0xB0
+#define CC2500_VAL_FREND1 	0xB6	 
+#define CC2500_VAL_FREND0 	0x10	
+#define CC2500_VAL_FSCAL3 	0xEA	 
+#define CC2500_VAL_FSCAL2 	0x0A	
+#define CC2500_VAL_FSCAL1 	0x00	 
+#define CC2500_VAL_FSCAL0 	0x19	
+#define CC2500_VAL_FSTEST 	0x59
+#define CC2500_VAL_TEST2 		0x88	
+#define CC2500_VAL_TEST1 		0x31	
+#define CC2500_VAL_TEST0 		0x0B
+
 
 void CC2500_init(void);
 void CC2500_write(uint8_t* pBuffer, uint8_t WriteAddr, uint16_t NumByteToWrite);
