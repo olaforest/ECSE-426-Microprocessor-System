@@ -65,21 +65,29 @@ void transmit(){
 
 void receive(){
 //	uint8_t addr = 0x10;
-	uint8_t byte = 0x9;
+	uint8_t byte;
 //	
 //	CC2500_read(&byte, addr, 1);
 //	printf("Read by at address %u: %u\n", addr, byte);
+	
 	
 	for (int i = 0; i < NUM_CONF_REG; i++){
 		CC2500_read(&byte, (uint8_t)i, 1);
 		printf("Read by at address %X: %X\n", i, byte);
 	}	
+	
+	uint8_t buffer[NUM_CONF_REG];
+	CC2500_read(buffer, CC2500_REG_IOCFG2, NUM_CONF_REG);
+	for (int i = 0; i < NUM_CONF_REG; i++){
+		printf("Read by at address %X: %X\n", i, buffer[i]);
+	}
 }
 
 void read_beacons(){
 	ready = 0;
 	set_idle();
-	send_strobe(0x3A);
+//	while ((get_status_byte() & 0xF0) != 0x00);
+	flush_rx_fifo();
 	rx_enable();
 
 	while (1){
@@ -92,24 +100,32 @@ void read_beacons(){
 		uint8_t buffer[64];
 		memset(buffer, 0, 64);
 		
-		rx_enable();		
-//		uint8_t buff_size = get_rx_buffer_size();
-			
-		uint8_t buff_size;
-		//CC2500_read(&buff_size, 0xFB, 1);
-//		printf("Buffer size: %u\n", buff_size);
+		rx_enable();
+		get_data(buffer);
+//		while ((get_status_byte() & 0xF0) != 0x10);
 		
-		if (buff_size >= 0){
-			read_rx_fifo(buffer, 1);
-			data = buffer[0];
-//			printf("Count: %c\n", (buffer[0] - '0'));
-			
-//			for (int i = 0; i < buff_size; i++){				
-//				printf("Count: %c\n", (buffer[i] - '0'));
-//				printf("TX FIFO FREE: %u\n", get_tx_buffer_size());
-//				write_tx_fifo(&buffer[i], 1);
-//			}			
-		}
+//		uint8_t buff_size, buff_size2;
+//		buff_size = get_rx_buffer_size();
+//		buff_size2 = get_status_byte(1); 
+////		CC2500_read(&buff_size, 0xFB, 1);
+//		
+//		if (buff_size >= 0){
+//			read_rx_fifo(buffer, 4);
+//			data = buffer[0];
+////			printf("Count: %c\n", (buffer[0] - '0'));
+//			
+////			for (int i = 0; i < buff_size; i++){				
+////				printf("Count: %c\n", (buffer[i] - '0'));
+////				printf("TX FIFO FREE: %u\n", get_tx_buffer_size());
+////				write_tx_fifo(&buffer[i], 1);
+////			}			
+//		}
+//		
+////		set_idle();
+////		while ((get_status_byte() & 0xF0) != 0x00);
+////		flush_rx_fifo();
+////		rx_enable();		
+////		while ((get_status_byte() & 0xF0) != 0x10);
 	}
 }
 

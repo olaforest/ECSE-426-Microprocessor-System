@@ -1,7 +1,7 @@
 #include "cc2500.h"
 
 /* Read/Write command */
-#define READWRITE_CMD     ((uint8_t)0x80) 
+#define READ_CMD     ((uint8_t)0x80) 
 
 /* Multiple byte read/write command */ 
 #define MULTIPLEBYTE_CMD  ((uint8_t)0x40)
@@ -11,6 +11,7 @@
 
 static void CC2500_LowLevel_Init(void);
 static uint8_t CC2500_SendByte(uint8_t byte);
+static void CC2500_send_byte(uint8_t addr, uint8_t byte);
 uint8_t CC2500_CS(void);
 
 void CC2500_init(){
@@ -43,9 +44,9 @@ void CC2500_init(){
 	configuration[CC2500_REG_MCSM0]    = CC2500_VAL_MCSM0;    
 	configuration[CC2500_REG_FOCCFG]   = CC2500_VAL_FOCCFG;   
 	configuration[CC2500_REG_BSCFG]    = CC2500_VAL_BSCFG;		
-	configuration[CC2500_REG_AGCTRL2]  = CC2500_VAL_AGCCTRL2; 
-	configuration[CC2500_REG_AGCTRL1]  = CC2500_VAL_AGCCTRL1; 
-	configuration[CC2500_REG_AGCTRL0]  = CC2500_VAL_AGCCTRL0; 
+	configuration[CC2500_REG_AGCTRL2]  = CC2500_VAL_AGCTRL2; 
+	configuration[CC2500_REG_AGCTRL1]  = CC2500_VAL_AGCTRL1; 
+	configuration[CC2500_REG_AGCTRL0]  = CC2500_VAL_AGCTRL0; 
 	configuration[CC2500_REG_WOREVT1]  = CC2500_VAL_WOREVT1; 
 	configuration[CC2500_REG_WOREVT0]  = CC2500_VAL_WOREVT0;  
 	configuration[CC2500_REG_WORCTRL]  = CC2500_VAL_WORCTRL;  
@@ -63,13 +64,54 @@ void CC2500_init(){
 	configuration[CC2500_REG_TEST2]    = CC2500_VAL_TEST2;		
 	configuration[CC2500_REG_TEST1]    = CC2500_VAL_TEST1;		
 	configuration[CC2500_REG_TEST0]    = CC2500_VAL_TEST0;		
-	
-	CC2500_LowLevel_Init();
-	
-	chip_reset();
+		
+	CC2500_LowLevel_Init();	
+		
+	chip_reset();	
 		
 	// write the set values into the registers
 	CC2500_write(configuration, CC2500_REG_IOCFG2, NUM_CONF_REG);		
+		
+//	CC2500_send_byte(CC2500_REG_IOCFG2  , CC2500_VAL_IOCFG2);		
+//	CC2500_send_byte(CC2500_REG_IOCFG0  , CC2500_VAL_IOCFG0);   
+//	CC2500_send_byte(CC2500_REG_FIFOTHR , CC2500_VAL_FIFOTHR); 		
+//	CC2500_send_byte(CC2500_REG_PKTLEN  , CC2500_VAL_PKTLEN);		
+//	CC2500_send_byte(CC2500_REG_PKTCTRL1, CC2500_VAL_PKTCTRL1);	
+//	CC2500_send_byte(CC2500_REG_PKTCTRL0, CC2500_VAL_PKTCTRL0);	
+//	CC2500_send_byte(CC2500_REG_ADDR    , CC2500_VAL_ADDR);			
+//	CC2500_send_byte(CC2500_REG_CHANNR  , CC2500_VAL_CHANNR);		
+//	CC2500_send_byte(CC2500_REG_FSCTRL1 , CC2500_VAL_FSCTRL1);	
+//	CC2500_send_byte(CC2500_REG_FSCTRL0 , CC2500_VAL_FSCTRL0);  
+//	CC2500_send_byte(CC2500_REG_FREQ2   , CC2500_VAL_FREQ2); 		
+//	CC2500_send_byte(CC2500_REG_FREQ1   , CC2500_VAL_FREQ1);		
+//	CC2500_send_byte(CC2500_REG_FREQ0   , CC2500_VAL_FREQ0);		
+//	CC2500_send_byte(CC2500_REG_MDMCFG4 , CC2500_VAL_MDMCFG4);	
+//	CC2500_send_byte(CC2500_REG_MDMCFG3 , CC2500_VAL_MDMCFG3);  
+//	CC2500_send_byte(CC2500_REG_MDMCFG2 , CC2500_VAL_MDMCFG2);  
+//	CC2500_send_byte(CC2500_REG_MDMCFG1 , CC2500_VAL_MDMCFG1);  
+//	CC2500_send_byte(CC2500_REG_MDMCFG0 , CC2500_VAL_MDMCFG0);  
+//	CC2500_send_byte(CC2500_REG_DEVIATN , CC2500_VAL_DEVIATN);  
+//	CC2500_send_byte(CC2500_REG_MCSM1   , CC2500_VAL_MCSM1);    
+//	CC2500_send_byte(CC2500_REG_MCSM0   , CC2500_VAL_MCSM0);    
+//	CC2500_send_byte(CC2500_REG_FOCCFG  , CC2500_VAL_FOCCFG);   
+//	CC2500_send_byte(CC2500_REG_BSCFG   , CC2500_VAL_BSCFG);		
+//	CC2500_send_byte(CC2500_REG_AGCTRL2 , CC2500_VAL_AGCTRL2); 
+//	CC2500_send_byte(CC2500_REG_AGCTRL1 , CC2500_VAL_AGCTRL1); 
+//	CC2500_send_byte(CC2500_REG_AGCTRL0 , CC2500_VAL_AGCTRL0); 
+//	CC2500_send_byte(CC2500_REG_FREND1  , CC2500_VAL_FREND1);   
+//	CC2500_send_byte(CC2500_REG_FREND0  , CC2500_VAL_FREND0);   
+//	CC2500_send_byte(CC2500_REG_FSCAL3  , CC2500_VAL_FSCAL3);   
+//	CC2500_send_byte(CC2500_REG_FSCAL2  , CC2500_VAL_FSCAL2);   
+//	CC2500_send_byte(CC2500_REG_FSCAL1  , CC2500_VAL_FSCAL1);   
+//	CC2500_send_byte(CC2500_REG_FSCAL0  , CC2500_VAL_FSCAL0);   
+//	CC2500_send_byte(CC2500_REG_FSTEST  , CC2500_VAL_FSTEST); 	 	
+//	CC2500_send_byte(CC2500_REG_TEST2   , CC2500_VAL_TEST2);		
+//	CC2500_send_byte(CC2500_REG_TEST1   , CC2500_VAL_TEST1);		
+//	CC2500_send_byte(CC2500_REG_TEST0   , CC2500_VAL_TEST0);			
+
+//	flush_rx_fifo();
+//	flush_tx_fifo();
+//	set_idle();
 }
 
 /**
@@ -117,9 +159,9 @@ void CC2500_write(uint8_t* pBuffer, uint8_t WriteAddr, uint16_t NumByteToWrite){
 void CC2500_read(uint8_t* pBuffer, uint8_t ReadAddr, uint16_t NumByteToRead)
 {  	
   if(NumByteToRead > 0x01) {
-    ReadAddr |= (uint8_t)(READWRITE_CMD | MULTIPLEBYTE_CMD);
+    ReadAddr |= (uint8_t)(READ_CMD | MULTIPLEBYTE_CMD);
   } else {
-    ReadAddr |= (uint8_t) READWRITE_CMD;
+    ReadAddr |= (uint8_t) READ_CMD;
   }
   
 	/* Set chip select Low at the start of the transmission */
@@ -169,7 +211,47 @@ static uint8_t CC2500_SendByte(uint8_t byte)
   /* Return the Byte read from the SPI bus */
   return (uint8_t)SPI_I2S_ReceiveData(CC2500_SPI);
 }
- 
+
+static void CC2500_send_byte(uint8_t addr, uint8_t byte){
+	if (CC2500_CS() == CC2500_TIMED_OUT) return;
+	
+	 /* Loop while DR register in not emplty */
+  uint32_t CC2500Timeout = CC2500_FLAG_TIMEOUT;
+  while (SPI_I2S_GetFlagStatus(CC2500_SPI, SPI_I2S_FLAG_TXE) == RESET)
+  {
+    if((CC2500Timeout--) == 0) return;
+  }
+  
+  /* Send a Byte through the SPI peripheral */
+  SPI_I2S_SendData(CC2500_SPI, addr);
+  
+  /* Wait to receive a Byte */
+  CC2500Timeout = CC2500_FLAG_TIMEOUT;
+  while (SPI_I2S_GetFlagStatus(CC2500_SPI, SPI_I2S_FLAG_RXNE) == RESET)
+  {
+    if((CC2500Timeout--) == 0) return;
+  }
+	
+	 /* Loop while DR register in not emplty */
+  CC2500Timeout = CC2500_FLAG_TIMEOUT;
+  while (SPI_I2S_GetFlagStatus(CC2500_SPI, SPI_I2S_FLAG_TXE) == RESET)
+  {
+    if((CC2500Timeout--) == 0) return;
+  }
+  
+  /* Send a Byte through the SPI peripheral */
+  SPI_I2S_SendData(CC2500_SPI, byte);
+  
+  /* Wait to receive a Byte */
+  CC2500Timeout = CC2500_FLAG_TIMEOUT;
+  while (SPI_I2S_GetFlagStatus(CC2500_SPI, SPI_I2S_FLAG_RXNE) == RESET)
+  {
+    if((CC2500Timeout--) == 0) return;
+  }
+  
+	CC2500_CS_HIGH();
+}
+
 uint8_t CC2500_CS(){
 	CC2500_CS_LOW();
   uint32_t CC2500Timeout = CC2500_FLAG_TIMEOUT;
@@ -196,19 +278,40 @@ uint8_t send_strobe(uint8_t addr){
   return status_byte;
 }
 
+void get_data(uint8_t * pBuffer){
+	if (CC2500_CS() == CC2500_TIMED_OUT) return;
+	
+	uint8_t tttt = CC2500_SendByte(0xFB);	
+	uint8_t NumByteToRead = CC2500_SendByte(DUMMY_BYTE) & 0x3F;
+	NumByteToRead = 0x01;
+	
+	CC2500_SendByte(CC2500_REG_FIFO | READ_CMD | MULTIPLEBYTE_CMD);	
+	
+	/* Receive the data that will be read from the device (MSB First) */
+  while(NumByteToRead > 0x00)
+  {
+    /* Send dummy byte (0x00) to generate the SPI clock to LIS3DSH (Slave device) */
+    *pBuffer = CC2500_SendByte(DUMMY_BYTE);
+    NumByteToRead--;
+    pBuffer++;
+  }
+	
+	CC2500_CS_HIGH();
+}
 
 uint8_t get_rx_buffer_size(){
-//	if (CC2500_CS() == CC2500_TIMED_OUT) return CC2500_TIMED_OUT;
-//	
-//	uint8_t tttt = CC2500_SendByte(0xFB);	
-//	uint8_t num_rx_bytes = CC2500_SendByte(DUMMY_BYTE) & 0x7F;
-//	
-//	CC2500_CS_HIGH();
-//	
-//	return num_rx_bytes;
-  uint8_t xxx = send_strobe(CC2500_REG_SNOP | READWRITE_CMD);
-	return xxx & 0x0F;
-	//return send_strobe(CC2500_REG_SNOP | READWRITE_CMD) & 0x0F;
+	if (CC2500_CS() == CC2500_TIMED_OUT) return CC2500_TIMED_OUT;
+	
+	uint8_t tttt = CC2500_SendByte(0xFB);	
+	uint8_t num_rx_bytes = CC2500_SendByte(DUMMY_BYTE) & 0x3F;
+	
+	CC2500_CS_HIGH();
+	
+	return num_rx_bytes;
+	
+//  uint8_t xxx = send_strobe(CC2500_REG_SNOP | READ_CMD);
+//	return xxx & 0x0F;
+//  return send_strobe(CC2500_REG_SNOP | READ_CMD) & 0x0F;
 }
 
 uint8_t get_tx_buffer_size(){
@@ -243,6 +346,19 @@ void tx_enable(){
 void set_idle(){
 	send_strobe(CC2500_REG_SIDLE);
 }
+
+void flush_rx_fifo(){
+	send_strobe(CC2500_REG_SFRX);
+}
+
+void flush_tx_fifo(){
+	send_strobe(CC2500_REG_SFTX);
+}
+
+uint8_t get_status_byte(uint8_t read){
+	return send_strobe(read == 0 ? CC2500_REG_SNOP : CC2500_REG_SNOP | READ_CMD);
+}
+
 
 void read_rx_fifo(uint8_t* pBuffer, uint16_t NumByteToRead){
 	CC2500_read(pBuffer, CC2500_REG_FIFO, NumByteToRead);
@@ -301,7 +417,7 @@ static void CC2500_LowLevel_Init(void){
   SPI_InitStructure.SPI_CPOL 							= SPI_CPOL_Low;
   SPI_InitStructure.SPI_CPHA 							= SPI_CPHA_1Edge;
   SPI_InitStructure.SPI_NSS 							= SPI_NSS_Soft;
-  SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_4;
+  SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_8;
   SPI_InitStructure.SPI_FirstBit 					= SPI_FirstBit_MSB;
   SPI_InitStructure.SPI_CRCPolynomial 		= 7;
   SPI_InitStructure.SPI_Mode 							= SPI_Mode_Master;
