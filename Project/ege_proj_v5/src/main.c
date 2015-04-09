@@ -2,9 +2,9 @@
  * CMSIS-RTOS 'main' function template
  *---------------------------------------------------------------------------*/
 
-#define osObjectsPublic                     // define objects in main module
-#include "osObjects.h"                      // RTOS object definitions
-#include "stm32f4xx.h"                  // Device header
+#define osObjectsPublic					// define objects in main module
+#include "osObjects.h"					// RTOS object definitions
+#include "stm32f4xx.h"					// Device header
 
 #include "stm32f4xx_conf.h"
 #include "stm32f429i_discovery.h"
@@ -38,154 +38,16 @@ int y2 = 0;
 int lcd_memory_count = 0;
 memory_unit lcd_draw_memory[20]; 
 
-
-
-
-
 osThreadId keypad_thread;
 osThreadId LCD_control_thread;
 osThreadId Data_send_thread;
 
 
-static void delay(__IO uint32_t nCount)
-{
-  __IO uint32_t index = 0; 
-  for(index = 100000*nCount; index != 0; index--)
-  {
-  }
+static void delay(__IO uint32_t nCount){
+	__IO uint32_t index = 0; 
+	for(index = 100000*nCount; index != 0; index--){}
 }
 
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/**
-  * @brief    Illustartes a simple shape draw and fill, and string dsiplay
-  * @function This function draws concentrated colour-filled circles. It also draw a square and a triangle. Some text at two
-              different font sizes is displayed.
-  * @param    None
-  * @retval   None
-  */
-
-void example_1a(void const *argument){
-	while(1){
-		/* Clear the LCD */ 
-    LCD_Clear(LCD_COLOR_WHITE);
-	
-	  //The files source and header files implement drawing characters (drawing strings)
-	  //using different font sizes, see the file font.h for the four sizes
-    LCD_SetFont(&Font8x8);
-	  //The number of string lines avaialble is dependant on the font height:
-	  //A font height of 8 will result in 320 / 8 = 40 lines
-    LCD_DisplayStringLine(LINE(1), (uint8_t*)"      Welcome to uP lab     ");
-    LCD_DisplayStringLine(LINE(2), (uint8_t*)"          Good Luck         ");
-	  
-	  //The stm32f429i_discovery_lcd.h file offers functions which allows to draw various shapes
-	  //in either border or filled with colour. You can draw circles, rectangles, triangles, lines,
-	  //ellipses, and polygons. You can draw strings or characters, change background/foreground 
-	  //colours.
-	
-	  LCD_DrawLine(0, 32, 240, LCD_DIR_HORIZONTAL);
-	  LCD_DrawLine(0, 34, 240, LCD_DIR_HORIZONTAL);
-	  LCD_SetTextColor(LCD_COLOR_BLUE2); 
-	  LCD_DrawFullCircle(120, 160, 100);
-	  LCD_SetTextColor(LCD_COLOR_CYAN); 
-	  LCD_DrawFullCircle(120, 160, 90);
-	  LCD_SetTextColor(LCD_COLOR_YELLOW); 
-	  LCD_DrawFullCircle(120, 160, 80);
-	  LCD_SetTextColor(LCD_COLOR_RED); 
-	  LCD_DrawFullCircle(120, 160, 70);
-	  LCD_SetTextColor(LCD_COLOR_BLUE); 
-	  LCD_DrawFullCircle(120, 160, 60);
-	  LCD_SetTextColor(LCD_COLOR_GREEN); 
-	  LCD_DrawFullCircle(120, 160, 50);
-	  LCD_SetTextColor(LCD_COLOR_BLACK); 
-	  LCD_DrawFullCircle(120, 160, 40);
-		LCD_SetTextColor(LCD_COLOR_WHITE);
-		LCD_DrawRect(90,130,60,60);
-		LCD_SetTextColor(LCD_COLOR_MAGENTA);
-		LCD_FillTriangle(90, 120, 150, 130, 180, 130);
-		LCD_SetFont(&Font12x12);
-		LCD_DisplayStringLine(LINE(15), (uint8_t*)"      Success!    ");
-		
-		osDelay(250);
-	}
-}
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//bitmap method deleted
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/**
-  * @brief    Illustartes a simple animation program
-  * @function This function draws concentrated circles emanating from the center towards the LCD edge in
-              an animated fashion. It will look as a sonar or radar display. Then it simulates locking 
-              onto a target by flashing a small red circle and displaying the text "Object located"
-  * @param    None
-  * @retval   None
-  */
-
-void example_1c(void const *argument){
-	while(1){
-			/* Clear the LCD */ 
-		LCD_Clear(LCD_COLOR_WHITE);
-		LCD_SetFont(&Font8x8);
-		LCD_DisplayStringLine(LINE(1), (uint8_t*)"  Radar Scanning for Object  ");
-		
-		LCD_SetTextColor(LCD_COLOR_BLUE2);
-		LCD_DrawLine(10, 160, 220, LCD_DIR_HORIZONTAL);
-		LCD_DrawLine(120, 50, 220, LCD_DIR_VERTICAL );
-		
-		LCD_SetTextColor(LCD_COLOR_BLUE2);
-		LCD_DrawCircle(120, 160, 10);	
-		delay(35);
-		LCD_DrawCircle(120, 160, 20);	
-		delay(35);
-		LCD_DrawCircle(120, 160, 30);	
-		delay(35);
-		LCD_DrawCircle(120, 160, 40);	
-		delay(35);
-		LCD_DrawCircle(120, 160, 50);	
-		delay(35);
-		LCD_DrawCircle(120, 160, 60);	
-		delay(35);
-		LCD_DrawCircle(120, 160, 70);	
-		delay(35);
-		LCD_DrawCircle(120, 160, 80);	
-		delay(35);
-		LCD_DrawCircle(120, 160, 90);	
-		delay(35);
-		LCD_DrawCircle(120, 160, 100);	
-		delay(35);
-		LCD_SetTextColor(LCD_COLOR_RED);
-		LCD_DisplayStringLine(LINE(36), (uint8_t*)"        Object Located    ");
-		LCD_DrawFullRect(90,130,10,10);
-		delay(25);
-		LCD_SetTextColor(LCD_COLOR_WHITE);
-		LCD_DrawFullRect(90,130,10,10);
-		delay(25);
-		LCD_SetTextColor(LCD_COLOR_RED);
-		LCD_DrawFullRect(90,130,10,10);
-		delay(25);
-		LCD_SetTextColor(LCD_COLOR_WHITE);
-		LCD_DrawFullRect(90,130,10,10);
-		delay(25);
-		LCD_SetTextColor(LCD_COLOR_RED);
-		LCD_DrawFullRect(90,130,10,10);
-		delay(25);
-		LCD_SetTextColor(LCD_COLOR_WHITE);
-		LCD_DrawFullRect(90,130,10,10);
-		delay(25);
-		LCD_SetTextColor(LCD_COLOR_RED);
-		LCD_DrawFullRect(90,130,10,10);
-		delay(25);
-		LCD_SetTextColor(LCD_COLOR_WHITE);
-		LCD_DrawFullRect(90,130,10,10);
-		delay(25);
-		LCD_SetTextColor(LCD_COLOR_RED);
-		LCD_DrawFullRect(90,130,10,10);
-		delay(25);
-		
-		osDelay(250);
-	}
-}
 
 void keypad(void const * arg){
 
@@ -196,23 +58,16 @@ void keypad(void const * arg){
 	int second7 = 1;
 	int second9 = 1;
 	
-	
 	double degree = 15.0;
-	
-	
 	
 	keypad_init();
 	
 	while(1){
 		key = get_input();
-			
-		
 		
 		if (last_key == DUMMY_KEY && key !=DUMMY_KEY){		
 			// do something "with key"
 			printf("%c\n", key);
-			
-			
 			
 			//select the mode
 			if(key == 'A'){
@@ -289,12 +144,7 @@ void keypad(void const * arg){
 				if(second9 == 6){
 					second9 = 1;
 				}
-				
 			}
-			
-			
-			
-			
 			
 			osSignalSet(LCD_control_thread, 0x01);
 			
@@ -315,36 +165,22 @@ void keypad(void const * arg){
 					LCD_SetTextColor(LCD_COLOR_BLACK);			
 					LCD_DisplayStringLine(LINE(25), (uint8_t*)"     Please wait      ");
 					
-			
-
-					
 				}else{
 					LCD_Clear(LCD_COLOR_WHITE);
 					LCD_SetFont(&Font12x12);	
 					LCD_SetTextColor(LCD_COLOR_BLACK);
 					LCD_DisplayStringLine(LINE(10), (uint8_t*)"  Please wait while   ");
 					LCD_DisplayStringLine(LINE(11), (uint8_t*)"  drawing the shape   ");
-					
 				}
 				
 				//send signal to a thread to send data wirelessly
 				osSignalSet(Data_send_thread, 0x01);
-				
-				
-				
-				
-				
 			}
-			
-			
-
 		}
 		
 		if(mode_select == 'B'){
 			osSignalSet(LCD_control_thread, 0x01);
 		}
-		
-		
 		
 		last_key = key;
 		osDelay(80);	
@@ -356,7 +192,6 @@ void LCD_control(void const * arg){
 	
 	char last_mode = 'C';
 	int counter;
-
 	
 	while(1){
 		osSignalWait(0x01, osWaitForever);
@@ -396,7 +231,6 @@ void LCD_control(void const * arg){
 				LCD_FillTriangle(60, 120, 180, 210, 100, 210);
 				shape_select = 3;
 			}
-		
 			
 			last_mode = 'A';
 		
@@ -412,7 +246,6 @@ void LCD_control(void const * arg){
 				y2 = 0;
 			}
 			shape_select = 0;
-		
 			
 			//blinking animation
 			//LCD_SetLayer(LCD_FOREGROUND_LAYER);
@@ -428,113 +261,62 @@ void LCD_control(void const * arg){
 
 			//LCD_SetLayer(LCD_BACKGROUND_LAYER);
 			
-			
-			
-			
-			
-			
-			
 			last_mode = 'B';
 		}
-		
-
-		
 	}
-	
-	
-	
 }
 
 void Data_send(void const * arg){
+	
 	while(1){
 		osSignalWait(0x01, osWaitForever);
 		printf("Sending data to the controller board!\n");
-		
 		
 		//send data wirelessly here
 		//always send shape select, if it is 0, it means we are in on the fly mode
 		//if it is 1,2 or 3, draw one of the predefined shapes
 		
 		if(shape_select){
-			
-			
 			//erase "please wait" message
 			delay(50);
 			osSignalSet(LCD_control_thread, 0x01);
 		}else{
-			
-			
 			//erase "please wait" text after the delay of drawing
 			delay(50);
 			LCD_SetTextColor(LCD_COLOR_WHITE);
 			LCD_DrawFullRect(0,281,240,39);
 		}
-		
-
-		
-		
-
 	}
 }
-
-
-
-//osThreadDef(example_1a, osPriorityNormal, 1, 0);
-//osThreadDef(example_1b, osPriorityNormal, 1, 0);
-//osThreadDef(example_1c, osPriorityNormal, 1, 0);
 
 osThreadDef(keypad, osPriorityBelowNormal, 1, 0);
 osThreadDef(LCD_control, osPriorityNormal, 1, 0);
 osThreadDef(Data_send, osPriorityAboveNormal, 1, 0);
 
-// ID for theads
-//osThreadId example_1a_thread;
-//osThreadId example_1b_thread;
-//osThreadId example_1c_thread;
-
-
-
 /*
  * main: initialize and start the system
  */
 int main (void) {
-  osKernelInitialize ();                    // initialize CMSIS-RTOS
+	osKernelInitialize ();				// initialize CMSIS-RTOS
 	
-  // initialize peripherals here
+	// initialize peripherals here
 	/* LCD initiatization */
-  LCD_Init();
-  
-  /* LCD Layer initiatization */
-  LCD_LayerInit();
-    
-  /* Enable the LTDC controler */
-  LTDC_Cmd(ENABLE);
-  
-  /* Set LCD foreground layer as the current layer */
-  LCD_SetLayer(LCD_FOREGROUND_LAYER);
+	LCD_Init();
 	
+	/* LCD Layer initiatization */
+	LCD_LayerInit();
 	
+	/* Enable the LTDC controler */
+	LTDC_Cmd(ENABLE);
 	
-  // create 'thread' functions that start executing,
-  // example: tid_name = osThreadCreate (osThread(name), NULL);
-	
-	/*******************************************************
-	         Uncomment the example you want to see
-	example_1a: Simple shape draw, fill and text display
-	example_1b: bitmap image display
-	example_1c: Simple animation
-	********************************************************/
-	
-	//example_1a_thread = osThreadCreate(osThread(example_1a), NULL);
-	//example_1b_thread = osThreadCreate(osThread(example_1b), NULL);
-	//example_1c_thread = osThreadCreate(osThread(example_1c), NULL);
-	
+	/* Set LCD foreground layer as the current layer */
+	LCD_SetLayer(LCD_FOREGROUND_LAYER);
 	
 	keypad_thread = osThreadCreate(osThread(keypad), NULL);
 	LCD_control_thread = osThreadCreate(osThread(LCD_control), NULL);
 	Data_send_thread = osThreadCreate(osThread(Data_send), NULL);
 	
-	osKernelStart ();                         // start thread execution 
+	osKernelStart ();					// start thread execution 
 }
 
 

@@ -13,10 +13,10 @@ void LCD_inital_screen(void){
 	/* Clear the LCD */ 
     LCD_Clear(LCD_COLOR_WHITE);
 	
-		LCD_SetFont(&Font12x12);
+	LCD_SetFont(&Font12x12);
 		
-		LCD_SetTextColor(LCD_COLOR_BLACK);
+	LCD_SetTextColor(LCD_COLOR_BLACK);
 
-		LCD_DisplayStringLine(LINE(10), (uint8_t*)"  Select the mode   ");
-		LCD_DisplayStringLine(LINE(11), (uint8_t*)"  using keys A or B   ");
+	LCD_DisplayStringLine(LINE(10), (uint8_t*)"  Select the mode   ");
+	LCD_DisplayStringLine(LINE(11), (uint8_t*)"  using keys A or B   ");
 }
