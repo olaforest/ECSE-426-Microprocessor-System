@@ -142,6 +142,8 @@
 #define CC2500_REG_SRX			 ((uint8_t)0x34)
 #define CC2500_REG_STX			 ((uint8_t)0x35)
 #define CC2500_REG_SIDLE		 ((uint8_t)0x36)
+#define CC2500_REG_SFRX			 ((uint8_t)0x3A)
+#define CC2500_REG_SFTX			 ((uint8_t)0x3B)
 #define CC2500_REG_SNOP			 ((uint8_t)0x3D)
 
 // FIFO register
@@ -175,9 +177,9 @@
 //#define	CC2500_VAL_MCSM0     ((uint8_t)0x18);        
 //#define	CC2500_VAL_FOCCFG    ((uint8_t)0x1D);     // 
 //#define	CC2500_VAL_BSCFG 		 ((uint8_t)0x1C);        
-#define	CC2500_VAL_AGCCTRL2  ((uint8_t)0x03)     
-#define	CC2500_VAL_AGCCTRL1  ((uint8_t)0x40)     //
-#define	CC2500_VAL_AGCCTRL0  ((uint8_t)0x91)     
+//#define	CC2500_VAL_AGCTRL2  ((uint8_t)0x03)     
+//#define	CC2500_VAL_AGCTRL1  ((uint8_t)0x40)     //
+//#define	CC2500_VAL_AGCTRL0  ((uint8_t)0x91)     
 #define	CC2500_VAL_WOREVT1   ((uint8_t)0x87)      
 #define	CC2500_VAL_WOREVT0   ((uint8_t)0x6B)      
 #define	CC2500_VAL_WORCTRL   ((uint8_t)0xF8)      
@@ -233,7 +235,6 @@
 #define CC2500_VAL_TEST1 		0x31	
 #define CC2500_VAL_TEST0 		0x0B
 
-
 void CC2500_init(void);
 void CC2500_write(uint8_t* pBuffer, uint8_t WriteAddr, uint16_t NumByteToWrite);
 void CC2500_read(uint8_t* pBuffer, uint8_t ReadAddr, uint16_t NumByteToRead);
@@ -242,9 +243,16 @@ void calibrate_frequency_synthesizer(void);
 void rx_enable(void);
 void tx_enable(void);
 void set_idle(void);
+void flush_rx_fifo(void);
+void flush_tx_fifo(void);
 void read_rx_fifo(uint8_t* pBuffer, uint16_t NumByteToRead);
 void write_tx_fifo(uint8_t* pBuffer, uint16_t NumByteToRead);
+uint8_t get_status_byte(uint8_t read);
 uint8_t get_rx_buffer_size(void);
 uint8_t get_tx_buffer_size(void);
+
+
+void get_data(uint8_t * pBuffer);
+
 
 #endif

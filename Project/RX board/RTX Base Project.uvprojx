@@ -414,6 +414,31 @@
               <FileType>1</FileType>
               <FilePath>.\src\fputc_debug.c</FilePath>
             </File>
+            <File>
+              <FileName>cc2500.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\cc2500.c</FilePath>
+            </File>
+            <File>
+              <FileName>cc2500.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\cc2500.h</FilePath>
+            </File>
+            <File>
+              <FileName>osObjects.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\osObjects.h</FilePath>
+            </File>
+            <File>
+              <FileName>wireless_tx.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\wireless_tx.c</FilePath>
+            </File>
+            <File>
+              <FileName>wireless_tx.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\wireless_tx.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
