@@ -2,26 +2,6 @@
 #include "string.h"
 #include "wireless_rx.h"
 
-
-// Definition for rates (in Hz), prescalar and period for the TIM3 clock.
-#define TIM3_COUNTER_CLK 1282
-#define TIM3_PRESCALAR ((SystemCoreClock / 2) / TIM3_COUNTER_CLK) - 1
-#define TIM3_DESIRED_RATE 2
-#define TIM3_PERIOD (TIM3_COUNTER_CLK / TIM3_DESIRED_RATE) - 1
-
-volatile int ready, rx_ready;
-uint8_t data;
-
-
-// Handler routine for the TIM3 interrupts
-void TIM3_IRQHandler(){
-	if(TIM_GetITStatus(TIM3, TIM_IT_Update) == SET){
-		ready = 1;
-		TIM_ClearITPendingBit(TIM3, TIM_IT_Update);
-	}
-}
-
-
 // Configuration of TIM3
 void config_tim3(void){
 	
@@ -83,39 +63,4 @@ void receive(){
 	}
 }
 
-void read_beacons(){
-	ready = 0;
-	set_idle();
-	flush_rx_fifo();
-	rx_enable();
 
-	while (1){
-
-		while(!ready);
-		ready = 0;	
-//		while(!rx_ready);
-//		rx_ready = 0;
-				
-		uint8_t buffer[64];
-		memset(buffer, 0, 64);
-		
-		rx_enable();
-		
-		uint8_t buff_size;
-		buff_size = get_rx_buffer_size();		
-		if (buff_size > 0 && buff_size < 64){
-			read_rx_fifo(buffer, buff_size);
-			
-			for (int i = 0; i < buff_size; i++){				
-				printf("Count: %u\n", buffer[i]);
-			}			
-		}
-	}
-}
-
-void EXTI0_IRQHandler(){
-	if(EXTI_GetITStatus(EXTI_Line0) == SET) {
-		rx_ready = 1;
-		EXTI_ClearITPendingBit(EXTI_Line0);
-	}
-}

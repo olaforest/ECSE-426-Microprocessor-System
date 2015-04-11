@@ -29,6 +29,9 @@ char mode_select = 'C';
 uint8_t shape_select = 10;
 //keyboard input value
 char key;
+char key_C;
+
+int MEMS_activate = 0;
 
 //new draw line params.
 int x1 = 0;
@@ -50,15 +53,17 @@ static void delay(__IO uint32_t nCount){
 	for(index = 100000*nCount; index != 0; index--){}
 }
 
-
 void keypad(void const * arg){
 
 	char last_key = DUMMY_KEY;
 	
-	int second1 = 1;
-	int second3 = 1;
-	int second7 = 1;
-	int second9 = 1;
+	uint8_t data[4];
+	data[0] = 255;
+	
+	uint8_t second1 = 1;
+	uint8_t second3 = 1;
+	uint8_t second7 = 1;
+	uint8_t second9 = 1;
 	
 	double degree = 15.0;
 	
@@ -66,17 +71,54 @@ void keypad(void const * arg){
 	
 	while(1){
 		key = get_input();
-		
-		if (last_key == DUMMY_KEY && key !=DUMMY_KEY){		
-			// do something "with key"
-			printf("%c\n", key);
 			
-			//select the mode
-			if(key == 'A'){
-				mode_select = 'A';
-			}else if(key == 'B'){
-				mode_select = 'B';
-			}
+		if (last_key == DUMMY_KEY && key !=DUMMY_KEY){		
+			if(key == '5'){
+			MEMS_activate = !MEMS_activate;
+			if(MEMS_activate && mode_select == 'B'){
+				LCD_SetFont(&Font12x12);
+				LCD_SetTextColor(LCD_COLOR_BLACK);			
+				LCD_DisplayStringLine(LINE(1), (uint8_t*)"     Activate      ");
+			}else if(!MEMS_activate && mode_select == 'B'){
+				LCD_SetFont(&Font12x12);
+				LCD_SetTextColor(LCD_COLOR_BLACK);			
+				LCD_DisplayStringLine(LINE(1), (uint8_t*)"     Deactivate      ");
+			}				
+		}
+		
+		if(key == '0'){
+			key_C = '0';
+		}else if (key == '1'){
+			key_C = '1';
+		}else if (key == '2'){
+			key_C = '2';
+		}else if (key == '3'){
+			key_C = '3';
+		}else if (key == '4'){
+			key_C = '4';
+		}else if (key == '5'){
+			key_C = '5';
+		}else if (key == '6'){
+			key_C = '6';
+		}else if (key == '7'){
+			key_C = '7';
+		}else if (key == '8'){
+			key_C = '8';
+		}else if (key == '9'){
+			key_C = '9';
+		}
+		
+			
+		//select the mode
+		if(key == 'A'){
+			MEMS_activate = 0;
+			mode_select = 'A';
+		}else if(key == 'B'){
+			mode_select = 'B';
+		}else if(key == 'C'){
+			MEMS_activate = 0;
+			mode_select = 'C';
+		}
 			
 			//# as reset button
 			if(key == '#'){
@@ -84,6 +126,14 @@ void keypad(void const * arg){
 				x2 = 0;
 				y1 = 0;
 				y2 = 0;
+				
+				//reset the motor positions as well
+				data[1] = 0;
+				data[2] = 0;
+				data[3] = 0;
+			
+				send_data(data);
+				
 			}
 			
 			if(key == '1'){
@@ -155,7 +205,7 @@ void keypad(void const * arg){
 				
 				if(shape_select == 0){
 					LCD_SetTextColor(LCD_COLOR_RED);
-					LCD_DrawUniLine(x1, 280 - y1, x2, 280 - y2);
+					//LCD_DrawUniLine(x1, 280 - y1, x2, 280 - y2);
 					lcd_draw_memory[lcd_memory_count].x1 = x1;
 					lcd_draw_memory[lcd_memory_count].x2 = x2;
 					lcd_draw_memory[lcd_memory_count].y1 = y1;
@@ -185,15 +235,20 @@ void keypad(void const * arg){
 		}
 		
 		last_key = key;
-		osDelay(80);	
+		osDelay(50);	
 	}
 }
 
 void LCD_control(void const * arg){
 	LCD_inital_screen();
 	
-	char last_mode = 'C';
+	char last_mode = 'D';
 	int counter;
+	
+	
+	
+	uint8_t data[4];
+	data[0] = 255;
 	
 	while(1){
 		osSignalWait(0x01, osWaitForever);
@@ -206,7 +261,7 @@ void LCD_control(void const * arg){
 				LCD_Clear(LCD_COLOR_WHITE);
 			}
 			
-			LCD_Clear(LCD_COLOR_WHITE);
+
 			LCD_SetFont(&Font12x12);
 		
 			LCD_SetTextColor(LCD_COLOR_BLACK);
@@ -242,12 +297,32 @@ void LCD_control(void const * arg){
 			if(last_mode != 'B'){
 				/* Clear the LCD */ 
 				LCD_Clear(LCD_COLOR_WHITE);
+				LCD_SetTextColor(LCD_COLOR_BLACK);
+				LCD_SetFont(&Font8x12);
+				
+				LCD_DisplayStringLine(LINE(5), (uint8_t*)"       On the fly mode.  ");
+				LCD_DisplayStringLine(LINE(7), (uint8_t*)"       Please only draw  ");
+				LCD_DisplayStringLine(LINE(8), (uint8_t*)"       within the box.   ");
+				
+				LCD_DrawUniLine(1, 147, 239, 147);
+				LCD_DrawUniLine(1, 281, 239, 281);
+				LCD_DrawUniLine(0, 147, 0, 281);
+				LCD_DrawUniLine(239, 147, 239, 281);
 				x1 = 0;
 				x2 = 0;
 				y1 = 0;
 				y2 = 0;
+				
+				//reset the motor positions as well
+				data[1] = 0;
+				data[2] = 0;
+				data[3] = 0;
+			
+				send_data(data);
+				
 			}
 			shape_select = 0;
+
 			
 			//blinking animation
 			//LCD_SetLayer(LCD_FOREGROUND_LAYER);
@@ -257,37 +332,657 @@ void LCD_control(void const * arg){
 			}
 			LCD_SetTextColor(LCD_COLOR_RED);
 			LCD_DrawUniLine(x1, 280 - y1, x2, 280 - y2);
-			delay(20);
+			osDelay(20);
 			LCD_SetTextColor(LCD_COLOR_WHITE);
 			LCD_DrawUniLine(x1, 280 - y1, x2, 280 - y2);
+
+
 
 			//LCD_SetLayer(LCD_BACKGROUND_LAYER);
 			
 			last_mode = 'B';
+		}else if(mode_select == 'C'){
+			if(last_mode != 'C'){
+				/* Clear the LCD */ 
+				LCD_Clear(LCD_COLOR_WHITE);
+			}
+			shape_select = 0;
+			
+			
+			LCD_SetTextColor(LCD_COLOR_BLACK);
+			LCD_SetFont(&Font12x12);
+				
+			LCD_DisplayStringLine(LINE(7), (uint8_t*)"      Numbers.  ");
+			
+			
+			
+			last_mode = 'C';
 		}
 	}
 }
 
 void Data_send(void const * arg){
+	uint8_t data[4];
+	data[0] = 255;
+	uint8_t digit_location = 0;
+	
+	wireless_init();
+
 	
 	while(1){
 		osSignalWait(0x01, osWaitForever);
-		printf("Sending data to the controller board!\n");
 		
+		//printf("Sending data to the controller board!\n");
+		
+
 		//send data wirelessly here
-		//always send shape select, if it is 0, it means we are in on the fly mode
+		//shape select, if it is 0, it means we are in on the fly mode
 		//if it is 1,2 or 3, draw one of the predefined shapes
-		
 		if(shape_select){
+			//draw square
+			if(shape_select == 1){
+				data[1] = 25;
+				data[2] = 5;
+				data[3] = 0;
+				
+				send_data(data);
+				delay(60);
+				
+				data[1] = 65;
+				data[2] = 5;
+				data[3] = 1;
+				
+				send_data(data);
+				delay(60);
+				
+				data[1] = 65;
+				data[2] = 45;
+				data[3] = 1;
+				
+				send_data(data);
+				delay(60);
+				
+				data[1] = 25;
+				data[2] = 45;
+				data[3] = 1;
+				
+				send_data(data);
+				delay(60);
+				
+				data[1] = 25;
+				data[2] = 5;
+				data[3] = 1;
+				
+				send_data(data);
+				delay(60);
+				
+				data[1] = 0;
+				data[2] = 0;
+				data[3] = 0;
+				
+				//draw rectangle
+			}else if(shape_select == 2){
+				data[1] = 15;
+				data[2] = 5;
+				data[3] = 0;
+				
+				send_data(data);
+				delay(60);
+				
+				data[1] = 75;
+				data[2] = 5;
+				data[3] = 1;
+				
+				send_data(data);
+				delay(60);
+				
+				data[1] = 75;
+				data[2] = 45;
+				data[3] = 1;
+				
+				send_data(data);
+				delay(60);
+				
+				data[1] = 15;
+				data[2] = 45;
+				data[3] = 1;
+				
+				send_data(data);
+				delay(60);
+				
+				data[1] = 15;
+				data[2] = 5;
+				data[3] = 1;
+				
+				send_data(data);
+				delay(60);
+				
+				data[1] = 0;
+				data[2] = 0;
+				data[3] = 0;
+				
+				//draw triangle
+			}else if(shape_select == 3){
+				data[1] = 25;
+				data[2] = 5;
+				data[3] = 0;
+				
+				send_data(data);
+				delay(60);
+				
+				data[1] = 45;
+				data[2] = 45;
+				data[3] = 1;
+				
+				send_data(data);
+				delay(60);
+				
+				data[1] = 65;
+				data[2] = 5;
+				data[3] = 1;
+				
+				send_data(data);
+				delay(60);
+				
+				data[1] = 25;
+				data[2] = 5;
+				data[3] = 1;
+				
+				send_data(data);
+				delay(60);
+				
+				data[1] = 0;
+				data[2] = 0;
+				data[3] = 0;
+			}
+		
+			delay(150);
 			//erase "please wait" message
-			delay(50);
+			LCD_shape_clear();
 			osSignalSet(LCD_control_thread, 0x01);
-		}else{
+		}else if(mode_select == 'B'){
+			if(MEMS_activate){
+				
+				data[0] = 254;
+				data[1] = 0;
+				data[2] = 0;
+				data[3] = 0;
+				send_data(data);
+				
+				LCD_SetFont(&Font12x12);
+				LCD_SetTextColor(LCD_COLOR_RED);
+				LCD_DrawFullRect(0,282,240,38);
+				LCD_SetTextColor(LCD_COLOR_BLACK);			
+				LCD_DisplayStringLine(LINE(25), (uint8_t*)"     CRAZY MODE      ");
+			}else{
+
+			data[0] = 255;
+			data[1] = x2/2.67;
+			data[2] = y2/2.67;
+			data[3] = 1;
+			
+			send_data(data);
 			//erase "please wait" text after the delay of drawing
-			delay(50);
+			delay(60);
 			LCD_SetTextColor(LCD_COLOR_WHITE);
-			LCD_DrawFullRect(0,281,240,39);
+			LCD_DrawFullRect(0,282,240,38);
+			}
+			
+			
 		}
+		
+		if(mode_select == 'C'){
+			if(key_C == '0'){
+				
+				data[1] = 2 + digit_location*15;
+				data[2] = 5;
+				data[3] = 0;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 13 + digit_location*15;
+				data[2] = 5;
+				data[3] = 1;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 13 + digit_location*15;
+				data[2] = 45;
+				data[3] = 1;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 2 + digit_location*15;
+				data[2] = 45;
+				data[3] = 1;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 2 + digit_location*15;
+				data[2] = 5;
+				data[3] = 1;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 0;
+				data[2] = 0;
+				data[3] = 0;
+				
+				send_data(data);
+				
+				
+				digit_location++;
+			}else if(key_C == '1'){
+				data[1] = 8 + digit_location*15;
+				data[2] = 5;
+				data[3] = 0;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 8 + digit_location*15;
+				data[2] = 45;
+				data[3] = 1;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 6 + digit_location*15;
+				data[2] = 40;
+				data[3] = 1;
+			
+				send_data(data);
+				delay(60);
+				
+				
+				data[1] = 0;
+				data[2] = 0;
+				data[3] = 0;
+				
+				send_data(data);
+				
+				
+				digit_location++;
+			}else if(key_C == '2'){
+				data[1] = 2 + digit_location*15;
+				data[2] = 45;
+				data[3] = 0;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 13 + digit_location*15;
+				data[2] = 45;
+				data[3] = 1;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 2 + digit_location*15;
+				data[2] = 5;
+				data[3] = 1;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 13 + digit_location*15;
+				data[2] = 5;
+				data[3] = 1;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 0;
+				data[2] = 0;
+				data[3] = 0;
+				
+				send_data(data);
+				
+				digit_location++;
+			}else if(key_C == '3'){
+				data[1] = 2 + digit_location*15;
+				data[2] = 5;
+				data[3] = 0;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 13 + digit_location*15;
+				data[2] = 5;
+				data[3] = 1;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 13 + digit_location*15;
+				data[2] = 45;
+				data[3] = 1;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 2 + digit_location*15;
+				data[2] = 45;
+				data[3] = 1;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 13 + digit_location*15;
+				data[2] = 23;
+				data[3] = 0;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 3 + digit_location*15;
+				data[2] = 23;
+				data[3] = 1;
+				
+				send_data(data);
+				delay(60);
+				
+				data[1] = 0;
+				data[2] = 0;
+				data[3] = 0;
+				
+				send_data(data);
+				
+				
+				digit_location++;
+			}else if(key_C == '4'){
+				data[1] = 2 + digit_location*15;
+				data[2] = 45;
+				data[3] = 0;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 2 + digit_location*15;
+				data[2] = 23;
+				data[3] = 1;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 13 + digit_location*15;
+				data[2] = 23;
+				data[3] = 1;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 13 + digit_location*15;
+				data[2] = 45;
+				data[3] = 0;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 13 + digit_location*15;
+				data[2] = 5;
+				data[3] = 1;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 0;
+				data[2] = 0;
+				data[3] = 0;
+				
+				send_data(data);
+				
+				digit_location++;
+			}else if(key_C == '5'){
+				data[1] = 2 + digit_location*15;
+				data[2] = 5;
+				data[3] = 0;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 13 + digit_location*15;
+				data[2] = 5;
+				data[3] = 1;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 13 + digit_location*15;
+				data[2] = 23;
+				data[3] = 1;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 2 + digit_location*15;
+				data[2] = 23;
+				data[3] = 1;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 2 + digit_location*15;
+				data[2] = 45;
+				data[3] = 1;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 13 + digit_location*15;
+				data[2] = 45;
+				data[3] = 1;
+				
+				send_data(data);
+				delay(60);
+				
+				data[1] = 0;
+				data[2] = 0;
+				data[3] = 0;
+				
+				send_data(data);
+				
+				digit_location++;
+			}else if(key_C == '6'){
+				data[1] = 13 + digit_location*15;
+				data[2] = 45;
+				data[3] = 0;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 2 + digit_location*15;
+				data[2] = 45;
+				data[3] = 1;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 2 + digit_location*15;
+				data[2] = 5;
+				data[3] = 1;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 13 + digit_location*15;
+				data[2] = 5;
+				data[3] = 1;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 13 + digit_location*15;
+				data[2] = 23;
+				data[3] = 1;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 2 + digit_location*15;
+				data[2] = 23;
+				data[3] = 1;
+				
+				send_data(data);
+				delay(60);
+				
+				data[1] = 0;
+				data[2] = 0;
+				data[3] = 0;
+				
+				send_data(data);
+				
+				
+				digit_location++;
+			}else if(key_C == '7'){
+				data[1] = 2 + digit_location*15;
+				data[2] = 5;
+				data[3] = 0;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 13 + digit_location*15;
+				data[2] = 45;
+				data[3] = 1;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 2 + digit_location*15;
+				data[2] = 45;
+				data[3] = 1;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 0;
+				data[2] = 0;
+				data[3] = 0;
+				
+				send_data(data);
+				
+				
+				digit_location++;
+			}else if(key_C == '8'){
+				data[1] = 2 + digit_location*15;
+				data[2] = 5;
+				data[3] = 0;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 13 + digit_location*15;
+				data[2] = 5;
+				data[3] = 1;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 13 + digit_location*15;
+				data[2] = 45;
+				data[3] = 1;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 2 + digit_location*15;
+				data[2] = 45;
+				data[3] = 1;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 2 + digit_location*15;
+				data[2] = 5;
+				data[3] = 1;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 2 + digit_location*15;
+				data[2] = 23;
+				data[3] = 0;
+				
+				send_data(data);
+				
+				delay(60);
+				
+				data[1] = 13 + digit_location;
+				data[2] = 23;
+				data[3] = 1;
+				
+				send_data(data);
+				
+				delay(60);
+				
+				data[1] = 0;
+				data[2] = 0;
+				data[3] = 0;
+				
+				send_data(data);
+				
+				
+				digit_location++;
+			}else if(key_C == '9'){
+				data[1] = 2 + digit_location*15;
+				data[2] = 5;
+				data[3] = 0;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 13 + digit_location*15;
+				data[2] = 5;
+				data[3] = 1;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 13 + digit_location*15;
+				data[2] = 45;
+				data[3] = 1;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 2 + digit_location*15;
+				data[2] = 45;
+				data[3] = 1;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 2 + digit_location*15;
+				data[2] = 23;
+				data[3] = 1;
+			
+				send_data(data);
+				delay(60);
+				
+				data[1] = 13 + digit_location*15;
+				data[2] = 23;
+				data[3] = 1;
+				
+				send_data(data);
+				delay(60);
+				
+				data[1] = 0;
+				data[2] = 0;
+				data[3] = 0;
+				
+				send_data(data);
+				
+				digit_location++;
+			}
+		}
+		
+		
 	}
 }
 
@@ -304,10 +999,7 @@ int main (void) {
 
 	osKernelInitialize ();				// initialize CMSIS-RTOS
 	
-	wireless_init();
-	send_beacons();
-//	transmit();
-//	receive();
+
 	
 	// initialize peripherals here
 	/* LCD initiatization */
@@ -325,6 +1017,8 @@ int main (void) {
 	keypad_thread = osThreadCreate(osThread(keypad), NULL);
 	LCD_control_thread = osThreadCreate(osThread(LCD_control), NULL);
 	Data_send_thread = osThreadCreate(osThread(Data_send), NULL);
+	
+
 	
 	osKernelStart ();					// start thread execution 
 }

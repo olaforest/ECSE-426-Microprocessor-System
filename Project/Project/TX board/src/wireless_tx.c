@@ -6,12 +6,17 @@
 // Definition for rates (in Hz), prescalar and period for the TIM3 clock.
 #define TIM3_COUNTER_CLK 1282
 #define TIM3_PRESCALAR ((SystemCoreClock / 2) / TIM3_COUNTER_CLK) - 1
-#define TIM3_DESIRED_RATE 2
+#define TIM3_DESIRED_RATE 1
 #define TIM3_PERIOD (TIM3_COUNTER_CLK / TIM3_DESIRED_RATE) - 1
 
 volatile int ready;
 uint8_t data;
 
+
+static void delay(__IO uint32_t nCount){
+	__IO uint32_t index = 0; 
+	for(index = 100000*nCount; index != 0; index--){}
+}
 
 // Handler routine for the TIM3 interrupts
 void TIM3_IRQHandler(){
@@ -83,28 +88,22 @@ void receive(){
 	}
 }
 
-void send_beacons(){
-	ready = 0;
+void send_data(uint8_t *data){
 	set_idle();
 	flush_tx_fifo();
 	tx_enable();
-
-	uint8_t value = 99;
 	
-	while (1){
+	for (int i = 0; i < 4; i++){
+		write_tx_fifo(&(data[i]), 1);
+		delay(10);
+	}		
+	
 
 	
-		while(!ready);
-		ready = 0;
-						
-		tx_enable();
-		write_tx_fifo(&value, 1);		
-	}
+//	printf("checkbyte: %u\n", data[0]);
+//	printf("x value: %u\n", data[1]);
+//	printf("y value: %u\n", data[2]);
+//	printf("z value: %u\n", data[3]);
+	
 }
 
-void EXTI0_IRQHandler(){
-	if (EXTI_GetITStatus(CC2500_SPI_INT1_EXTI_LINE) == SET){
-		EXTI_ClearITPendingBit(CC2500_SPI_INT1_EXTI_LINE);
-		ready = 1;
-	}
-}

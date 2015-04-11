@@ -444,6 +444,26 @@
               <FileType>5</FileType>
               <FilePath>.\src\wireless_tx.h</FilePath>
             </File>
+            <File>
+              <FileName>keypad.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\keypad.c</FilePath>
+            </File>
+            <File>
+              <FileName>keypad.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\keypad.h</FilePath>
+            </File>
+            <File>
+              <FileName>LCD_draw.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\LCD_draw.c</FilePath>
+            </File>
+            <File>
+              <FileName>LCD_draw.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\LCD_draw.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

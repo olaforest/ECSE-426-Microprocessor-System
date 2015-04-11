@@ -36,18 +36,9 @@
 #define CC2500_SPI_MOSI_SOURCE           GPIO_PinSource9
 #define CC2500_SPI_MOSI_AF               GPIO_AF_SPI5
 
-#define CC2500_SPI_CS_PIN                GPIO_Pin_10                  /* PF.05 */
+#define CC2500_SPI_CS_PIN                GPIO_Pin_6                  /* PF.05 */ ///CHNAGED FROM PF10 to PF6 -ege
 #define CC2500_SPI_CS_GPIO_PORT          GPIOF                       /* GPIOF */
 #define CC2500_SPI_CS_GPIO_CLK           RCC_AHB1Periph_GPIOF
-
-#define CC2500_SPI_INT1_PIN              GPIO_Pin_4                  /* PF.04 */
-#define CC2500_SPI_INT1_GPIO_PORT        GPIOF                       /* GPIOF */
-#define CC2500_SPI_INT1_GPIO_CLK         RCC_AHB1Periph_GPIOF
-#define CC2500_SPI_INT1_EXTI_LINE        EXTI_Line0
-#define CC2500_SPI_INT1_EXTI_PORT_SOURCE EXTI_PortSourceGPIOF
-#define CC2500_SPI_INT1_EXTI_PIN_SOURCE  EXTI_PinSource0
-#define CC2500_SPI_INT1_EXTI_IRQn        EXTI0_IRQn 
-
 
 // macros to set the chip select low/high 
 #define CC2500_CS_LOW()       GPIO_ResetBits(CC2500_SPI_CS_GPIO_PORT, CC2500_SPI_CS_PIN)

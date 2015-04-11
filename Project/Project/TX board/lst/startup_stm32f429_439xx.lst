@@ -892,17 +892,15 @@ ARM Macro Assembler    Page 14
   458 0000001C                 END
               00000000 
               00000000 
-Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
-erwork --depend=.\obj\startup_stm32f429_439xx.d -o.\obj\startup_stm32f429_439xx
-.o -I"C:\Users\Oli\Desktop\ECSE 426 - MP\Project\Project\TX board\RTE" -I"C:\Us
-ers\Oli\Desktop\ECSE 426 - MP\Project\Project\TX board\RTE\Device\STM32F429ZI" 
--IC:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include -IC:\Keil_v5\ARM\PACK\ARM\C
-MSIS\4.2.0\CMSIS_RTX\INC -IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\
-Include -IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\
-inc --predefine="__RTX SETA 1" --predefine="__EVAL SETA 1" --predefine="__MICRO
-LIB SETA 1" --predefine="__UVISION_VERSION SETA 514" --predefine="_RTE_ SETA 1"
- --predefine="STM32F429_439xx SETA 1" --list=.\lst\startup_stm32f429_439xx.lst 
-RTE\Device\STM32F429ZI\startup_stm32f429_439xx.s
+Command Line: --debug --xref --cpu=Cortex-M4.fp --apcs=interwork --depend=.\obj
+\startup_stm32f429_439xx.d -o.\obj\startup_stm32f429_439xx.o -I"C:\g5proj\Proje
+ct\Project\TX board\RTE" -I"C:\g5proj\Project\Project\TX board\RTE\Device\STM32
+F429ZI" -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include -IC:\Keil_v5\ARM\PA
+CK\ARM\CMSIS\4.1.1\CMSIS_RTX\INC -IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8
+\Device\Include -IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph
+_Driver\inc --predefine="__RTX SETA 1" --predefine="__MICROLIB SETA 1" --list=.
+\lst\startup_stm32f429_439xx.lst RTE\Device\STM32F429ZI\startup_stm32f429_439xx
+.s
 
 
 
@@ -2083,4 +2081,4 @@ Symbol: __main
       At line 193 in file RTE\Device\STM32F429ZI\startup_stm32f429_439xx.s
 Comment: __main used once
 2 symbols
-457 symbols in table
+453 symbols in table

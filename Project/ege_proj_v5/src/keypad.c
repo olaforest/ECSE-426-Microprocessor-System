@@ -11,9 +11,9 @@ Date:	March 23, 2015
 uint16_t row_pins[NUM_ROWS] = {ROW_1_PINS, ROW_2_PINS, ROW_3_PINS, ROW_4_PINS};
 uint8_t col_values[NUM_COLS] = {COL_1_VALUE, COL_2_VALUE, COL_3_VALUE, COL_4_VALUE};
 char keys[NUM_ROWS][NUM_COLS] = { '1', '2', '3', 'A',
-								  '4', '5', '6', 'B',
-								  '7', '8', '9', 'C',
-								  '*', '0', '#', 'D' };
+																	'4', '5', '6', 'B',
+																	'7', '8', '9', 'C',
+																	'*', '0', '#', 'D' };
 
 // initialize the keypad
 void keypad_init(void){
@@ -23,7 +23,6 @@ void keypad_init(void){
 	//Give clock to the GPIO
 	RCC_APB2PeriphClockCmd(RCC_AHB1Periph_GPIOE, ENABLE);
 	RCC_APB2PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);
-	
 	
 	//Initialize the rows as push-up output
 	GPIO_InitStruct.GPIO_Pin   = ALL_ROW_PINS;

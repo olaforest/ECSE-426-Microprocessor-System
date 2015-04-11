@@ -439,6 +439,46 @@
               <FileType>5</FileType>
               <FilePath>.\src\wireless_rx.h</FilePath>
             </File>
+            <File>
+              <FileName>threads.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\threads.h</FilePath>
+            </File>
+            <File>
+              <FileName>threads.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\threads.c</FilePath>
+            </File>
+            <File>
+              <FileName>servermotor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\servermotor.c</FilePath>
+            </File>
+            <File>
+              <FileName>servermotor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\servermotor.h</FilePath>
+            </File>
+            <File>
+              <FileName>mems.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\mems.c</FilePath>
+            </File>
+            <File>
+              <FileName>mems.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\mems.h</FilePath>
+            </File>
+            <File>
+              <FileName>kalman_filter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\kalman_filter.c</FilePath>
+            </File>
+            <File>
+              <FileName>kalman_filter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\kalman_filter.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

@@ -1,8 +1,7 @@
 #include "stm32f429i_discovery_lcd.h"
 
 
-void LCD_shape_clear(void);
-void LCD_inital_screen(void);
+
 
 typedef struct{
 	uint16_t x1;
@@ -12,3 +11,14 @@ typedef struct{
 	
 	
 }memory_unit;
+
+typedef struct{
+	uint8_t x;
+	uint8_t y;
+}digit_draw_xy;
+
+void LCD_shape_clear(void);
+void LCD_inital_screen(void);
+
+digit_draw_xy get_draw_coor(uint8_t digit_location, uint8_t number);
+

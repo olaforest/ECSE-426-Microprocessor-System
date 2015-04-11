@@ -150,7 +150,7 @@
 #define CC2500_REG_FIFO			 ((uint8_t)0x3F)
 
 // CC2500 configuration registers values
-#define CC2500_VAL_IOCFG2 	0x00   // default: 0x29  
+#define CC2500_VAL_IOCFG2 	0x29   // default: 0x29  
 #define	CC2500_VAL_IOCFG1		0x2E 
 #define CC2500_VAL_IOCFG0 	0x06	
 #define CC2500_VAL_FIFOTHR 	0x07	 // default: 0x07
