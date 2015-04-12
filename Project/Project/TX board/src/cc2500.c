@@ -1,3 +1,13 @@
+/*
+ECSE 426 - Wireless 3D printing machine project
+Maxim Goukhshtein (ID: 260429739)
+Olivier Laforest  (ID: 260469066)
+Nuri Ege Kozan    (ID: 260359680)
+Genevieve Nantel  (ID: 260481768)
+Group #4
+Date:	April 14th, 2015
+*/ 
+
 #include "cc2500.h"
 
 /* Read/Write command */
@@ -9,12 +19,15 @@
 /* Dummy Byte Send by the SPI Master device in order to generate the Clock to the Slave device */
 #define DUMMY_BYTE        ((uint8_t)0x00)
 
+// Private function prototypes
 static void CC2500_LowLevel_Init(void);
 static uint8_t CC2500_SendByte(uint8_t byte);
 static void CC2500_send_byte(uint8_t addr, uint8_t byte);
 uint8_t CC2500_CS(void);
 
+// Initialization of the TI C2500 wireless board
 void CC2500_init(){
+	
 	// set the configuration registers
 	uint8_t configuration[NUM_CONF_REG];
 	configuration[CC2500_REG_IOCFG2]   = CC2500_VAL_IOCFG2;		
@@ -64,59 +77,18 @@ void CC2500_init(){
 	configuration[CC2500_REG_TEST2]    = CC2500_VAL_TEST2;		
 	configuration[CC2500_REG_TEST1]    = CC2500_VAL_TEST1;		
 	configuration[CC2500_REG_TEST0]    = CC2500_VAL_TEST0;		
-		
-	CC2500_LowLevel_Init();	
-		
-	chip_reset();	
-		
+	
+	CC2500_LowLevel_Init();
+	
+	chip_reset();
+	
 	// write the set values into the registers
-	CC2500_write(configuration, CC2500_REG_IOCFG2, NUM_CONF_REG);		
-		
-//	CC2500_send_byte(CC2500_REG_IOCFG2  , CC2500_VAL_IOCFG2);		
-//	CC2500_send_byte(CC2500_REG_IOCFG0  , CC2500_VAL_IOCFG0);   
-//	CC2500_send_byte(CC2500_REG_FIFOTHR , CC2500_VAL_FIFOTHR); 		
-//	CC2500_send_byte(CC2500_REG_PKTLEN  , CC2500_VAL_PKTLEN);		
-//	CC2500_send_byte(CC2500_REG_PKTCTRL1, CC2500_VAL_PKTCTRL1);	
-//	CC2500_send_byte(CC2500_REG_PKTCTRL0, CC2500_VAL_PKTCTRL0);	
-//	CC2500_send_byte(CC2500_REG_ADDR    , CC2500_VAL_ADDR);			
-//	CC2500_send_byte(CC2500_REG_CHANNR  , CC2500_VAL_CHANNR);		
-//	CC2500_send_byte(CC2500_REG_FSCTRL1 , CC2500_VAL_FSCTRL1);	
-//	CC2500_send_byte(CC2500_REG_FSCTRL0 , CC2500_VAL_FSCTRL0);  
-//	CC2500_send_byte(CC2500_REG_FREQ2   , CC2500_VAL_FREQ2); 		
-//	CC2500_send_byte(CC2500_REG_FREQ1   , CC2500_VAL_FREQ1);		
-//	CC2500_send_byte(CC2500_REG_FREQ0   , CC2500_VAL_FREQ0);		
-//	CC2500_send_byte(CC2500_REG_MDMCFG4 , CC2500_VAL_MDMCFG4);	
-//	CC2500_send_byte(CC2500_REG_MDMCFG3 , CC2500_VAL_MDMCFG3);  
-//	CC2500_send_byte(CC2500_REG_MDMCFG2 , CC2500_VAL_MDMCFG2);  
-//	CC2500_send_byte(CC2500_REG_MDMCFG1 , CC2500_VAL_MDMCFG1);  
-//	CC2500_send_byte(CC2500_REG_MDMCFG0 , CC2500_VAL_MDMCFG0);  
-//	CC2500_send_byte(CC2500_REG_DEVIATN , CC2500_VAL_DEVIATN);  
-//	CC2500_send_byte(CC2500_REG_MCSM1   , CC2500_VAL_MCSM1);    
-//	CC2500_send_byte(CC2500_REG_MCSM0   , CC2500_VAL_MCSM0);    
-//	CC2500_send_byte(CC2500_REG_FOCCFG  , CC2500_VAL_FOCCFG);   
-//	CC2500_send_byte(CC2500_REG_BSCFG   , CC2500_VAL_BSCFG);		
-//	CC2500_send_byte(CC2500_REG_AGCTRL2 , CC2500_VAL_AGCTRL2); 
-//	CC2500_send_byte(CC2500_REG_AGCTRL1 , CC2500_VAL_AGCTRL1); 
-//	CC2500_send_byte(CC2500_REG_AGCTRL0 , CC2500_VAL_AGCTRL0); 
-//	CC2500_send_byte(CC2500_REG_FREND1  , CC2500_VAL_FREND1);   
-//	CC2500_send_byte(CC2500_REG_FREND0  , CC2500_VAL_FREND0);   
-//	CC2500_send_byte(CC2500_REG_FSCAL3  , CC2500_VAL_FSCAL3);   
-//	CC2500_send_byte(CC2500_REG_FSCAL2  , CC2500_VAL_FSCAL2);   
-//	CC2500_send_byte(CC2500_REG_FSCAL1  , CC2500_VAL_FSCAL1);   
-//	CC2500_send_byte(CC2500_REG_FSCAL0  , CC2500_VAL_FSCAL0);   
-//	CC2500_send_byte(CC2500_REG_FSTEST  , CC2500_VAL_FSTEST); 	 	
-//	CC2500_send_byte(CC2500_REG_TEST2   , CC2500_VAL_TEST2);		
-//	CC2500_send_byte(CC2500_REG_TEST1   , CC2500_VAL_TEST1);		
-//	CC2500_send_byte(CC2500_REG_TEST0   , CC2500_VAL_TEST0);			
-
-//	flush_rx_fifo();
-//	flush_tx_fifo();
-//	set_idle();
+	CC2500_write(configuration, CC2500_REG_IOCFG2, NUM_CONF_REG);
 }
 
 /**
   * @brief  Writes one byte to the CC2500.
-  * @param  pBuffer : pointer to the buffer  containing the data to be written to the CC2500.
+  * @param  pBuffer : pointer to the buffer containing the data to be written to the CC2500.
   * @param  WriteAddr : CC2500's internal address to write to.
   * @param  NumByteToWrite: Number of bytes to write.
   * @retval None
@@ -125,28 +97,26 @@ void CC2500_write(uint8_t* pBuffer, uint8_t WriteAddr, uint16_t NumByteToWrite){
 	/* Configure the MS bit: 
        - When 0, the address will remain unchanged in multiple read/write commands.
        - When 1, the address will be auto incremented in multiple read/write commands.
-  */
-  if(NumByteToWrite > 0x01)
-  {
-    WriteAddr |= (uint8_t)MULTIPLEBYTE_CMD;
-  }
+	*/
+	if(NumByteToWrite > 0x01) {
+		WriteAddr |= (uint8_t)MULTIPLEBYTE_CMD;
+	}
  
 	/* Set chip select Low at the start of the transmission */
-  if (CC2500_CS() == CC2500_TIMED_OUT) return;
+	if (CC2500_CS() == CC2500_TIMED_OUT) return;
   
-  /* Send the Address of the indexed register */
-  CC2500_SendByte(WriteAddr);
+	/* Send the Address of the indexed register */
+	CC2500_SendByte(WriteAddr);
 	
-  /* Send the data that will be written into the device (MSB First) */
-  while(NumByteToWrite >= 0x01)
-  {
-    CC2500_SendByte(*pBuffer);
-    NumByteToWrite--;
-    pBuffer++;
-  }
+	/* Send the data that will be written into the device (MSB First) */
+	while(NumByteToWrite >= 0x01) {
+		CC2500_SendByte(*pBuffer);
+		NumByteToWrite--;
+		pBuffer++;
+	}
   
-  /* Set chip select high at the end of the transmission */ 
-  CC2500_CS_HIGH();
+	/* Set chip select high at the end of the transmission */ 
+	CC2500_CS_HIGH();
 }
 
 /**
@@ -156,31 +126,31 @@ void CC2500_write(uint8_t* pBuffer, uint8_t WriteAddr, uint16_t NumByteToWrite){
   * @param  NumByteToRead : number of bytes to read from the CC2500.
   * @retval None
   */
-void CC2500_read(uint8_t* pBuffer, uint8_t ReadAddr, uint16_t NumByteToRead)
-{  	
-  if(NumByteToRead > 0x01) {
-    ReadAddr |= (uint8_t)(READ_CMD | MULTIPLEBYTE_CMD);
-  } else {
-    ReadAddr |= (uint8_t) READ_CMD;
-  }
+void CC2500_read(uint8_t* pBuffer, uint8_t ReadAddr, uint16_t NumByteToRead) {
+	
+	if(NumByteToRead > 0x01) {
+		ReadAddr |= (uint8_t)(READ_CMD | MULTIPLEBYTE_CMD);
+	} else {
+		ReadAddr |= (uint8_t) READ_CMD;
+	}
   
 	/* Set chip select Low at the start of the transmission */
-  if (CC2500_CS() == CC2500_TIMED_OUT) return;
+	if (CC2500_CS() == CC2500_TIMED_OUT) return;
  
-  /* Send the Address of the indexed register */
-  CC2500_SendByte(ReadAddr);
+	/* Send the Address of the indexed register */
+	CC2500_SendByte(ReadAddr);
   
-  /* Receive the data that will be read from the device (MSB First) */
-  while(NumByteToRead > 0x00)
-  {
-    /* Send dummy byte (0x00) to generate the SPI clock to LIS3DSH (Slave device) */
-    *pBuffer = CC2500_SendByte(DUMMY_BYTE);
-    NumByteToRead--;
-    pBuffer++;
-  }
+	/* Receive the data that will be read from the device (MSB First) */
+	while(NumByteToRead > 0x00) {
+		
+		/* Send dummy byte (0x00) to generate the SPI clock to CC2500 (Slave device) */
+		*pBuffer = CC2500_SendByte(DUMMY_BYTE);
+		NumByteToRead--;
+		pBuffer++;
+	}
   
-  /* Set chip select High at the end of the transmission */ 
-  CC2500_CS_HIGH();
+	/* Set chip select High at the end of the transmission */ 
+	CC2500_CS_HIGH();
 }
 
 /**
@@ -189,95 +159,102 @@ void CC2500_read(uint8_t* pBuffer, uint8_t ReadAddr, uint16_t NumByteToRead)
   * @param  Byte : Byte send.
   * @retval The received byte value
   */
-static uint8_t CC2500_SendByte(uint8_t byte)
-{
-  /* Loop while DR register in not emplty */
-  uint32_t CC2500Timeout = CC2500_FLAG_TIMEOUT;
-  while (SPI_I2S_GetFlagStatus(CC2500_SPI, SPI_I2S_FLAG_TXE) == RESET)
-  {
-    if((CC2500Timeout--) == 0) return 0;
-  }
+static uint8_t CC2500_SendByte(uint8_t byte) {
+	
+	/* Loop while DR register in not emplty */
+	uint32_t CC2500Timeout = CC2500_FLAG_TIMEOUT;
+	while (SPI_I2S_GetFlagStatus(CC2500_SPI, SPI_I2S_FLAG_TXE) == RESET) {
+		if((CC2500Timeout--) == 0) return 0;
+	}
   
-  /* Send a Byte through the SPI peripheral */
-  SPI_I2S_SendData(CC2500_SPI, byte);
+	/* Send a Byte through the SPI peripheral */
+	SPI_I2S_SendData(CC2500_SPI, byte);
   
-  /* Wait to receive a Byte */
-  CC2500Timeout = CC2500_FLAG_TIMEOUT;
-  while (SPI_I2S_GetFlagStatus(CC2500_SPI, SPI_I2S_FLAG_RXNE) == RESET)
-  {
-    if((CC2500Timeout--) == 0) return 0;
-  }
+	/* Wait to receive a Byte */
+	CC2500Timeout = CC2500_FLAG_TIMEOUT;
+	while (SPI_I2S_GetFlagStatus(CC2500_SPI, SPI_I2S_FLAG_RXNE) == RESET) {
+		if((CC2500Timeout--) == 0) return 0;
+	}
   
-  /* Return the Byte read from the SPI bus */
-  return (uint8_t)SPI_I2S_ReceiveData(CC2500_SPI);
+	/* Return the Byte read from the SPI bus */
+	return (uint8_t)SPI_I2S_ReceiveData(CC2500_SPI);
 }
 
-static void CC2500_send_byte(uint8_t addr, uint8_t byte){
-	if (CC2500_CS() == CC2500_TIMED_OUT) return;
-	
-	 /* Loop while DR register in not emplty */
-  uint32_t CC2500Timeout = CC2500_FLAG_TIMEOUT;
-  while (SPI_I2S_GetFlagStatus(CC2500_SPI, SPI_I2S_FLAG_TXE) == RESET)
-  {
-    if((CC2500Timeout--) == 0) return;
-  }
-  
-  /* Send a Byte through the SPI peripheral */
-  SPI_I2S_SendData(CC2500_SPI, addr);
-  
-  /* Wait to receive a Byte */
-  CC2500Timeout = CC2500_FLAG_TIMEOUT;
-  while (SPI_I2S_GetFlagStatus(CC2500_SPI, SPI_I2S_FLAG_RXNE) == RESET)
-  {
-    if((CC2500Timeout--) == 0) return;
-  }
-	
-	 /* Loop while DR register in not emplty */
-  CC2500Timeout = CC2500_FLAG_TIMEOUT;
-  while (SPI_I2S_GetFlagStatus(CC2500_SPI, SPI_I2S_FLAG_TXE) == RESET)
-  {
-    if((CC2500Timeout--) == 0) return;
-  }
-  
-  /* Send a Byte through the SPI peripheral */
-  SPI_I2S_SendData(CC2500_SPI, byte);
-  
-  /* Wait to receive a Byte */
-  CC2500Timeout = CC2500_FLAG_TIMEOUT;
-  while (SPI_I2S_GetFlagStatus(CC2500_SPI, SPI_I2S_FLAG_RXNE) == RESET)
-  {
-    if((CC2500Timeout--) == 0) return;
-  }
-  
-	CC2500_CS_HIGH();
-}
+/**
+	* @brief  Sends a Byte through the SPI interface at the address specified 
+			and return the Byte received from the SPI bus.
+	* @param  Address : CC2500's internal address to send to.
+	* @param  Byte : Byte send.
+	* @retval The received byte value
+	*/
+//static void CC2500_send_byte(uint8_t addr, uint8_t byte){
+//	
+//	if (CC2500_CS() == CC2500_TIMED_OUT) return;
+//	
+//	 /* Loop while DR register in not empty */
+//	uint32_t CC2500Timeout = CC2500_FLAG_TIMEOUT;
+//	while (SPI_I2S_GetFlagStatus(CC2500_SPI, SPI_I2S_FLAG_TXE) == RESET) {
+//		if((CC2500Timeout--) == 0) return;
+//	}
+//  
+//	/* Send a Byte through the SPI peripheral */
+//	SPI_I2S_SendData(CC2500_SPI, addr);
+//	
+//	/* Wait to receive a Byte */
+//	CC2500Timeout = CC2500_FLAG_TIMEOUT;
+//	while (SPI_I2S_GetFlagStatus(CC2500_SPI, SPI_I2S_FLAG_RXNE) == RESET) {
+//		if((CC2500Timeout--) == 0) return;
+//	}
+//	
+//	/* Loop while DR register in not emplty */
+//	CC2500Timeout = CC2500_FLAG_TIMEOUT;
+//	while (SPI_I2S_GetFlagStatus(CC2500_SPI, SPI_I2S_FLAG_TXE) == RESET) {
+//		if((CC2500Timeout--) == 0) return;
+//	}
+//	
+//	/* Send a Byte through the SPI peripheral */
+//	SPI_I2S_SendData(CC2500_SPI, byte);
+//	
+//	/* Wait to receive a Byte */
+//	CC2500Timeout = CC2500_FLAG_TIMEOUT;
+//	while (SPI_I2S_GetFlagStatus(CC2500_SPI, SPI_I2S_FLAG_RXNE) == RESET) {
+//		if((CC2500Timeout--) == 0) return;
+//	}
+//  
+//	CC2500_CS_HIGH();
+//}
 
+// Sets the chip select line low and then waits for the slave out of the CC2500 to be set.
+// If the slave out is not reset before the counter times out, the chip selects line is set 
+// back up and the function returns.
 uint8_t CC2500_CS(){
 	CC2500_CS_LOW();
-  uint32_t CC2500Timeout = CC2500_FLAG_TIMEOUT;
+	uint32_t CC2500Timeout = CC2500_FLAG_TIMEOUT;
   
 	while (GPIO_ReadInputDataBit(CC2500_SPI_MISO_GPIO_PORT,CC2500_SPI_MISO_PIN) != RESET){
 		if((CC2500Timeout--) == 0){
 			CC2500_CS_HIGH();
 			return CC2500_TIMED_OUT;
 		}
-  }
-	
+	}
 	return 0;
 }
 
+// Sends a command strobe by sending the address of the command strobe to the CC2500 wireless board
 uint8_t send_strobe(uint8_t addr){
 	/* Set chip select Low at the start of the transmission */
-  if (CC2500_CS() == CC2500_TIMED_OUT) return CC2500_TIMED_OUT;
- 
+	if (CC2500_CS() == CC2500_TIMED_OUT) return CC2500_TIMED_OUT;
+	
 	uint8_t status_byte = CC2500_SendByte(addr);
 	
 	CC2500_CS_HIGH();
 	
-  /* Send the Address of the indexed register */
-  return status_byte;
+	/* Send the Address of the indexed register */
+	return status_byte;
 }
 
+// Gets the number of bytes available to be read in the RX FIFO queue by reading the 
+// of the RXBYTES register of the CC2500
 uint8_t get_rx_buffer_size(){
 	if (CC2500_CS() == CC2500_TIMED_OUT) return CC2500_TIMED_OUT;
 	
@@ -289,10 +266,14 @@ uint8_t get_rx_buffer_size(){
 	return num_rx_bytes;
 }
 
+// Gets the number of free bytes available in the TX FIFO queue by sending a no operation (SNOP)
+// command strobe to access the chip status byte.
 uint8_t get_tx_buffer_size(){
 	return send_strobe(CC2500_REG_SNOP) & 0x0F;
 }
 
+// Performs a chip reset by sending the chip reset command strobe (SRES), and then waits for 
+// the slave out line of the CC2500 SPI to reset.
 void chip_reset(){
 	send_strobe(CC2500_REG_SRES);
 	
@@ -301,43 +282,64 @@ void chip_reset(){
 	while (GPIO_ReadInputDataBit(CC2500_SPI_MISO_GPIO_PORT,CC2500_SPI_MISO_PIN) != RESET){
 		if((CC2500Timeout--) == 0){
 			CC2500_CS_HIGH();
-		  return;			
+			return;			
 		}
-  }
+	}
 }
 
+// Calibrates the frequency synthetiser of the CC2500 board and then turn it off.
 void calibrate_frequency_synthesizer(){
 	send_strobe(CC2500_REG_SCAL);
 }
 
+// Set the CC2500 board into receive mode
 void rx_enable(){
 	send_strobe(CC2500_REG_SRX);
 }
 
+// Set the CC2500 board into transmit mode
 void tx_enable(){
 	send_strobe(CC2500_REG_STX);
 }
 
+// Set the CC2500 board into idle state
 void set_idle(){
 	send_strobe(CC2500_REG_SIDLE);
 }
 
+// Flushes the RX FIFO queue
 void flush_rx_fifo(){
 	send_strobe(CC2500_REG_SFRX);
 }
 
+// Flushes the TX FIFO queue
 void flush_tx_fifo(){
 	send_strobe(CC2500_REG_SFTX);
 }
 
+// Gets the chip status byte by sending the no operation command strobe (SNOP)
 uint8_t get_status_byte(uint8_t read){
 	return send_strobe(read == 0 ? CC2500_REG_SNOP : CC2500_REG_SNOP | READ_CMD);
 }
 
+/**
+	* @brief  Reads the specified number of bytes from the RX FIFO queue
+	* @param  pBuffer:	Pointer to the location in memory where the bytes read from the RX FIFO
+						are placed
+	* @param  NumByteToRead:	Number of bytes read from the RX FIFO queue
+	* @retval None
+	*/
 void read_rx_fifo(uint8_t* pBuffer, uint16_t NumByteToRead){
 	CC2500_read(pBuffer, CC2500_REG_FIFO, NumByteToRead);
 }
 
+/**
+	* @brief  Writes the specified number of bytes from the TX FIFO queue
+	* @param  pBuffer:	Pointer to the location in memory containing the bytes to be written to the TX
+						FIFO queue are
+	* @param  NumByteToRead:	Number of bytes to write to the TX FIFO queue
+	* @retval None
+	*/
 void write_tx_fifo(uint8_t* pBuffer, uint16_t NumByteToRead){
 	CC2500_write(pBuffer, CC2500_REG_FIFO, NumByteToRead);
 }

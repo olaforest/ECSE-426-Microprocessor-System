@@ -1,10 +1,12 @@
 /*
-ECSE 426 - Lab 4
+ECSE 426 - Wireless 3D printing machine project
 Maxim Goukhshtein (ID: 260429739)
 Olivier Laforest  (ID: 260469066)
-Group #3
-Date:	March 23, 2015
-*/  
+Nuri Ege Kozan    (ID: 260359680)
+Genevieve Nantel  (ID: 260481768)
+Group #4
+Date:	April 14th, 2015
+*/
 
 #ifndef _KEYPAD_
 #define _KEYPAD_
@@ -19,7 +21,6 @@ Date:	March 23, 2015
 #include <stdio.h>
 #include <ctype.h>
 
-//#define KEYPAD_GPIO GPIOE
 #define ALL_ROW_PINS GPIO_Pin_2 | GPIO_Pin_3 | GPIO_Pin_4 | GPIO_Pin_5 //rows are GPIOE
 #define ALL_COL_PINS GPIO_Pin_2 | GPIO_Pin_4 | GPIO_Pin_5 | GPIO_Pin_7 //columns are GPIOD
 #define ROW_1_PINS GPIO_Pin_3 | GPIO_Pin_4 | GPIO_Pin_5
@@ -39,6 +40,9 @@ Date:	March 23, 2015
 #define DUMMY_KEY 'x'
 #define KEY_SCAN_FREQ 4
 #define KEY_SCAN_CLK_DIV (TIM3_DESIRED_RATE / KEY_SCAN_FREQ)
+
+
+/* Exported functions --------------------------------------------------------*/
 
 void keypad_init(void);
 uint8_t read_cols(void);

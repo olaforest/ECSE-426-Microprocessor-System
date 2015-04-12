@@ -1,13 +1,16 @@
 /*
-ECSE 426 - Lab 4
+ECSE 426 - Wireless 3D printing machine project
 Maxim Goukhshtein (ID: 260429739)
 Olivier Laforest  (ID: 260469066)
-Group #3
-Date:	March 23, 2015
-*/ 
+Nuri Ege Kozan    (ID: 260359680)
+Genevieve Nantel  (ID: 260481768)
+Group #4
+Date:	April 14th, 2015
+*/
 
 #include "keypad.h"
 
+// Sets up look up tables for row pin values, column pin values and key values
 uint16_t row_pins[NUM_ROWS] = {ROW_1_PINS, ROW_2_PINS, ROW_3_PINS, ROW_4_PINS};
 uint8_t col_values[NUM_COLS] = {COL_1_VALUE, COL_2_VALUE, COL_3_VALUE, COL_4_VALUE};
 char keys[NUM_ROWS][NUM_COLS] = { '1', '2', '3', 'A',
@@ -50,7 +53,9 @@ uint8_t read_cols(void){
 
 // Get the pressed key. returns 1 if a key was found to be pressed and 0 otherwise.
 int get_key(char * key){	
+	
 	int i, j;
+	
 	for (i = 0; i < NUM_ROWS; i++){
 		// reset the row bits and then set to a new possible row pattern.
 		GPIO_ResetBits(GPIOE, ALL_ROW_PINS);
