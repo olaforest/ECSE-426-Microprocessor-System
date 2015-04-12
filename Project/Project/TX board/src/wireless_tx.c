@@ -55,10 +55,12 @@ void config_tim3(void){
 	TIM_Cmd(TIM3, ENABLE);
 }
 
+// Initialization of wireless
 void wireless_init(){
 	config_tim3();
 	CC2500_init();
 }
+
 
 void transmit(){
 	uint8_t addr = 0x10;
@@ -69,19 +71,9 @@ void transmit(){
 }
 
 void receive(){
-//	uint8_t addr = 0x10;
-//	uint8_t byte;
-//	
-//	CC2500_read(&byte, addr, 1);
-//	printf("Read by at address %u: %u\n", addr, byte);
-	
-	
-//	for (int i = 0; i < NUM_CONF_REG; i++){
-//		CC2500_read(&byte, (uint8_t)i, 1);
-//		printf("Read by at address %X: %X\n", i, byte);
-//	}	
 	
 	uint8_t buffer[NUM_CONF_REG];
+	
 	CC2500_read(buffer, CC2500_REG_IOCFG2, NUM_CONF_REG);
 	for (int i = 0; i < NUM_CONF_REG; i++){
 		printf("Read by at address %X: %X\n", i, buffer[i]);
@@ -96,14 +88,6 @@ void send_data(uint8_t *data){
 	for (int i = 0; i < 4; i++){
 		write_tx_fifo(&(data[i]), 1);
 		delay(10);
-	}		
-	
-
-	
-//	printf("checkbyte: %u\n", data[0]);
-//	printf("x value: %u\n", data[1]);
-//	printf("y value: %u\n", data[2]);
-//	printf("z value: %u\n", data[3]);
-	
+	}
 }
 

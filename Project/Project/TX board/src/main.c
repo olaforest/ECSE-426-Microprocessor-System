@@ -47,12 +47,13 @@ osThreadId keypad_thread;
 osThreadId LCD_control_thread;
 osThreadId Data_send_thread;
 
-
+// Creates a delay based on the input value
 static void delay(__IO uint32_t nCount){
 	__IO uint32_t index = 0; 
 	for(index = 100000*nCount; index != 0; index--){}
 }
 
+// Thread responsible for handling the user input throught the keypad
 void keypad(void const * arg){
 
 	char last_key = DUMMY_KEY;
@@ -71,7 +72,8 @@ void keypad(void const * arg){
 	
 	while(1){
 		key = get_input();
-			
+		
+		
 		if (last_key == DUMMY_KEY && key !=DUMMY_KEY){		
 			if(key == '5'){
 			MEMS_activate = !MEMS_activate;
@@ -109,7 +111,7 @@ void keypad(void const * arg){
 		}
 		
 			
-		//select the mode
+		//Select the mode
 		if(key == 'A'){
 			MEMS_activate = 0;
 			mode_select = 'A';
@@ -133,7 +135,6 @@ void keypad(void const * arg){
 				data[3] = 0;
 			
 				send_data(data);
-				
 			}
 			
 			if(key == '1'){
@@ -999,8 +1000,6 @@ int main (void) {
 
 	osKernelInitialize ();				// initialize CMSIS-RTOS
 	
-
-	
 	// initialize peripherals here
 	/* LCD initiatization */
 	LCD_Init();
@@ -1017,8 +1016,6 @@ int main (void) {
 	keypad_thread = osThreadCreate(osThread(keypad), NULL);
 	LCD_control_thread = osThreadCreate(osThread(LCD_control), NULL);
 	Data_send_thread = osThreadCreate(osThread(Data_send), NULL);
-	
-
 	
 	osKernelStart ();					// start thread execution 
 }
