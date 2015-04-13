@@ -29,6 +29,7 @@ void EXTI0_IRQHandler(){
 	}
 }
 
+// thread for the mem sensor
 void mems_thread(void const * arg){
 	// Kalman filter state initilization
 	KalmanState kstate_pitch, kstate_roll;
@@ -44,9 +45,12 @@ void mems_thread(void const * arg){
 	mems_init();
 	
 	while(1){
+		// wait for mems_ready to execute 
 		osSignalWait(MEMS_READY, osWaitForever);	
-		
+		// if the user has selected mems mode then set the pitch and roll
+		//this detect the angle the board is tilted and will map it to the whiteboard coordinates
 		if (mems_mode){	
+			// get the mems value for pitch and roll and filter it using the kalman filter
 			pitch = kalmanFilter(get_pitch_angle(), &kstate_pitch);
 			roll  = kalmanFilter(get_roll_angle(), &kstate_roll);
 			if (roll < 45.0) {
@@ -63,6 +67,7 @@ void mems_thread(void const * arg){
 			position[1] = x;
 			position[2] = y;
 			position[3] = 1.0;
+			//send the position array to the motors in order to control the position on the board
 			send_message(position, mems_queue);
 					
 			osSignalSet(servomotor_tid, DATA_READY);
@@ -70,7 +75,9 @@ void mems_thread(void const * arg){
 	}
 }
 
+//thread for servo motor
 void servomotor_thread(void const * arg){	
+	//initialize all motor components
 	motor_gpio_init();
 	timer_init();
 	pwm_angle_init();
@@ -78,8 +85,10 @@ void servomotor_thread(void const * arg){
 	uint8_t data[3];
 	
 	while (1){
+		// wait if there is data that is ready for the motor 
 		osSignalWait(DATA_READY, osWaitForever);
-		
+		//if there is a message that was received move the arms accordingly
+		// if not then print that no data was received
 		if (receive_message(data, data_queue)){
 			move_arms(data, DELAY);
 		} else if (receive_message(data, mems_queue)){
@@ -90,7 +99,9 @@ void servomotor_thread(void const * arg){
 	}
 }
 
+// thread for the receiver board 
 void rx_thread(void const * arg){
+	// initialize the wireless 
 	wireless_init();
 	
 	set_idle();
@@ -98,16 +109,17 @@ void rx_thread(void const * arg){
 	rx_enable();
 
 	while (1){		
-
+		
 		osSignalWait(RX_READY, osWaitForever);
-			
+		// initialize buffer	
 		uint8_t buffer[64];
 		memset(buffer, 0, 64);
 		
 		rx_enable();
 		
 		uint8_t buff_size;
-		buff_size = get_rx_buffer_size();		
+		buff_size = get_rx_buffer_size();
+		// if the buffer size is between 3 and 64 then we read the data in a first in first out fashion
 		if (buff_size > 3 && buff_size < 64){
 			read_rx_fifo(buffer, buff_size);
 						
@@ -151,7 +163,7 @@ int receive_message(uint8_t * data, osMessageQId queue){
 	return 0;
 }
 
-
+// create all the necessary threads
 void create_threads(void){
 	mem_pool = osPoolCreate(osPool(mem_pool)); 
 	data_queue = osMessageCreate(osMessageQ(data_queue), NULL); 	
