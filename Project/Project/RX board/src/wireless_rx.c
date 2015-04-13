@@ -1,3 +1,12 @@
+/*
+ECSE 426 - Wireless 3D printing machine project
+Maxim Goukhshtein (ID: 260429739)
+Olivier Laforest  (ID: 260469066)
+Nuri Ege Kozan    (ID: 260359680)
+Genevieve Nantel  (ID: 260481768)
+Group #4
+Date:	April 14th, 2015
+*/ 
 #include "stdio.h"
 #include "string.h"
 #include "wireless_rx.h"
@@ -30,11 +39,14 @@ void config_tim3(void){
 	TIM_Cmd(TIM3, ENABLE);
 }
 
+// Initialization of wireless capabilities by configuring TIM3 hardware timer
+// and initializing the CC2500 wireless board
 void wireless_init(){
 	config_tim3();
 	CC2500_init();
 }
 
+//write to address 
 void transmit(){
 	uint8_t addr = 0x10;
 	uint8_t byte = 0x7;
@@ -43,6 +55,7 @@ void transmit(){
 	printf("Writing to address %u: %u\n", addr, byte);
 }
 
+// receive data from the buffer
 void receive(){
 //	uint8_t addr = 0x10;
 //	uint8_t byte;
