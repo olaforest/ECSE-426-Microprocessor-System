@@ -28,6 +28,7 @@ extern osMessageQId data_queue, mems_queue;
 
 extern osThreadId rx_tid, servomotor_tid, mems_tid;
 
+/* Exported functions --------------------------------------------------------*/
 void rx_thread(void const * arg);
 void servomotor_thread(void const * arg);
 void mems_thread(void const * arg);
