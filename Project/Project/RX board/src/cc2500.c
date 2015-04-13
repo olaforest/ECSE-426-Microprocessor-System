@@ -1,3 +1,13 @@
+/*
+ECSE 426 - Wireless 3D printing machine project
+Maxim Goukhshtein (ID: 260429739)
+Olivier Laforest  (ID: 260469066)
+Nuri Ege Kozan    (ID: 260359680)
+Genevieve Nantel  (ID: 260481768)
+Group #4
+Date:	April 14th, 2015
+*/ 
+
 #include "cc2500.h"
 
 /* Read/Write command */
@@ -9,11 +19,13 @@
 /* Dummy Byte Send by the SPI Master device in order to generate the Clock to the Slave device */
 #define DUMMY_BYTE        ((uint8_t)0x00)
 
+// Private function prototypes
 static void CC2500_LowLevel_Init(void);
 static uint8_t CC2500_SendByte(uint8_t byte);
 static void CC2500_send_byte(uint8_t addr, uint8_t byte);
 uint8_t CC2500_CS(void);
 
+// Initialization of the TI C2500 wireless board
 void CC2500_init(){
 	// set the configuration registers
 	uint8_t configuration[NUM_CONF_REG];
