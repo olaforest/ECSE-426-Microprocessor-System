@@ -1,3 +1,12 @@
+/*
+ECSE 426 - Wireless 3D printing machine project
+Maxim Goukhshtein (ID: 260429739)
+Olivier Laforest  (ID: 260469066)
+Nuri Ege Kozan    (ID: 260359680)
+Genevieve Nantel  (ID: 260481768)
+Group #4
+Date:	April 14th, 2015
+*/ 
 #ifndef __CC2500__
 #define __CC2500__
 
@@ -48,6 +57,7 @@
 //#define CC2500_SPI_INT1_EXTI_PIN_SOURCE  EXTI_PinSource0
 //#define CC2500_SPI_INT1_EXTI_IRQn        EXTI0_IRQn 
 
+//CC2500 SPI Interface pins
 #define CC2500_SPI                       SPI2
 #define CC2500_SPI_CLK                   RCC_APB1Periph_SPI2
 
@@ -198,6 +208,7 @@
 #define CC2500_VAL_TEST1 		0x31	
 #define CC2500_VAL_TEST0 		0x0B
 
+/* Exported functions --------------------------------------------------------*/
 void CC2500_init(void);
 void CC2500_write(uint8_t* pBuffer, uint8_t WriteAddr, uint16_t NumByteToWrite);
 void CC2500_read(uint8_t* pBuffer, uint8_t ReadAddr, uint16_t NumByteToRead);
