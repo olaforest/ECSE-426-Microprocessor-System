@@ -1,9 +1,11 @@
 /*
-ECSE 426 - Lab 4
+ECSE 426 - Wireless 3D printing machine project
 Maxim Goukhshtein (ID: 260429739)
 Olivier Laforest  (ID: 260469066)
-Group #3
-Date:	March 23, 2015
+Nuri Ege Kozan    (ID: 260359680)
+Genevieve Nantel  (ID: 260481768)
+Group #4
+Date:	April 14th, 2015
 */ 
 
 #ifndef _MEMS_
@@ -15,7 +17,7 @@ Date:	March 23, 2015
 #include "kalman_filter.h"
 
 #define M_PI 3.141592653589793
-
+// exported functions
 void config_LIS3DSH(void);
 void config_ext_interrupt(void);
 void get_accelerations(float * norm_acc_X, float * norm_acc_Y, float * norm_acc_Z);
