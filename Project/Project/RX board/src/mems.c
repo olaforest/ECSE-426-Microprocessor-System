@@ -1,9 +1,11 @@
 /*
-ECSE 426 - Lab 4
+ECSE 426 - Wireless 3D printing machine project
 Maxim Goukhshtein (ID: 260429739)
 Olivier Laforest  (ID: 260469066)
-Group #3
-Date:	March 23, 2015
+Nuri Ege Kozan    (ID: 260359680)
+Genevieve Nantel  (ID: 260481768)
+Group #4
+Date:	April 14th, 2015
 */ 
 
 #include "mems.h"
@@ -109,7 +111,7 @@ float get_roll_angle(void){
 	// calculate and return the pitch angle.
 	return atan(norm_acc_Y / sqrt(norm_acc_X * norm_acc_X + norm_acc_Z * norm_acc_Z)) * 180 / M_PI + 90;	
 }
-
+//INITIALIZE the mems and the interrupt 
 void mems_init(void){
 	config_LIS3DSH();
 	config_ext_interrupt();
