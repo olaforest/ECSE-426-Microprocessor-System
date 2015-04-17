@@ -1,16 +1,16 @@
 .\obj\threads.o: src\threads.c
 .\obj\threads.o: src\threads.h
-.\obj\threads.o: H:\ECSE426\Project\Project\RX board\RTE\Device\STM32F407VG\stm32f4xx_conf.h
-.\obj\threads.o: H:\ECSE426\Project\Project\RX board\RTE\RTE_Components.h
+.\obj\threads.o: C:\Users\Maxim\Documents\GitHub\ECSE-426-Microprocessor-System\Project\Project\RX board\RTE\Device\STM32F407VG\stm32f4xx_conf.h
+.\obj\threads.o: C:\Users\Maxim\Documents\GitHub\ECSE-426-Microprocessor-System\Project\Project\RX board\RTE\RTE_Components.h
 .\obj\threads.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc\stm32f4xx_adc.h
 .\obj\threads.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include\stm32f4xx.h
-.\obj\threads.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include\core_cm4.h
-.\obj\threads.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h
-.\obj\threads.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include\core_cmInstr.h
-.\obj\threads.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include\core_cmFunc.h
-.\obj\threads.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include\core_cm4_simd.h
+.\obj\threads.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include\core_cm4.h
+.\obj\threads.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\obj\threads.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include\core_cmInstr.h
+.\obj\threads.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include\core_cmFunc.h
+.\obj\threads.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include\core_cmSimd.h
 .\obj\threads.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include\system_stm32f4xx.h
-.\obj\threads.o: H:\ECSE426\Project\Project\RX board\RTE\Device\STM32F407VG\stm32f4xx_conf.h
+.\obj\threads.o: C:\Users\Maxim\Documents\GitHub\ECSE-426-Microprocessor-System\Project\Project\RX board\RTE\Device\STM32F407VG\stm32f4xx_conf.h
 .\obj\threads.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc\stm32f4xx_crc.h
 .\obj\threads.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc\stm32f4xx_dbgmcu.h
 .\obj\threads.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc\stm32f4xx_dma.h
@@ -37,14 +37,14 @@
 .\obj\threads.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc\stm32f4xx_dcmi.h
 .\obj\threads.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc\stm32f4xx_fsmc.h
 .\obj\threads.o: src\osObjects.h
-.\obj\threads.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS_RTX\INC\cmsis_os.h
-.\obj\threads.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stddef.h
-.\obj\threads.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdio.h
-.\obj\threads.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\string.h
+.\obj\threads.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS_RTX\INC\cmsis_os.h
+.\obj\threads.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\obj\threads.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\obj\threads.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\obj\threads.o: src\wireless_rx.h
 .\obj\threads.o: src\cc2500.h
 .\obj\threads.o: src\servermotor.h
 .\obj\threads.o: src\mems.h
-.\obj\threads.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\math.h
+.\obj\threads.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 .\obj\threads.o: .\Accelerometer_Drivers\inc\lis3dsh.h
 .\obj\threads.o: src\kalman_filter.h

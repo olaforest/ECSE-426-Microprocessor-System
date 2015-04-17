@@ -83,47 +83,6 @@ void CC2500_init(){
 		
 	// write the set values into the registers
 	CC2500_write(configuration, CC2500_REG_IOCFG2, NUM_CONF_REG);		
-		
-//	CC2500_send_byte(CC2500_REG_IOCFG2  , CC2500_VAL_IOCFG2);		
-//	CC2500_send_byte(CC2500_REG_IOCFG0  , CC2500_VAL_IOCFG0);   
-//	CC2500_send_byte(CC2500_REG_FIFOTHR , CC2500_VAL_FIFOTHR); 		
-//	CC2500_send_byte(CC2500_REG_PKTLEN  , CC2500_VAL_PKTLEN);		
-//	CC2500_send_byte(CC2500_REG_PKTCTRL1, CC2500_VAL_PKTCTRL1);	
-//	CC2500_send_byte(CC2500_REG_PKTCTRL0, CC2500_VAL_PKTCTRL0);	
-//	CC2500_send_byte(CC2500_REG_ADDR    , CC2500_VAL_ADDR);			
-//	CC2500_send_byte(CC2500_REG_CHANNR  , CC2500_VAL_CHANNR);		
-//	CC2500_send_byte(CC2500_REG_FSCTRL1 , CC2500_VAL_FSCTRL1);	
-//	CC2500_send_byte(CC2500_REG_FSCTRL0 , CC2500_VAL_FSCTRL0);  
-//	CC2500_send_byte(CC2500_REG_FREQ2   , CC2500_VAL_FREQ2); 		
-//	CC2500_send_byte(CC2500_REG_FREQ1   , CC2500_VAL_FREQ1);		
-//	CC2500_send_byte(CC2500_REG_FREQ0   , CC2500_VAL_FREQ0);		
-//	CC2500_send_byte(CC2500_REG_MDMCFG4 , CC2500_VAL_MDMCFG4);	
-//	CC2500_send_byte(CC2500_REG_MDMCFG3 , CC2500_VAL_MDMCFG3);  
-//	CC2500_send_byte(CC2500_REG_MDMCFG2 , CC2500_VAL_MDMCFG2);  
-//	CC2500_send_byte(CC2500_REG_MDMCFG1 , CC2500_VAL_MDMCFG1);  
-//	CC2500_send_byte(CC2500_REG_MDMCFG0 , CC2500_VAL_MDMCFG0);  
-//	CC2500_send_byte(CC2500_REG_DEVIATN , CC2500_VAL_DEVIATN);  
-//	CC2500_send_byte(CC2500_REG_MCSM1   , CC2500_VAL_MCSM1);    
-//	CC2500_send_byte(CC2500_REG_MCSM0   , CC2500_VAL_MCSM0);    
-//	CC2500_send_byte(CC2500_REG_FOCCFG  , CC2500_VAL_FOCCFG);   
-//	CC2500_send_byte(CC2500_REG_BSCFG   , CC2500_VAL_BSCFG);		
-//	CC2500_send_byte(CC2500_REG_AGCTRL2 , CC2500_VAL_AGCTRL2); 
-//	CC2500_send_byte(CC2500_REG_AGCTRL1 , CC2500_VAL_AGCTRL1); 
-//	CC2500_send_byte(CC2500_REG_AGCTRL0 , CC2500_VAL_AGCTRL0); 
-//	CC2500_send_byte(CC2500_REG_FREND1  , CC2500_VAL_FREND1);   
-//	CC2500_send_byte(CC2500_REG_FREND0  , CC2500_VAL_FREND0);   
-//	CC2500_send_byte(CC2500_REG_FSCAL3  , CC2500_VAL_FSCAL3);   
-//	CC2500_send_byte(CC2500_REG_FSCAL2  , CC2500_VAL_FSCAL2);   
-//	CC2500_send_byte(CC2500_REG_FSCAL1  , CC2500_VAL_FSCAL1);   
-//	CC2500_send_byte(CC2500_REG_FSCAL0  , CC2500_VAL_FSCAL0);   
-//	CC2500_send_byte(CC2500_REG_FSTEST  , CC2500_VAL_FSTEST); 	 	
-//	CC2500_send_byte(CC2500_REG_TEST2   , CC2500_VAL_TEST2);		
-//	CC2500_send_byte(CC2500_REG_TEST1   , CC2500_VAL_TEST1);		
-//	CC2500_send_byte(CC2500_REG_TEST0   , CC2500_VAL_TEST0);			
-
-//	flush_rx_fifo();
-//	flush_tx_fifo();
-//	set_idle();
 }
 
 /**
@@ -362,8 +321,6 @@ void write_tx_fifo(uint8_t* pBuffer, uint16_t NumByteToRead){
 static void CC2500_LowLevel_Init(void){
   GPIO_InitTypeDef GPIO_InitStructure;
   SPI_InitTypeDef  SPI_InitStructure;
-	EXTI_InitTypeDef EXTI_initStruct;
-	NVIC_InitTypeDef NVIC_initStruct;
 
   /* Enable the SPI periph */
   RCC_APB1PeriphClockCmd(CC2500_SPI_CLK, ENABLE);
@@ -422,32 +379,4 @@ static void CC2500_LowLevel_Init(void){
 
   /* Deselect : Chip Select high */
   GPIO_SetBits(CC2500_SPI_CS_GPIO_PORT, CC2500_SPI_CS_PIN);
-  
-  /* Configure GPIO PINs to detect Interrupts */
-  GPIO_InitStructure.GPIO_Pin 	= CC2500_SPI_INT1_PIN;
-  GPIO_InitStructure.GPIO_Mode 	= GPIO_Mode_IN;
-  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-  GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_NOPULL;
-  GPIO_Init(CC2500_SPI_INT1_GPIO_PORT, &GPIO_InitStructure); 
-		
-	// Enable SYSCFG clock
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE);
-		
-	// Connect EXTI Line0 to PE0 pin
-	SYSCFG_EXTILineConfig(CC2500_SPI_INT1_EXTI_PORT_SOURCE, CC2500_SPI_INT1_EXTI_PIN_SOURCE);
-	
-	// Configure EXTI Line0
-	EXTI_initStruct.EXTI_Line	 	 = CC2500_SPI_INT1_EXTI_LINE;
-	EXTI_initStruct.EXTI_Mode	 	 = EXTI_Mode_Interrupt;
-	EXTI_initStruct.EXTI_Trigger = EXTI_Trigger_Rising;
-	EXTI_initStruct.EXTI_LineCmd = ENABLE;	
-	EXTI_Init(&EXTI_initStruct);
-	
-	// Enable and set EXTI Line0 Interrupt to the highest priority
-	NVIC_initStruct.NVIC_IRQChannel										= CC2500_SPI_INT1_EXTI_IRQn;
-	NVIC_initStruct.NVIC_IRQChannelPreemptionPriority	= 0x01;
-	NVIC_initStruct.NVIC_IRQChannelSubPriority				= 0x01;
-	NVIC_initStruct.NVIC_IRQChannelCmd								= ENABLE;
-	NVIC_Init(&NVIC_initStruct);
 }

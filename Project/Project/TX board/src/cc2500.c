@@ -180,50 +180,6 @@ static uint8_t CC2500_SendByte(uint8_t byte) {
 	return (uint8_t)SPI_I2S_ReceiveData(CC2500_SPI);
 }
 
-/**
-	* @brief  Sends a Byte through the SPI interface at the address specified 
-			and return the Byte received from the SPI bus.
-	* @param  Address : CC2500's internal address to send to.
-	* @param  Byte : Byte send.
-	* @retval The received byte value
-	*/
-//static void CC2500_send_byte(uint8_t addr, uint8_t byte){
-//	
-//	if (CC2500_CS() == CC2500_TIMED_OUT) return;
-//	
-//	 /* Loop while DR register in not empty */
-//	uint32_t CC2500Timeout = CC2500_FLAG_TIMEOUT;
-//	while (SPI_I2S_GetFlagStatus(CC2500_SPI, SPI_I2S_FLAG_TXE) == RESET) {
-//		if((CC2500Timeout--) == 0) return;
-//	}
-//  
-//	/* Send a Byte through the SPI peripheral */
-//	SPI_I2S_SendData(CC2500_SPI, addr);
-//	
-//	/* Wait to receive a Byte */
-//	CC2500Timeout = CC2500_FLAG_TIMEOUT;
-//	while (SPI_I2S_GetFlagStatus(CC2500_SPI, SPI_I2S_FLAG_RXNE) == RESET) {
-//		if((CC2500Timeout--) == 0) return;
-//	}
-//	
-//	/* Loop while DR register in not emplty */
-//	CC2500Timeout = CC2500_FLAG_TIMEOUT;
-//	while (SPI_I2S_GetFlagStatus(CC2500_SPI, SPI_I2S_FLAG_TXE) == RESET) {
-//		if((CC2500Timeout--) == 0) return;
-//	}
-//	
-//	/* Send a Byte through the SPI peripheral */
-//	SPI_I2S_SendData(CC2500_SPI, byte);
-//	
-//	/* Wait to receive a Byte */
-//	CC2500Timeout = CC2500_FLAG_TIMEOUT;
-//	while (SPI_I2S_GetFlagStatus(CC2500_SPI, SPI_I2S_FLAG_RXNE) == RESET) {
-//		if((CC2500Timeout--) == 0) return;
-//	}
-//  
-//	CC2500_CS_HIGH();
-//}
-
 // Sets the chip select line low and then waits for the slave out of the CC2500 to be set.
 // If the slave out is not reset before the counter times out, the chip selects line is set 
 // back up and the function returns.

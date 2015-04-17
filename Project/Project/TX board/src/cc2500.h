@@ -186,7 +186,4 @@ uint8_t get_status_byte(uint8_t read);
 uint8_t get_rx_buffer_size(void);
 uint8_t get_tx_buffer_size(void);
 
-
-void get_data(uint8_t * pBuffer);
-
 #endif

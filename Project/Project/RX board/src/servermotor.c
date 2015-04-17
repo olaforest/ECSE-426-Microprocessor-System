@@ -168,7 +168,7 @@ void convert_to_angle(double *angle, double x, double y){
 	else if (*(angle + 1) < 0)
 		*(angle + 1)= 0;
 }
-//we move the arms accondingly to the x and y values received y the transmitter board
+//we move the arms according to the x and y values received from the transmitter board
 void move_arms(uint8_t * data, uint8_t toDelay){
 			double angle[2];
 		

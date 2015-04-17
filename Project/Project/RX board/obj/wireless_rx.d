@@ -1,18 +1,18 @@
 .\obj\wireless_rx.o: src\wireless_rx.c
-.\obj\wireless_rx.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdio.h
-.\obj\wireless_rx.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\string.h
+.\obj\wireless_rx.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\obj\wireless_rx.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\obj\wireless_rx.o: src\wireless_rx.h
 .\obj\wireless_rx.o: src\cc2500.h
 .\obj\wireless_rx.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc\stm32f4xx_spi.h
 .\obj\wireless_rx.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include\stm32f4xx.h
-.\obj\wireless_rx.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include\core_cm4.h
-.\obj\wireless_rx.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h
-.\obj\wireless_rx.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include\core_cmInstr.h
-.\obj\wireless_rx.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include\core_cmFunc.h
-.\obj\wireless_rx.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include\core_cm4_simd.h
+.\obj\wireless_rx.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include\core_cm4.h
+.\obj\wireless_rx.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\obj\wireless_rx.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include\core_cmInstr.h
+.\obj\wireless_rx.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include\core_cmFunc.h
+.\obj\wireless_rx.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include\core_cmSimd.h
 .\obj\wireless_rx.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include\system_stm32f4xx.h
-.\obj\wireless_rx.o: H:\ECSE426\Project\Project\RX board\RTE\Device\STM32F407VG\stm32f4xx_conf.h
-.\obj\wireless_rx.o: H:\ECSE426\Project\Project\RX board\RTE\RTE_Components.h
+.\obj\wireless_rx.o: C:\Users\Maxim\Documents\GitHub\ECSE-426-Microprocessor-System\Project\Project\RX board\RTE\Device\STM32F407VG\stm32f4xx_conf.h
+.\obj\wireless_rx.o: C:\Users\Maxim\Documents\GitHub\ECSE-426-Microprocessor-System\Project\Project\RX board\RTE\RTE_Components.h
 .\obj\wireless_rx.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc\stm32f4xx_adc.h
 .\obj\wireless_rx.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\Include\stm32f4xx.h
 .\obj\wireless_rx.o: C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\1.0.8\Device\StdPeriph_Driver\inc\stm32f4xx_crc.h
