@@ -8,10 +8,7 @@ Group #4
 Date:	April 14th, 2015
 */ 
 
-//#include "stdio.h"
-//#include "string.h"
 #include "wireless_tx.h"
-
 
 // Definition for rates (in Hz), prescalar and period for the TIM3 clock.
 #define TIM3_COUNTER_CLK 1282
@@ -23,7 +20,7 @@ volatile int ready;
 uint8_t data;
 
 // Delays operation until the count down has reached 0
-static void delay(__IO uint32_t nCount){
+void delay(__IO uint32_t nCount){
 	__IO uint32_t index = 0; 
 	for(index = 100000*nCount; index != 0; index--){}
 }
@@ -71,25 +68,6 @@ void wireless_init(){
 	config_tim3();
 	CC2500_init();
 }
-
-
-//void transmit(){
-//	uint8_t addr = 0x10;
-//	uint8_t byte = 0x7;
-//	
-//	CC2500_write(&byte, addr, 1);
-//	printf("Writing to address %u: %u\n", addr, byte);
-//}
-
-//void receive(){
-//	
-//	uint8_t buffer[NUM_CONF_REG];
-//	
-//	CC2500_read(buffer, CC2500_REG_IOCFG2, NUM_CONF_REG);
-//	for (int i = 0; i < NUM_CONF_REG; i++){
-//		printf("Read by at address %X: %X\n", i, buffer[i]);
-//	}
-//}
 
 // Flushes the TX FIFO queue of the CC2500 first, and then sends the 4 bytes long 
 // packet stored in data to the TX FIFO for transmission

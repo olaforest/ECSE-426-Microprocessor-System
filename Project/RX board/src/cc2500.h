@@ -64,7 +64,7 @@ Date:	April 14th, 2015
 #define NUM_CONF_REG				 ((uint8_t)0x2f)
 
 // CC2500 configuration registers addresses
-#define CC2500_REG_IOCFG2		 ((uint8_t)0x00)
+#define CC2500_REG_IOCFG2	 ((uint8_t)0x00)
 #define CC2500_REG_IOCFG1    ((uint8_t)0x01)
 #define CC2500_REG_IOCFG0    ((uint8_t)0x02)
 #define CC2500_REG_FIFOTHR   ((uint8_t)0x03)
@@ -113,25 +113,25 @@ Date:	April 14th, 2015
 #define CC2500_REG_TEST0     ((uint8_t)0x2E)
 
 // Command strobes
-#define CC2500_REG_SRES      ((uint8_t)0x30)
-#define CC2500_REG_SCAL			 ((uint8_t)0x33)
-#define CC2500_REG_SRX			 ((uint8_t)0x34)
-#define CC2500_REG_STX			 ((uint8_t)0x35)
-#define CC2500_REG_SIDLE		 ((uint8_t)0x36)
-#define CC2500_REG_SFRX			 ((uint8_t)0x3A)
-#define CC2500_REG_SFTX			 ((uint8_t)0x3B)
-#define CC2500_REG_SNOP			 ((uint8_t)0x3D)
+#define CC2500_REG_SRES     ((uint8_t)0x30)
+#define CC2500_REG_SCAL		((uint8_t)0x33)
+#define CC2500_REG_SRX		((uint8_t)0x34)
+#define CC2500_REG_STX		((uint8_t)0x35)
+#define CC2500_REG_SIDLE	((uint8_t)0x36)
+#define CC2500_REG_SFRX		((uint8_t)0x3A)
+#define CC2500_REG_SFTX		((uint8_t)0x3B)
+#define CC2500_REG_SNOP		((uint8_t)0x3D)
 
 // FIFO register
-#define CC2500_REG_FIFO			 ((uint8_t)0x3F)
+#define CC2500_REG_FIFO		((uint8_t)0x3F)
 
 // CC2500 configuration registers values
 #define CC2500_VAL_IOCFG2 	0x29   // default: 0x29  
-#define	CC2500_VAL_IOCFG1		0x2E 
+#define	CC2500_VAL_IOCFG1	0x2E 
 #define CC2500_VAL_IOCFG0 	0x06	
 #define CC2500_VAL_FIFOTHR 	0x07	 // default: 0x07
 #define	CC2500_VAL_SYNC1    0xD3        
-#define	CC2500_VAL_SYNC0		0x91
+#define	CC2500_VAL_SYNC0	0x91
 #define CC2500_VAL_PKTLEN 	0x01
 #define CC2500_VAL_PKTCTRL1 0x08	
 #define CC2500_VAL_PKTCTRL0 0x04	

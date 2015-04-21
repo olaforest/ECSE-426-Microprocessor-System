@@ -34,6 +34,3 @@ void LCD_inital_screen(void){
 	LCD_DisplayStringLine(LINE(15), (uint8_t*)" C: Display numbers  ");
 }
 
-//digit_draw_xy get_draw_coor(uint8_t digit_location, uint8_t number){
-//	digit_draw_xy data;
-//}

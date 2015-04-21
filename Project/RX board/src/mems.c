@@ -15,12 +15,12 @@ void config_LIS3DSH(void){
 	
 	LIS3DSH_InitTypeDef lis3dsh_initStruct;
 	
-	lis3dsh_initStruct.Power_Mode_Output_DataRate = LIS3DSH_DATARATE_100;
-	lis3dsh_initStruct.Axes_Enable				  			= LIS3DSH_X_ENABLE | LIS3DSH_Y_ENABLE | LIS3DSH_Z_ENABLE;
-	lis3dsh_initStruct.Continous_Update			  		= LIS3DSH_ContinousUpdate_Disabled;
-	lis3dsh_initStruct.AA_Filter_BW				 			 	= LIS3DSH_AA_BW_50;
-	lis3dsh_initStruct.Full_Scale				  				= LIS3DSH_FULLSCALE_2;
-	lis3dsh_initStruct.Self_Test				  				= LIS3DSH_SELFTEST_NORMAL;
+	lis3dsh_initStruct.Power_Mode_Output_DataRate	= LIS3DSH_DATARATE_100;
+	lis3dsh_initStruct.Axes_Enable					= LIS3DSH_X_ENABLE | LIS3DSH_Y_ENABLE | LIS3DSH_Z_ENABLE;
+	lis3dsh_initStruct.Continous_Update				= LIS3DSH_ContinousUpdate_Disabled;
+	lis3dsh_initStruct.AA_Filter_BW					= LIS3DSH_AA_BW_50;
+	lis3dsh_initStruct.Full_Scale					= LIS3DSH_FULLSCALE_2;
+	lis3dsh_initStruct.Self_Test					= LIS3DSH_SELFTEST_NORMAL;
 	
 	LIS3DSH_Init(&lis3dsh_initStruct);
 		
@@ -28,7 +28,7 @@ void config_LIS3DSH(void){
 	
 	lis3dsh_interruptConfigStruct.Dataready_Interrupt = LIS3DSH_DATA_READY_INTERRUPT_ENABLED;
 	lis3dsh_interruptConfigStruct.Interrupt_signal	  = LIS3DSH_ACTIVE_HIGH_INTERRUPT_SIGNAL;
-	lis3dsh_interruptConfigStruct.Interrupt_type	  	= LIS3DSH_INTERRUPT_REQUEST_PULSED;
+	lis3dsh_interruptConfigStruct.Interrupt_type	  = LIS3DSH_INTERRUPT_REQUEST_PULSED;
 	
 	LIS3DSH_DataReadyInterruptConfig(&lis3dsh_interruptConfigStruct);
 }
@@ -69,9 +69,9 @@ void get_accelerations(float * norm_acc_X, float * norm_acc_Y, float * norm_acc_
 	
 	// this is a scaled calibration matrix (factor of 10000)
 	float cm[4][3] = {	 0.5880,  -0.0094,   0.0274,
-											-0.0145,   0.6154,   0.0335,
-											 0.0016,  -0.0028,   0.6008,
-										-247.9509,  63.3592, 268.4256 };
+						-0.0145,   0.6154,   0.0335,
+						 0.0016,  -0.0028,   0.6008,
+						-247.9509,  63.3592, 268.4256 };
 	
 	// reading the LSB/MSB of the x,y and z acceleration values.
 	LIS3DSH_Read(&buffer[0], LIS3DSH_OUT_X_L, 1);

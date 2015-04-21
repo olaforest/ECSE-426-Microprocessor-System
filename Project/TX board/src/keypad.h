@@ -18,7 +18,6 @@ Date:	April 14th, 2015
 #include "stm32f4xx.h"                  // Device header
 #include "stm32f4xx_conf.h"
 #include "math.h"
-//#include <stdio.h>
 #include <ctype.h>
 
 #define ALL_ROW_PINS GPIO_Pin_2 | GPIO_Pin_3 | GPIO_Pin_4 | GPIO_Pin_5 //rows are GPIOE

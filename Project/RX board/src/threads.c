@@ -40,13 +40,14 @@ void EXTI0_IRQHandler(){
 
 // thread for the mem sensor
 void mems_thread(void const * arg){
+	
 	// Kalman filter state initilization
 	KalmanState kstate_pitch, kstate_roll;
-	kstate_pitch.p = kstate_roll.p =0.0;
-	kstate_pitch.k = kstate_roll.k =0.0;
-	kstate_pitch.r = kstate_roll.r =50;
-	kstate_pitch.q = kstate_roll.q =0.5;
-	kstate_pitch.x = kstate_roll.x =0.0;
+	kstate_pitch.p = kstate_roll.p = 0.0;
+	kstate_pitch.k = kstate_roll.k = 0.0;
+	kstate_pitch.r = kstate_roll.r = 50;
+	kstate_pitch.q = kstate_roll.q = 0.5;
+	kstate_pitch.x = kstate_roll.x = 0.0;
 	
 	float pitch = 0.0;
 	float roll  = 0.0;
@@ -132,9 +133,8 @@ void rx_thread(void const * arg){
 		if (buff_size > 3 && buff_size < 64){
 			read_rx_fifo(buffer, buff_size);
 						
-			for (int i = 0; i < buff_size; i++){				
+			for (int i = 0; i < buff_size; i++)			
 				printf("Count: %u\n", buffer[i]);
-			}	
 			
 			if (buffer[0] == (uint8_t) MEMS_MODE) {
 				mems_mode = 1;
@@ -168,7 +168,6 @@ int receive_message(uint8_t * data, osMessageQId queue){
 		
 		return 1;
 	}
-	
 	return 0;
 }
 
